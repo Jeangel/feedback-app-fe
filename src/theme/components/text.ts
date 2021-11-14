@@ -1,27 +1,26 @@
 const text = {
-  Heading: {
-    variants: {
-      h1: {
-        fontSize: '4xl',
-        fontWeight: 'bold',
-      },
-      h2: {
-        fontSize: '3xl',
-        fontWeight: 'bold',
-      },
+  variants: {
+    body: {
+      fontSize: 'md',
+      fontWeight: 'normal',
+      lineHeight: 'base',
+      color: 'tertiary.500',
+    },
+    body2: {
+      fontSize: 'sm',
+      fontWeight: 'medium',
+      lineHeight: 'short',
+      color: 'tertiary.500',
+    },
+    body3: {
+      fontSize: 'xs',
+      fontWeight: 'semibold',
+      lineHeight: 'shortest',
+      color: 'tertiary.500',
     },
   },
-  Text: {
-    variants: {
-      subtitle: {
-        fontSize: 'xl',
-        fontWeight: 'medium',
-      },
-      body: {
-        fontSize: 'md',
-        fontWeight: 'medium',
-      },
-    },
+  defaultProps: {
+    variant: 'body',
   },
 }
 
