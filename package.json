@@ -10,6 +10,7 @@
     "postinstall": "npm run gen:theme-typings"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^1.1.1",
     "@chakra-ui/react": "^1.6.12",
     "@chakra-ui/styled-system": "^1.14.1",
     "@emotion/react": "^11",

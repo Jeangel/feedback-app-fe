@@ -15,11 +15,11 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@utils/*": ["src/utils/*"],
-      "@test-utils": ["src/test-utils/index.ts"],
-      "@test-utils/*": ["src/test-utils/*"]
+      "@components/*": ["components/*"],
+      "@hooks/*": ["hooks/*"],
+      "@utils/*": ["utils/*"],
+      "@test-utils": ["test-utils/index.ts"],
+      "@test-utils/*": ["test-utils/*"]
     },
     "incremental": true
   },
