@@ -34,7 +34,7 @@ const MenuList = ({
     <ChakraMenuList minWidth='240px' {...menuListProps}>
       <MenuOptionGroup type='radio' value={value} onChange={handleOnChange}>
         {options.map((option, index) => (
-          <>
+          <React.Fragment key={index}>
             <MenuItemOption
               iconSpacing='0'
               {...menuItemOptionProps}
@@ -49,7 +49,7 @@ const MenuList = ({
               </Flex>
             </MenuItemOption>
             {index !== options.length - 1 && <MenuDivider />}
-          </>
+          </React.Fragment>
         ))}
       </MenuOptionGroup>
     </ChakraMenuList>

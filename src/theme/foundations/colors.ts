@@ -1,5 +1,5 @@
-// https://coolors.co/f7fafc-cfd7ff-6a74af-505b95-3a4374-373f68-2b3354-191e35-070918
-// https://coolors.co/acb2d4-8a93c1-6a74af-505b95-3e4775-373f68-2b3354-191e35-070918-02030f
+// Tertiary https://coolors.co/cfd7ff-8a93c1-647196-6a74af-505b95-3a4374-373f68-2b3354-191e35-0d101c
+
 const colors = {
   primary: {
     '50': '#F6E8FD',
@@ -26,7 +26,7 @@ const colors = {
     '900': '#060D2D',
   },
   tertiary: {
-    '50': '#ACB2D4',
+    '50': '#CFD7FF',
     '100': '#8A93C1',
     '200': '#647196',
     '300': '#6A74AF',

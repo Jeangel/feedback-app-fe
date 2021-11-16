@@ -1,5 +1,5 @@
 import { ChevronDownIcon, CheckIcon } from '@chakra-ui/icons'
-import { Button, Menu, MenuButton, SystemProps } from '@chakra-ui/react'
+import { Button, Menu, MenuButton, SystemProps, Text } from '@chakra-ui/react'
 import MenuList, { MenuListOption } from '../MenuList'
 
 interface ISelectProps {
@@ -22,7 +22,7 @@ const Select = ({
   menuItemOptionProps,
 }: ISelectProps) => {
   return (
-    <Menu closeOnBlur closeOnSelect={false}>
+    <Menu closeOnBlur closeOnSelect>
       <MenuButton
         as={Button}
         variant='input'
@@ -30,7 +30,11 @@ const Select = ({
         textAlign='left'
         {...triggerProps}
       >
-        {options.find((e) => e.value === value)?.label || placeholder}
+        {options.find((e) => e.value === value)?.label || (
+          <Text fontSize='sm' color='gray.400' as='span'>
+            {placeholder}
+          </Text>
+        )}
       </MenuButton>
       <MenuList
         value={value}
