@@ -2,10 +2,11 @@ import { extendTheme } from '@chakra-ui/react'
 import fonts from './foundations/fonts'
 import colors from './foundations/colors'
 import Text from './components/text'
-import Heading from './components/heading'
-import Button from './components/button'
-import Input from './components/input'
 import Menu from './components/menu'
+import Input from './components/input'
+import Button from './components/button'
+import Toggle from './components/toggle'
+import Heading from './components/heading'
 
 export const theme = extendTheme({
   colors,
@@ -16,6 +17,7 @@ export const theme = extendTheme({
     Input,
     Button,
     Heading,
+    Toggle
   },
   config: {
     initialColorMode: 'light',
