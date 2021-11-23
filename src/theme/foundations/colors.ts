@@ -1,6 +1,10 @@
 // Tertiary https://coolors.co/cfd7ff-8a93c1-647196-6a74af-505b95-3a4374-373f68-2b3354-191e35-0d101c
+import { ColorHues } from '@chakra-ui/react'
 
-const colors = {
+
+type Colors = Record<string, ColorHues>
+
+const colors: Colors = {
   primary: {
     '50': '#F6E8FD',
     '100': '#E7BEF9',
