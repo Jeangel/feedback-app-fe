@@ -9,6 +9,7 @@ import Input from './components/input'
 import Button from './components/button'
 import Toggle from './components/toggle'
 import Heading from './components/heading'
+import FormLabel from './components/label'
 
 export const theme = extendTheme({
   colors,
@@ -21,7 +22,8 @@ export const theme = extendTheme({
     Button,
     Heading,
     Toggle,
-    Tabs
+    Tabs,
+    FormLabel
   },
   config: {
     initialColorMode: 'light',

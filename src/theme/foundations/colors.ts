@@ -5,6 +5,18 @@ import { ColorHues } from '@chakra-ui/react'
 type Colors = Record<string, ColorHues>
 
 const colors: Colors = {
+  'primary-gradient': {
+    '50': 'white',
+    '100': 'white',
+    '200': 'white',
+    '300': 'radial-gradient(128.88% 128.88% at 103.9% -10.39%, #E84D70 0%, #A337F6 53.09%, #28A7ED 100%)',
+    '400': 'radial-gradient(128.88% 128.88% at 103.9% -10.39%, #E84D70 0%, #A337F6 53.09%, #28A7ED 100%)',
+    '500': 'radial-gradient(128.88% 128.88% at 103.9% -10.39%, #E84D70 0%, #A337F6 53.09%, #28A7ED 100%)',
+    '600': 'radial-gradient(128.88% 128.88% at 103.9% -10.39%, #E84D70 0%, #D03255 0.01%, #852CCA 53.09%, #2191CE 100%)',
+    '700': 'radial-gradient(128.88% 128.88% at 103.9% -10.39%, #CB3153 0%, #D03255 0.01%, #7720BA 53.09%, #207DB0 100%)',
+    '800': 'radial-gradient(128.88% 128.88% at 103.9% -10.39%, #CB3153 0%, #D03255 0.01%, #7720BA 53.09%, #207DB0 100%)',
+    '900': 'radial-gradient(128.88% 128.88% at 103.9% -10.39%, #CB3153 0%, #D03255 0.01%, #7720BA 53.09%, #207DB0 100%)',
+  },
   primary: {
     '50': '#F6E8FD',
     '100': '#E7BEF9',
