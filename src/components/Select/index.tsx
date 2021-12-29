@@ -1,4 +1,4 @@
-import { ChevronDownIcon, CheckIcon } from '@chakra-ui/icons'
+import { ChevronDownIcon } from '@chakra-ui/icons'
 import { Button, Menu, MenuButton, SystemProps, Text } from '@chakra-ui/react'
 import MenuList, { MenuListOption } from '../MenuList'
 

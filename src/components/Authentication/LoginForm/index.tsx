@@ -1,4 +1,5 @@
 import { VStack, Input, FormControl, FormLabel, Button, Box } from '@chakra-ui/react'
+import PasswordInput from '@components/PasswordInput'
 import React from 'react'
 
 const LoginForm = () => {
@@ -11,7 +12,7 @@ const LoginForm = () => {
         </FormControl>
         <FormControl id='password'>
           <FormLabel>Password</FormLabel>
-          <Input type='password' />
+          <PasswordInput />
         </FormControl>
       </VStack>
       <Button mt='6' colorScheme='primary' isFullWidth>
