@@ -14,9 +14,11 @@ interface IPasswordInputProps extends Omit<InputProps, 'type'> {
   containerProps?: InputGroupProps
 }
 
-const PasswordInput = ({ containerProps, ...inputProps }: IPasswordInputProps) => {
+const PasswordInput = (
+  { containerProps, ...inputProps }: IPasswordInputProps,
+  ref: React.Ref<HTMLInputElement>
+) => {
   const [isShowing, { toggle }] = useBoolean(false)
-
   return (
     <InputGroup size='md' {...containerProps}>
       <Input
@@ -24,6 +26,7 @@ const PasswordInput = ({ containerProps, ...inputProps }: IPasswordInputProps) =
         type={isShowing ? 'text' : 'password'}
         placeholder='Enter password'
         {...inputProps}
+        ref={ref}
       />
       <InputRightElement width='4.5rem'>
         <IconButton
@@ -37,4 +40,4 @@ const PasswordInput = ({ containerProps, ...inputProps }: IPasswordInputProps) =
   )
 }
 
-export default PasswordInput
+export default React.forwardRef(PasswordInput)
