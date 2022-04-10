@@ -2,9 +2,9 @@ import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { Center, Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
-import LoginForm from '@components/Authentication/LoginForm'
+import LoginForm from '@components/authentication/LoginForm'
 import { LockIcon } from '@chakra-ui/icons'
-import RegisterForm from '@components/Authentication/RegisterForm'
+import RegisterForm from '@components/authentication/RegisterForm'
 import RoundedBadge from '@components/RoundedBadge'
 
 const Authentication: NextPage = () => {

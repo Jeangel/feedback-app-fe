@@ -35,7 +35,7 @@ const RegisterForm = () => {
     register,
     handleSubmit: makeHandleOnSubmit,
     setValue,
-    formState: { errors, dirtyFields },
+    formState: { errors },
   } = useForm<IRegisterFormValues>({
     resolver: yupResolver(validationSchema),
   })
