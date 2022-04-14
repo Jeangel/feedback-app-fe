@@ -5,7 +5,7 @@ import { Center, Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-u
 import LoginForm from '@components/authentication/LoginForm'
 import { LockIcon } from '@chakra-ui/icons'
 import RegisterForm from '@components/authentication/RegisterForm'
-import RoundedBadge from '@components/RoundedBadge'
+import RoundedBadge from '@components/misc/RoundedBadge'
 import withAuth from 'hocs/withAuth'
 import withoutAuthOnly from 'hocs/withoutAuthOnly'
 

@@ -9,12 +9,12 @@ import {
   useToast,
   useBoolean,
 } from '@chakra-ui/react'
-import PasswordInput from '@components/PasswordInput'
+import PasswordInput from '@components/forms/PasswordInput'
 import * as yup from 'yup'
 import { YupSchemaKeys } from 'types/yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import FormControlError from '@components/FormControlError'
+import FormControlError from '@components/forms/FormControlError'
 import { ApiError, post } from '@utils/axios'
 import { signIn } from 'next-auth/react'
 import { useSession, SignInResponse } from 'next-auth/react'

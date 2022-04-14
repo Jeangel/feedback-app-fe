@@ -1,9 +1,9 @@
 import type { NextPage } from 'next'
 import { Button, Text, Heading, useColorMode, HStack, Input, useBoolean } from '@chakra-ui/react'
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon } from '@chakra-ui/icons'
-import Select from '@components/Select'
+import Select from '@components/forms/Select'
 import React, { useState } from 'react'
-import Toggle from '@components/Toggle'
+import Toggle from '@components/forms/Toggle'
 
 const Components: NextPage = () => {
   const { colorMode, toggleColorMode } = useColorMode()

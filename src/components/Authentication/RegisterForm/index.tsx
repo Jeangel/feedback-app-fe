@@ -9,12 +9,12 @@ import {
   Box,
   Center,
 } from '@chakra-ui/react'
-import AvatarPicker from '@components/AvatarPicker'
-import PasswordInput from '@components/PasswordInput'
+import AvatarPicker from '@components/forms/AvatarPicker'
+import PasswordInput from '@components/forms/PasswordInput'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { YupSchemaKeys } from 'types/yup'
-import FormControlError from '@components/FormControlError'
+import FormControlError from '@components/forms/FormControlError'
 
 interface IRegisterFormValues {
   avatarUrl: string
