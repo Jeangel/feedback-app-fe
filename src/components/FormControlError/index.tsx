@@ -7,7 +7,6 @@ interface IFormControlError {
 }
 
 const FormControlError = ({ error }: IFormControlError) => {
-  console.log(error)
   if (!error) return null
   return (
     <FormErrorMessage>

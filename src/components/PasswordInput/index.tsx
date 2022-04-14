@@ -24,7 +24,6 @@ const PasswordInput = (
       <Input
         pr='4.5rem'
         type={isShowing ? 'text' : 'password'}
-        placeholder='Enter password'
         {...inputProps}
         ref={ref}
       />

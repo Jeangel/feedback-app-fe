@@ -1,4 +1,5 @@
 import { Button, Box } from '@chakra-ui/react'
+import withAuth from 'hocs/withAuth'
 import type { NextPage } from 'next'
 import React from 'react'
 
@@ -10,4 +11,4 @@ const Suggestions: NextPage = (props) => {
   )
 }
 
-export default Suggestions
+export default withAuth(Suggestions)

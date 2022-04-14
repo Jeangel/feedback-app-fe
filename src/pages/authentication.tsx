@@ -6,6 +6,8 @@ import LoginForm from '@components/authentication/LoginForm'
 import { LockIcon } from '@chakra-ui/icons'
 import RegisterForm from '@components/authentication/RegisterForm'
 import RoundedBadge from '@components/RoundedBadge'
+import withAuth from 'hocs/withAuth'
+import withoutAuthOnly from 'hocs/withoutAuthOnly'
 
 const Authentication: NextPage = () => {
   const router = useRouter()
@@ -21,7 +23,7 @@ const Authentication: NextPage = () => {
         py='14'
       >
         <RoundedBadge icon={LockIcon} pos='absolute' left='6' top='-6' />
-        <Tabs w='full' defaultIndex={isRegister ? 1 : 0}>
+        <Tabs id='auth-tabs' w='full' defaultIndex={isRegister ? 1 : 0}>
           <TabList>
             <Tab w='full'>Login</Tab>
             <Tab w='full'>Register</Tab>
@@ -40,4 +42,4 @@ const Authentication: NextPage = () => {
   )
 }
 
-export default Authentication
+export default withoutAuthOnly(Authentication)
