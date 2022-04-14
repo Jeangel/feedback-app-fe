@@ -1,4 +1,5 @@
 import { extendTheme } from '@chakra-ui/react'
+import global from './global'
 import fonts from './foundations/fonts'
 import colors from './foundations/colors'
 import shadows from './foundations/shadows'
@@ -23,7 +24,10 @@ export const theme = extendTheme({
     Heading,
     Toggle,
     Tabs,
-    FormLabel
+    FormLabel,
+  },
+  styles: {
+    global,
   },
   config: {
     initialColorMode: 'light',

@@ -7,7 +7,6 @@ const withAuth = (Component: React.ComponentType<any>) => {
     const { data, status } = useSession()
     const router = useRouter()
 
-    console.log('withAuth', { data, status })
     useEffect(() => {
       if (status === 'unauthenticated') {
         router.push('/login')
