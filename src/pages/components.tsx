@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import { Button, Text, Heading, useColorMode, HStack, Input, useBoolean } from '@chakra-ui/react'
+import { Button, Text, Heading, useColorMode, HStack, Input, useBoolean, Badge } from '@chakra-ui/react'
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon } from '@chakra-ui/icons'
 import Select from '@components/forms/Select'
 import React, { useState } from 'react'
@@ -81,6 +81,16 @@ const Components: NextPage = () => {
         <Toggle isToggled={isToggled} label='UX' onToggle={toggle} orientation='vertical' bottomIcon={ChevronDownIcon} />
         <Toggle isToggled={isToggled} label='UX' onToggle={toggle} leftIcon={ChevronLeftIcon} size='lg' />
         <Toggle isToggled={isToggled} label='UX' onToggle={toggle} rightIcon={ChevronRightIcon} />
+      </HStack>
+      <br />
+      <hr />
+      <br />
+      <HStack spacing='2'>
+        <Badge colorScheme="primary">Enhancement</Badge>
+        <Badge colorScheme="secondary">Feature</Badge>
+        <Badge colorScheme="tertiary">Bug</Badge>
+        <Badge colorScheme="danger">UI</Badge>
+        <Badge variant="feedbackTag">UX</Badge>
       </HStack>
     </div>
   )
