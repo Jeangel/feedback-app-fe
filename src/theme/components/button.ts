@@ -1,7 +1,7 @@
 const button = {
   baseStyle: {
     borderRadius: 10,
-    outline: 0
+    outline: 0,
   },
   sizes: {
     xs: {
@@ -23,7 +23,7 @@ const button = {
     },
   },
   variants: {
-    input: {
+    'select-input': {
       backgroundColor: 'gray.50',
       color: 'tertiary.500',
       borderRadius: 'md',
@@ -31,9 +31,15 @@ const button = {
       fontWeight: 'normal',
       _active: {
         borderWidth: '1px',
-        borderColor: 'secondary.500'
-      }
-    }
+        borderColor: 'secondary.500',
+      },
+    },
+    'select-ghost': {
+      backgroundColor: 'transparent',
+      fontWeight: 'normal',
+      fontSize: 'sm',
+      color: 'tertiary.500',
+    },
   },
 }
 

@@ -1,6 +1,19 @@
 import type { NextPage } from 'next'
-import { Button, Text, Heading, useColorMode, HStack, Input, useBoolean } from '@chakra-ui/react'
-import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon } from '@chakra-ui/icons'
+import {
+  Button,
+  Text,
+  Heading,
+  useColorMode,
+  HStack,
+  Input,
+  useBoolean,
+} from '@chakra-ui/react'
+import {
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronUpIcon,
+} from '@chakra-ui/icons'
 import Select from '@components/forms/Select'
 import React, { useState } from 'react'
 import Toggle from '@components/forms/Toggle'
@@ -9,6 +22,12 @@ const Components: NextPage = () => {
   const { colorMode, toggleColorMode } = useColorMode()
   const [value, setValue] = useState('')
   const [isToggled, { toggle }] = useBoolean()
+  const selectOptions = [
+    { label: 'Test', value: 'test' },
+    { label: 'Test2', value: 'test2' },
+    { label: 'Test3', value: 'test3' },
+    { label: 'Test4', value: 'test4' },
+  ]
   return (
     <div style={{ padding: 20 }}>
       <Text>
@@ -64,12 +83,15 @@ const Components: NextPage = () => {
           value={value}
           onChange={setValue}
           triggerProps={{ minW: '200px' }}
-          options={[
-            { label: 'Test', value: 'test' },
-            { label: 'Test2', value: 'test2' },
-            { label: 'Test3', value: 'test3' },
-            { label: 'Test4', value: 'test4' },
-          ]}
+          options={selectOptions}
+        />
+        <Select
+          placeholder='testy'
+          value={value}
+          onChange={setValue}
+          variant='select-ghost'
+          triggerProps={{ minW: '200px' }}
+          options={selectOptions}
         />
       </HStack>
       <br />
@@ -77,10 +99,33 @@ const Components: NextPage = () => {
       <br />
       <HStack spacing='2'>
         <Toggle isToggled={isToggled} label='UX' onToggle={toggle} size='sm' />
-        <Toggle isToggled={isToggled} label='50' onToggle={toggle} orientation='vertical' topIcon={ChevronUpIcon} />
-        <Toggle isToggled={isToggled} label='UX' onToggle={toggle} orientation='vertical' bottomIcon={ChevronDownIcon} />
-        <Toggle isToggled={isToggled} label='UX' onToggle={toggle} leftIcon={ChevronLeftIcon} size='lg' />
-        <Toggle isToggled={isToggled} label='UX' onToggle={toggle} rightIcon={ChevronRightIcon} />
+        <Toggle
+          isToggled={isToggled}
+          label='50'
+          onToggle={toggle}
+          orientation='vertical'
+          topIcon={ChevronUpIcon}
+        />
+        <Toggle
+          isToggled={isToggled}
+          label='UX'
+          onToggle={toggle}
+          orientation='vertical'
+          bottomIcon={ChevronDownIcon}
+        />
+        <Toggle
+          isToggled={isToggled}
+          label='UX'
+          onToggle={toggle}
+          leftIcon={ChevronLeftIcon}
+          size='lg'
+        />
+        <Toggle
+          isToggled={isToggled}
+          label='UX'
+          onToggle={toggle}
+          rightIcon={ChevronRightIcon}
+        />
       </HStack>
     </div>
   )

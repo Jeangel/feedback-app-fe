@@ -1,5 +1,13 @@
 import { ChevronDownIcon } from '@chakra-ui/icons'
-import { Button, Menu, MenuButton, SystemProps, Text } from '@chakra-ui/react'
+import {
+  Button,
+  IconProps,
+  Menu,
+  MenuButton,
+  SystemProps,
+  Text,
+  TextProps,
+} from '@chakra-ui/react'
 import MenuList, { MenuListOption } from '../MenuList'
 
 interface ISelectProps {
@@ -10,6 +18,9 @@ interface ISelectProps {
   triggerProps?: SystemProps
   menuListProps?: SystemProps
   menuItemOptionProps?: SystemProps
+  placeholderProps?: TextProps
+  iconProps?: IconProps
+  variant?: 'select-input' | 'select-ghost'
 }
 
 const Select = ({
@@ -20,18 +31,21 @@ const Select = ({
   triggerProps,
   menuListProps,
   menuItemOptionProps,
+  placeholderProps,
+  iconProps,
+  variant = 'select-input',
 }: ISelectProps) => {
   return (
     <Menu closeOnBlur closeOnSelect>
       <MenuButton
         as={Button}
-        variant='input'
-        rightIcon={<ChevronDownIcon color='secondary.500' />}
+        variant={variant}
+        rightIcon={<ChevronDownIcon color='secondary.500' {...iconProps} />}
         textAlign='left'
         {...triggerProps}
       >
         {options.find((e) => e.value === value)?.label || (
-          <Text fontSize='sm' color='gray.400' as='span'>
+          <Text fontSize='sm' color='gray.400' {...placeholderProps} as='span'>
             {placeholder}
           </Text>
         )}
