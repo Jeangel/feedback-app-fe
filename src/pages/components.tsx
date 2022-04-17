@@ -1,5 +1,11 @@
 import type { NextPage } from 'next'
 import {
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronUpIcon,
+} from '@chakra-ui/icons'
+import {
   Button,
   Text,
   Heading,
@@ -7,13 +13,8 @@ import {
   HStack,
   Input,
   useBoolean,
+  Badge,
 } from '@chakra-ui/react'
-import {
-  ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ChevronUpIcon,
-} from '@chakra-ui/icons'
 import Select from '@components/forms/Select'
 import React, { useState } from 'react'
 import Toggle from '@components/forms/Toggle'
@@ -126,6 +127,16 @@ const Components: NextPage = () => {
           onToggle={toggle}
           rightIcon={ChevronRightIcon}
         />
+      </HStack>
+      <br />
+      <hr />
+      <br />
+      <HStack spacing='2'>
+        <Badge colorScheme='primary'>Enhancement</Badge>
+        <Badge colorScheme='secondary'>Feature</Badge>
+        <Badge colorScheme='tertiary'>Bug</Badge>
+        <Badge colorScheme='danger'>UI</Badge>
+        <Badge variant='feedbackTag'>UX</Badge>
       </HStack>
     </div>
   )
