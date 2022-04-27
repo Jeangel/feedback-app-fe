@@ -8,6 +8,7 @@ import {
   Icon,
 } from '@chakra-ui/react'
 import Select from '@components/forms/Select'
+import { useRouter } from 'next/router'
 import { HiOutlineLightBulb, HiPlusSm } from 'react-icons/hi'
 
 const sortingOptions = [
@@ -18,6 +19,7 @@ const sortingOptions = [
 ]
 
 const SuggestionsBar = () => {
+  const router = useRouter()
   return (
     <Flex
       w='full'
@@ -62,6 +64,7 @@ const SuggestionsBar = () => {
         marginLeft={{ sm: 'auto' }}
         colorScheme='primary'
         leftIcon={<Icon as={HiPlusSm} />}
+        onClick={() => router.push('/suggestions/new')}
       >
         Add Feedback
       </Button>

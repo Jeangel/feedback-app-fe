@@ -1,15 +1,15 @@
-import { Box, ComponentWithAs, BoxProps } from '@chakra-ui/react'
+import { Box, ComponentWithAs, BoxProps, As } from '@chakra-ui/react'
 import { Icon, IconProps } from '@chakra-ui/icons'
 
 interface IRoundedBadgeProps extends BoxProps {
-  icon: ComponentWithAs<'svg', IconProps>
+  icon: As
 }
 
 const RoundedBadge = ({ icon, ...rest }: IRoundedBadgeProps) => (
   <Box
+    boxSize='56px'
     {...rest}
     bg='primary-gradient.500'
-    boxSize='56px'
     borderRadius='full'
     display='flex'
     alignItems='center'
