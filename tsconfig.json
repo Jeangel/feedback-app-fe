@@ -17,6 +17,7 @@
     "paths": {
       "@components/*": ["components/*"],
       "@hooks/*": ["hooks/*"],
+      "@hocs/*": ["hocs/*"],
       "@utils/*": ["utils/*"],
       "@test-utils": ["test-utils/index.ts"],
       "@test-utils/*": ["test-utils/*"]
