@@ -58,7 +58,7 @@ const LoginForm = () => {
         return
       }
 
-      router.push('/home')
+      router.push('/suggestions')
     } catch (error) {
       const apiError = error as ApiError
       toast({ status: 'error', description: apiError.message })

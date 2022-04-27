@@ -1,5 +1,4 @@
 import { Stack } from '@chakra-ui/react'
-import Select from '@components/forms/Select'
 import FeedbackCategoriesCard from '@components/misc/FeedbackCategoriesCard'
 import ProfileCard from '@components/misc/ProfileCard'
 import RoadmapCard from '@components/misc/RoadmapCard'
