@@ -1,8 +1,9 @@
-import { Box, HStack, Stack, VStack } from '@chakra-ui/react'
+import { Stack } from '@chakra-ui/react'
 import Select from '@components/forms/Select'
 import FeedbackCategoriesCard from '@components/misc/FeedbackCategoriesCard'
 import ProfileCard from '@components/misc/ProfileCard'
 import RoadmapCard from '@components/misc/RoadmapCard'
+import SuggestionsBar from '@components/misc/SuggestionsBar'
 import MainRightTemplate from '@components/template/MainRightTemplate'
 import withAuth from 'hocs/withAuth'
 import type { NextPage } from 'next'
@@ -21,17 +22,7 @@ const Suggestions: NextPage = (props) => {
         <FeedbackCategoriesCard />
         <RoadmapCard />
       </Stack>
-      <HStack w='full' bg='tertiary.600'>
-        <Select
-          placeholder='testy'
-          variant='select-ghost'
-          triggerProps={{ color: 'white' }}
-          iconProps={{ color: 'white' }}
-          placeholderProps={{ color: 'white', fontWeight: 600 }}
-          options={[{ value: 'test', label: 'Test' }]}
-          onChange={() => {}}
-        />
-      </HStack>
+      <SuggestionsBar />
     </MainRightTemplate>
   )
 }

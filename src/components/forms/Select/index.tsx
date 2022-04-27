@@ -11,6 +11,7 @@ import {
 import MenuList, { MenuListOption } from '../MenuList'
 
 interface ISelectProps {
+  id?: string
   options: MenuListOption[]
   value?: string
   onChange: (value: string) => void
@@ -24,6 +25,7 @@ interface ISelectProps {
 }
 
 const Select = ({
+  id,
   options,
   value,
   onChange,
@@ -38,6 +40,7 @@ const Select = ({
   return (
     <Menu closeOnBlur closeOnSelect>
       <MenuButton
+        id={id}
         as={Button}
         variant={variant}
         rightIcon={<ChevronDownIcon color='secondary.500' {...iconProps} />}
