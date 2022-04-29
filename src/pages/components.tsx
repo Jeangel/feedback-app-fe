@@ -18,6 +18,7 @@ import {
 import Select from '@components/forms/Select'
 import React, { useState } from 'react'
 import Toggle from '@components/forms/Toggle'
+import RoadmapCard from '@components/misc/RoadmapCard'
 
 const Components: NextPage = () => {
   const { colorMode, toggleColorMode } = useColorMode()
@@ -137,6 +138,12 @@ const Components: NextPage = () => {
         <Badge colorScheme='tertiary'>Bug</Badge>
         <Badge colorScheme='danger'>UI</Badge>
         <Badge variant='feedbackTag'>UX</Badge>
+      </HStack>
+      <br />
+      <hr />
+      <br />
+      <HStack spacing='2'>
+        <RoadmapCard planned={2} inProgress={3} live={1}/>
       </HStack>
     </div>
   )
