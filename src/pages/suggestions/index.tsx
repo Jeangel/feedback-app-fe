@@ -19,7 +19,7 @@ const Suggestions: NextPage = (props) => {
       >
         <ProfileCard />
         <FeedbackCategoriesCard />
-        <RoadmapCard />
+        <RoadmapCard planned={2} inProgress={3} live={1}/>
       </Stack>
       <SuggestionsBar />
     </MainRightTemplate>
