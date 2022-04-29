@@ -15,7 +15,7 @@ const RoadmapCard = ({ planned, inProgress, live }: IRoadmapCardProps) => {
   }
 
   return (
-    <Box h='178px' w='223px' bg='white' borderRadius='10px' p="24px" border="1px solid black">
+    <Box h='178px' w='full' bg='white' borderRadius='10px' p="24px">
       <Flex direction="row" justify="space-between" marginBottom="20px">
         <Heading variant="h3">Roadmap</Heading>
         <Button variant="link" textDecoration="underline" onClick={redirect}>
