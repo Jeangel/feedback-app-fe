@@ -9,7 +9,7 @@ const withoutAuthOnly = (Component: React.ComponentType<any>) => {
 
     useEffect(() => {
       if (status === 'authenticated') {
-        router.push('/home')
+        router.push('/suggestions')
       }
     }, [status])
 

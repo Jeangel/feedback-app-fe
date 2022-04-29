@@ -4,7 +4,14 @@ const formLabel: ComponentSingleStyleConfig = {
   baseStyle: {
     fontSize: 'xs',
     fontWeight: 'bold',
-    color: 'tertiary.500'
+    color: 'tertiary.500',
+  },
+  variants: {
+    body3: {
+      fontSize: 'xs',
+      fontWeight: 'semibold',
+      lineHeight: 'shortest',
+    },
   },
 }
 
