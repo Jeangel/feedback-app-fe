@@ -8,6 +8,7 @@ import {
   Button,
   Box,
   Center,
+  useToast,
 } from '@chakra-ui/react'
 import AvatarPicker from '@components/forms/AvatarPicker'
 import PasswordInput from '@components/forms/PasswordInput'
@@ -15,6 +16,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { YupSchemaKeys } from 'types/yup'
 import FormControlError from '@components/forms/FormControlError'
+import { registerUser } from '@utils/requests/users'
+import { ApiError } from '@utils/axios'
+import { useRouter } from 'next/router'
 
 interface IRegisterFormValues {
   avatarUrl: string
@@ -31,6 +35,8 @@ const validationSchema = yup.object<YupSchemaKeys<IRegisterFormValues>>({
 })
 
 const RegisterForm = () => {
+  const toast = useToast()
+  const router = useRouter()
   const {
     register,
     handleSubmit: makeHandleOnSubmit,
@@ -40,8 +46,18 @@ const RegisterForm = () => {
     resolver: yupResolver(validationSchema),
   })
 
-  const handleOnSubmit = (values: IRegisterFormValues) => {
-    console.log(values)
+  const handleOnSubmit = async (values: IRegisterFormValues) => {
+    try {
+      await registerUser({ user: values })
+      toast({
+        description: 'You have been registered successfully!',
+        status: 'success',
+      })
+      router.push('/login')
+    } catch (e) {
+      const error = e as ApiError
+      toast({ status: 'error', description: error.message })
+    }
   }
 
   const handleOnAvatarChange = (avatarUrl: string) => {

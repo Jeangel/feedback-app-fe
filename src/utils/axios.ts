@@ -72,7 +72,7 @@ export class ApiError extends Error {
   }
 }
 
-const request = async (url: string, options?: AxiosRequestConfig) => {
+const request = async <Response = any>(url: string, options?: AxiosRequestConfig) => {
   let headers: { [index: string]: string } = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ const request = async (url: string, options?: AxiosRequestConfig) => {
   }
 
   try {
-    const response = await axios.request({
+    const response = await axios.request<Response>({
       ...options,
       headers,
       method: options?.method || 'GET',
@@ -95,32 +95,43 @@ const request = async (url: string, options?: AxiosRequestConfig) => {
   }
 }
 
-export const get = async ({ path, urlParams, responseType }: Omit<IRequest, 'body'>) => {
+export const get = async <Response = any>({
+  path,
+  urlParams,
+  responseType,
+}: Omit<IRequest, 'body'>) => {
   const params = urlParams
     ? queryString.stringify(urlParams, { arrayFormat: 'bracket' })
     : ''
 
-  return request(`${path}?${params}`, {
+  return request<Response>(`${path}?${params}`, {
     method: 'GET',
     responseType,
   })
 }
 
-export const post = async ({ path, body }: Omit<IRequest, 'urlParams'>) =>
-  request(path, {
+export const post = async <Response = any>({ path, body }: Omit<IRequest, 'urlParams'>) =>
+  request<Response>(path, {
     method: 'POST',
     data: body,
   })
 
-export const put = async ({ path, body, headers }: Omit<IRequest, 'urlParams'>) =>
-  request(path, {
+export const put = async <Response = any>({
+  path,
+  body,
+  headers,
+}: Omit<IRequest, 'urlParams'>) =>
+  request<Response>(path, {
     method: 'PUT',
     data: body,
     headers,
   })
 
-export const patch = async ({ path, body }: Omit<IRequest, 'urlParams'>) =>
-  request(path, {
+export const patch = async <Response = any>({
+  path,
+  body,
+}: Omit<IRequest, 'urlParams'>) =>
+  request<Response>(path, {
     method: 'PATCH',
     data: body,
   })

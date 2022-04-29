@@ -19,6 +19,7 @@
       "@hooks/*": ["hooks/*"],
       "@hocs/*": ["hocs/*"],
       "@utils/*": ["utils/*"],
+      "@app-types/*": ["types/*"],
       "@test-utils": ["test-utils/index.ts"],
       "@test-utils/*": ["test-utils/*"]
     },
