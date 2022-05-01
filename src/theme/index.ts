@@ -12,6 +12,7 @@ import Toggle from './components/toggle'
 import Heading from './components/heading'
 import FormLabel from './components/label'
 import Badge from './components/badge'
+import Textarea from './components/textArea'
 
 export const theme = extendTheme({
   colors,
@@ -27,6 +28,7 @@ export const theme = extendTheme({
     Tabs,
     FormLabel,
     Badge,
+    Textarea,
   },
   styles: {
     global,
