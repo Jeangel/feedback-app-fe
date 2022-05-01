@@ -15,9 +15,9 @@ import { YupSchemaKeys } from 'types/yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import FormControlError from '@components/forms/FormControlError'
-import { ApiError, post } from '@utils/axios'
+import { ApiError } from '@utils/axios'
 import { signIn } from 'next-auth/react'
-import { useSession, SignInResponse } from 'next-auth/react'
+import { SignInResponse } from 'next-auth/react'
 import { useRouter } from 'next/router'
 
 interface ILoginFormValues {
@@ -34,11 +34,11 @@ const LoginForm = () => {
   const {
     register,
     handleSubmit: makeHandleOnSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<ILoginFormValues>({
     resolver: yupResolver(validationSchema),
+    mode: 'onTouched',
   })
-  const { data } = useSession()
   const router = useRouter()
 
   const [isLoading, { on: setIsLoading, off: setIsNotLoading }] = useBoolean(false)
@@ -88,6 +88,7 @@ const LoginForm = () => {
           isFullWidth
           type='submit'
           isLoading={isLoading}
+          isDisabled={!isValid}
         >
           Login
         </Button>

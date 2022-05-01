@@ -9,6 +9,7 @@ import {
   Box,
   Center,
   useToast,
+  useBoolean,
 } from '@chakra-ui/react'
 import AvatarPicker from '@components/forms/AvatarPicker'
 import PasswordInput from '@components/forms/PasswordInput'
@@ -41,13 +42,16 @@ const RegisterForm = () => {
     register,
     handleSubmit: makeHandleOnSubmit,
     setValue,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<IRegisterFormValues>({
     resolver: yupResolver(validationSchema),
+    mode: 'onTouched',
   })
+  const [isLoading, { on: setIsLoading, off: setIsNotLoading }] = useBoolean(false)
 
   const handleOnSubmit = async (values: IRegisterFormValues) => {
     try {
+      setIsLoading()
       await registerUser({ user: values })
       toast({
         description: 'You have been registered successfully!',
@@ -57,6 +61,8 @@ const RegisterForm = () => {
     } catch (e) {
       const error = e as ApiError
       toast({ status: 'error', description: error.message })
+    } finally {
+      setIsNotLoading()
     }
   }
 
@@ -89,7 +95,14 @@ const RegisterForm = () => {
             <FormControlError error={errors.password} />
           </FormControl>
         </VStack>
-        <Button mt='6' colorScheme='primary' isFullWidth type='submit'>
+        <Button
+          mt='6'
+          colorScheme='primary'
+          isFullWidth
+          type='submit'
+          isLoading={isLoading}
+          isDisabled={!isValid}
+        >
           Register
         </Button>
       </form>
