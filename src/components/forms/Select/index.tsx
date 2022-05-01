@@ -10,11 +10,11 @@ import {
 } from '@chakra-ui/react'
 import MenuList, { MenuListOption } from '../MenuList'
 
-interface ISelectProps {
+interface ISelectProps<T = string> {
   id?: string
   options: MenuListOption[]
-  value?: string
-  onChange: (value: string) => void
+  value?: T
+  onChange: (value: T) => void
   placeholder?: string
   triggerProps?: SystemProps
   menuListProps?: SystemProps
@@ -24,7 +24,7 @@ interface ISelectProps {
   variant?: 'select-input' | 'select-ghost'
 }
 
-const Select = ({
+const Select = <T extends string = string>({
   id,
   options,
   value,
@@ -36,7 +36,11 @@ const Select = ({
   placeholderProps,
   iconProps,
   variant = 'select-input',
-}: ISelectProps) => {
+}: ISelectProps<T>) => {
+  const handleOnChange = (value: string) => {
+    onChange(value as T)
+  }
+
   return (
     <Menu closeOnBlur closeOnSelect>
       <MenuButton
@@ -57,7 +61,7 @@ const Select = ({
       <MenuList
         value={value}
         options={options}
-        onChange={onChange}
+        onChange={handleOnChange}
         menuItemOptionProps={menuItemOptionProps}
         menuListProps={menuListProps}
       />

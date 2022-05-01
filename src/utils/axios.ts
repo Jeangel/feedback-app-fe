@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError, ResponseType } from 'axios'
 import queryString from 'query-string'
+import { getSession } from 'next-auth/react'
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL
 
@@ -23,12 +24,18 @@ const logApiError = (logMessage: string | undefined, error?: Error) => {
   error ? console.error(message, error) : console.error(message)
 }
 
+interface IErrorData {
+  message: string | string[]
+  statusCode: number
+  error: string
+}
+
 export class ApiError extends Error {
   isCancel: boolean
 
   httpStatusCode: number | undefined
 
-  constructor(error: AxiosError | Error) {
+  constructor(error: AxiosError<IErrorData> | Error) {
     if (isAxiosError(error)) {
       let message = 'There was a problem making your request.'
       let httpStatusCode: number | undefined
@@ -40,7 +47,9 @@ export class ApiError extends Error {
         logApiError(JSON.stringify(error.toJSON()))
 
         if (apiResponseMessage) {
-          message = apiResponseMessage
+          message = Array.isArray(apiResponseMessage)
+            ? apiResponseMessage[0]
+            : apiResponseMessage
         } else if (httpStatusCode === 401) {
           message = 'Unauthorized'
         } else if (httpStatusCode === 403) {
@@ -80,6 +89,15 @@ const request = async <Response = any>(url: string, options?: AxiosRequestConfig
   }
 
   try {
+    const session = await getSession()
+
+    if (session) {
+      headers = {
+        ...headers,
+        Authorization: `Bearer ${session.accessToken}`,
+      }
+    }
+
     const response = await axios.request<Response>({
       ...options,
       headers,

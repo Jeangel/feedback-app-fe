@@ -31,7 +31,7 @@ const providers: NextAuthOptions['providers'] = [
 const callbacks: Partial<NextAuthOptions['callbacks']> = {
   session: ({ session, token }) => {
     if (token) {
-      session.accessToken = token.accessToken
+      session.accessToken = token.accessToken as string
       session.user = token.user as IUser
     }
     return session
