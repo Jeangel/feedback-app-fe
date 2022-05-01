@@ -1,10 +1,11 @@
+import Spinner from '@components/misc/Spinner'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
 const withAuth = (Component: React.ComponentType<any>) => {
   const Auth = (props: any) => {
-    const { data, status } = useSession()
+    const { status } = useSession()
     const router = useRouter()
 
     useEffect(() => {
@@ -14,7 +15,7 @@ const withAuth = (Component: React.ComponentType<any>) => {
     }, [status])
 
     if (['loading', 'unauthenticated'].includes(status)) {
-      return <p>Loading</p>
+      return <Spinner />
     }
 
     return <Component {...props} />

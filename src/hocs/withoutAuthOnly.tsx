@@ -1,3 +1,4 @@
+import { Spinner } from '@chakra-ui/react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
@@ -14,7 +15,7 @@ const withoutAuthOnly = (Component: React.ComponentType<any>) => {
     }, [status])
 
     if (['loading', 'authenticated'].includes(status)) {
-      return <p>Loading</p>
+      return <Spinner />
     }
 
     return <Component {...props} />
