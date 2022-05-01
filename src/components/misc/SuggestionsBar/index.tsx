@@ -44,6 +44,7 @@ const SuggestionsBar = () => {
             fontWeight='normal'
             m='0'
             htmlFor='sortBy'
+            w='50%'
           >
             Sort By:
           </FormLabel>

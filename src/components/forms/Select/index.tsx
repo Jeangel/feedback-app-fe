@@ -45,6 +45,7 @@ const Select = ({
         variant={variant}
         rightIcon={<ChevronDownIcon color='secondary.500' {...iconProps} />}
         textAlign='left'
+        w='full'
         {...triggerProps}
       >
         {options.find((e) => e.value === value)?.label || (

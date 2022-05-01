@@ -5,7 +5,7 @@ const BaseGrid: ComponentWithAs<'div', GridProps> = ({ children, ...rest }) => {
     <Grid
       {...rest}
       w='full'
-      h='full'
+      minH='full'
       maxW='1440px'
       gridTemplateColumns='repeat(12, 1fr)'
       columnGap='30px'
