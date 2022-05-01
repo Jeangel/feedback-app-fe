@@ -14,6 +14,7 @@ import {
   Input,
   useBoolean,
   Badge,
+  Textarea,
 } from '@chakra-ui/react'
 import Select from '@components/forms/Select'
 import React, { useState } from 'react'
@@ -75,6 +76,12 @@ const Components: NextPage = () => {
       <HStack spacing='2'>
         <Input placeholder='testy' maxW='md' />
         <Input placeholder='testy' maxW='md' isInvalid />
+      </HStack>
+      <br />
+      <hr />
+      <br />
+      <HStack spacing='2'>
+        <Textarea placeholder='testy' maxW='md' resize='none' />
       </HStack>
       <br />
       <hr />
