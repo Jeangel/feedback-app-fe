@@ -7,6 +7,7 @@ const badge: ComponentSingleStyleConfig = {
     padding: "5px 16px",
     fontSize: "13px",
     textTransform: "initial",
+    width: "fit-content",
   }, 
   variants: {
     feedbackTag: {
