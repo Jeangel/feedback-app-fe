@@ -42,9 +42,8 @@ const Select = <T extends string = string>({
   }
 
   return (
-    <Menu closeOnBlur closeOnSelect>
+    <Menu closeOnBlur closeOnSelect id={id}>
       <MenuButton
-        id={id}
         as={Button}
         variant={variant}
         rightIcon={<ChevronDownIcon color='secondary.500' {...iconProps} />}

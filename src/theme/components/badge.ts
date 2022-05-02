@@ -4,10 +4,13 @@ const badge: ComponentSingleStyleConfig = {
   baseStyle: {
     borderRadius: 10,
     minHeight: 30,
+    height: "fit-content",
     padding: "5px 16px",
     fontSize: "13px",
     textTransform: "initial",
     width: "fit-content",
+    display: "flex",
+    alignItems: "center",
   }, 
   variants: {
     feedbackTag: {

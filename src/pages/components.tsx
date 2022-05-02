@@ -165,7 +165,7 @@ const Components: NextPage = () => {
           description='Easier to search for solutions based on a specific stack.'
           category='Enhancement'
           votesCount={112}
-          commentsCount={2}
+          commentsCount={0}
         />
       </HStack>
     </Box>
