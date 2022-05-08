@@ -28,7 +28,7 @@ import Select from '@components/forms/Select'
 import { useRouter } from 'next/router'
 import { ApiError } from '@utils/axios'
 import { EFeedbackCategory, feedbackCategoryOptions } from 'types/FeedbackCategory'
-import { createFeedback } from '@utils/requests/feedback'
+import { useCreateFeedback } from '@hooks/api/useCreateFeedback'
 
 interface INewSuggestionForm {
   title: string
@@ -52,9 +52,9 @@ const NewSuggestion: NextPage = (props) => {
     reset,
   } = useForm<INewSuggestionForm>({
     resolver: yupResolver(validationSchema),
-    mode: 'onTouched'
+    mode: 'onTouched',
   })
-  const [isLoading, { on: setIsLoading, off: setIsNotLoading }] = useBoolean(false)
+  const { mutate: createFeedback, isLoading } = useCreateFeedback()
   const [category, setCategory] = useState<EFeedbackCategory | undefined>(undefined)
   const toast = useToast()
 
@@ -68,20 +68,22 @@ const NewSuggestion: NextPage = (props) => {
   }
 
   const handleOnSubmit = async (values: INewSuggestionForm) => {
-    setIsLoading()
-    try {
-      await createFeedback({ feedback: values })
-      toast({
-        status: 'success',
-        description: 'Feedback was created successfully',
-      })
-      router.back()
-    } catch (error) {
-      const apiError = error as ApiError
-      toast({ status: 'error', description: apiError.message })
-    } finally {
-      setIsNotLoading()
-    }
+    createFeedback(
+      { feedback: values },
+      {
+        onSuccess: () => {
+          toast({
+            status: 'success',
+            description: 'Feedback was created successfully',
+          })
+          router.back()
+        },
+        onError: (error) => {
+          const apiError = error as ApiError
+          toast({ status: 'error', description: apiError.message })
+        },
+      }
+    )
   }
 
   useEffect(() => {

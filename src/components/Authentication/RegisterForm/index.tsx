@@ -17,9 +17,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { YupSchemaKeys } from 'types/yup'
 import FormControlError from '@components/forms/FormControlError'
-import { registerUser } from '@utils/requests/users'
 import { ApiError } from '@utils/axios'
 import { useRouter } from 'next/router'
+import { useRegisterUser } from '@hooks/api/useRegisterUser'
 
 interface IRegisterFormValues {
   avatarUrl: string
@@ -47,23 +47,25 @@ const RegisterForm = () => {
     resolver: yupResolver(validationSchema),
     mode: 'onTouched',
   })
-  const [isLoading, { on: setIsLoading, off: setIsNotLoading }] = useBoolean(false)
+  const { mutate: registerUser, isLoading } = useRegisterUser()
 
-  const handleOnSubmit = async (values: IRegisterFormValues) => {
-    try {
-      setIsLoading()
-      await registerUser({ user: values })
-      toast({
-        description: 'You have been registered successfully!',
-        status: 'success',
-      })
-      router.push('/login')
-    } catch (e) {
-      const error = e as ApiError
-      toast({ status: 'error', description: error.message })
-    } finally {
-      setIsNotLoading()
-    }
+  const handleOnSubmit = (values: IRegisterFormValues) => {
+    registerUser(
+      { user: values },
+      {
+        onSuccess: () => {
+          toast({
+            description: 'You have been registered successfully!',
+            status: 'success',
+          })
+          router.push('/login')
+        },
+        onError: (error) => {
+          const apiError = error as ApiError
+          toast({ status: 'error', description: apiError.message })
+        },
+      }
+    )
   }
 
   const handleOnAvatarChange = (avatarUrl: string) => {
