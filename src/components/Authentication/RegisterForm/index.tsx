@@ -10,6 +10,7 @@ import {
   Center,
   useToast,
   useBoolean,
+  useId,
 } from '@chakra-ui/react'
 import AvatarPicker from '@components/forms/AvatarPicker'
 import PasswordInput from '@components/forms/PasswordInput'
@@ -38,6 +39,7 @@ const validationSchema = yup.object<YupSchemaKeys<IRegisterFormValues>>({
 const RegisterForm = () => {
   const toast = useToast()
   const router = useRouter()
+  const id = useId()
   const {
     register,
     handleSubmit: makeHandleOnSubmit,
@@ -81,17 +83,17 @@ const RegisterForm = () => {
           <AvatarPicker onChange={handleOnAvatarChange} />
         </Center>
         <VStack spacing={6} py='4'>
-          <FormControl id='fullName' isInvalid={!!errors.fullName}>
+          <FormControl id={`${id}-fullName`} isInvalid={!!errors.fullName}>
             <FormLabel>Full Name</FormLabel>
             <Input {...register('fullName')} />
             <FormControlError error={errors.fullName} />
           </FormControl>
-          <FormControl id='username' isInvalid={!!errors.username}>
+          <FormControl id={`${id}-username`} isInvalid={!!errors.username}>
             <FormLabel>Username</FormLabel>
             <Input {...register('username')} />
             <FormControlError error={errors.username} />
           </FormControl>
-          <FormControl id='password' isInvalid={!!errors.password}>
+          <FormControl id={`${id}-password`} isInvalid={!!errors.password}>
             <FormLabel>Password</FormLabel>
             <PasswordInput {...register('password')} />
             <FormControlError error={errors.password} />

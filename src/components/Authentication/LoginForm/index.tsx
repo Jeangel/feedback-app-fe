@@ -8,6 +8,7 @@ import {
   Box,
   useToast,
   useBoolean,
+  useId,
 } from '@chakra-ui/react'
 import PasswordInput from '@components/forms/PasswordInput'
 import * as yup from 'yup'
@@ -40,6 +41,7 @@ const LoginForm = () => {
     mode: 'onTouched',
   })
   const router = useRouter()
+  const id = useId()
 
   const [isLoading, { on: setIsLoading, off: setIsNotLoading }] = useBoolean(false)
   const toast = useToast()
@@ -54,15 +56,14 @@ const LoginForm = () => {
       })
       const signInResponse = response as unknown as SignInResponse
       if (signInResponse.error) {
+        setIsNotLoading()
         toast({ status: 'error', description: signInResponse.error })
         return
       }
-
       router.push('/suggestions')
     } catch (error) {
       const apiError = error as ApiError
       toast({ status: 'error', description: apiError.message })
-    } finally {
       setIsNotLoading()
     }
   }
@@ -71,12 +72,12 @@ const LoginForm = () => {
     <Box>
       <form onSubmit={makeHandleOnSubmit(handleOnSubmit)}>
         <VStack spacing={6} py='4'>
-          <FormControl id='username' isInvalid={!!errors.username}>
+          <FormControl id={`${id}-username`} isInvalid={!!errors.username}>
             <FormLabel>Username</FormLabel>
             <Input {...register('username')} />
             <FormControlError error={errors.username} />
           </FormControl>
-          <FormControl id='password' isInvalid={!!errors.password}>
+          <FormControl id={`${id}-password`} isInvalid={!!errors.password}>
             <FormLabel>Password</FormLabel>
             <PasswordInput {...register('password')} />
             <FormControlError error={errors.username} />
