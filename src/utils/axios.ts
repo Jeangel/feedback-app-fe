@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError, ResponseType } from 'axios'
 import queryString from 'query-string'
 import { getSession } from 'next-auth/react'
+import { CtxOrReq } from 'next-auth/client/_utils'
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL
 
@@ -12,6 +13,15 @@ interface IRequest {
   body?: any
   responseType?: ResponseType
   headers?: Record<string, any>
+}
+
+export interface IExtraRequestOptions {
+  ssr?: {
+    /**
+     * Required when doing SSR request
+     */
+    contextOrRequest: CtxOrReq
+  }
 }
 
 const isAxiosError = (error: AxiosError | Error): error is AxiosError =>
@@ -81,7 +91,10 @@ export class ApiError extends Error {
   }
 }
 
-const request = async <Response = any>(url: string, options?: AxiosRequestConfig) => {
+const request = async <Response = any>(
+  url: string,
+  options?: AxiosRequestConfig & IExtraRequestOptions
+) => {
   let headers: { [index: string]: string } = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -89,8 +102,7 @@ const request = async <Response = any>(url: string, options?: AxiosRequestConfig
   }
 
   try {
-    const session = await getSession()
-
+    const session = await getSession(options?.ssr?.contextOrRequest)
     if (session) {
       headers = {
         ...headers,
@@ -117,19 +129,26 @@ export const get = async <Response = any>({
   path,
   urlParams,
   responseType,
-}: Omit<IRequest, 'body'>) => {
+  ...rest
+}: Omit<IRequest, 'body'> & IExtraRequestOptions) => {
   const params = urlParams
     ? queryString.stringify(urlParams, { arrayFormat: 'bracket' })
     : ''
 
   return request<Response>(`${path}?${params}`, {
+    ...rest,
     method: 'GET',
     responseType,
   })
 }
 
-export const post = async <Response = any>({ path, body }: Omit<IRequest, 'urlParams'>) =>
+export const post = async <Response = any>({
+  path,
+  body,
+  ...rest
+}: Omit<IRequest, 'urlParams'> & IExtraRequestOptions) =>
   request<Response>(path, {
+    ...rest,
     method: 'POST',
     data: body,
   })
@@ -138,8 +157,10 @@ export const put = async <Response = any>({
   path,
   body,
   headers,
-}: Omit<IRequest, 'urlParams'>) =>
+  ...rest
+}: Omit<IRequest, 'urlParams'> & IExtraRequestOptions) =>
   request<Response>(path, {
+    ...rest,
     method: 'PUT',
     data: body,
     headers,
@@ -148,8 +169,10 @@ export const put = async <Response = any>({
 export const patch = async <Response = any>({
   path,
   body,
-}: Omit<IRequest, 'urlParams'>) =>
+  ...rest
+}: Omit<IRequest, 'urlParams'> & IExtraRequestOptions) =>
   request<Response>(path, {
+    ...rest,
     method: 'PATCH',
     data: body,
   })
