@@ -3,6 +3,7 @@ import global from './global'
 import fonts from './foundations/fonts'
 import colors from './foundations/colors'
 import shadows from './foundations/shadows'
+import breakpoints from './foundations/breakpoints'
 import Tabs from './components/tabs'
 import Text from './components/text'
 import Menu from './components/menu'
@@ -18,6 +19,7 @@ export const theme = extendTheme({
   colors,
   ...fonts,
   shadows,
+  breakpoints,
   components: {
     Menu,
     Text,
