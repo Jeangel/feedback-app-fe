@@ -37,7 +37,7 @@ const SuggestionsBar = () => {
         </Heading>
       </HStack>
       <FormControl position='static' w='auto'>
-        <HStack>
+        <Flex alignItems='center' columnGap='4px'>
           <FormLabel
             color='white'
             variant='body3'
@@ -58,7 +58,7 @@ const SuggestionsBar = () => {
             options={sortingOptions}
             onChange={() => {}}
           />
-        </HStack>
+        </Flex>
       </FormControl>
       <Button
         minW={{ sm: '130px', base: '145px' }}

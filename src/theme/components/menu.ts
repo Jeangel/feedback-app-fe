@@ -6,12 +6,13 @@ const menu = {
       bgColor: 'white',
       py: '2px',
       border: 'none',
-      boxShadow: '0px 10px 40px -7px rgba(55, 63, 104, 0.350492);'
-
+      boxShadow: '0px 10px 40px -7px rgba(55, 63, 104, 0.350492);',
+      borderRadius: '8px',
     },
     item: {
       py: '12px',
       bgColor: 'white',
+      borderRadius: '8px',
       color: 'tertiary.200',
       _hover: {
         color: 'primary.500',
