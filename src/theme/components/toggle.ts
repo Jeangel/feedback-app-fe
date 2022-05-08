@@ -4,8 +4,11 @@ const toggle: ComponentMultiStyleConfig = {
   parts: ['trigger', 'text', 'icon'],
   baseStyle: ({ isToggled }) => ({
     trigger: {
+      padding: '0 10px',
+      justifyContent: 'center',
+      alignItems: 'center',
       bg: isToggled ? 'secondary.500' : 'gray.100',
-      _hover: { bg: 'tertiary.50' },
+      _groupHover: { bg: 'tertiary.50' },
     },
     text: {
       fontSize: '2xs',
@@ -38,10 +41,26 @@ const toggle: ComponentMultiStyleConfig = {
       },
     }),
   },
-  variants: {},
+  variants: {
+    primary: ({ isToggled }) => ({
+      trigger: {
+        bg: isToggled ? 'secondary.500' : 'gray.100',
+        _hover: { bg: 'tertiary.50' },
+      },
+      text: {
+        color: isToggled ? 'white' : 'secondary.500',
+        _groupHover: { color: 'secondary.500' },
+      },
+      icon: {
+        color: isToggled ? 'white' : 'secondary.500',
+        _groupHover: { color: 'secondary.500' },
+      },
+    }),
+  },
   defaultProps: {
     size: 'md',
     orientation: 'horizontal',
+    variant: 'primary',
   },
 }
 

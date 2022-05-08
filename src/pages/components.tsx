@@ -150,7 +150,7 @@ const Components: NextPage = () => {
       <hr />
       <br />
       <HStack spacing='2'>
-        <RoadmapCard planned={2} inProgress={3} live={1}/>
+        <RoadmapCard planned={2} inProgress={3} live={1} />
       </HStack>
     </div>
   )

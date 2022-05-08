@@ -6,7 +6,7 @@ interface IToggleTextProps extends TextProps {
 
 const ToggleText = ({ label, ...rest }: IToggleTextProps) => (
   <Text {...rest} as='span'>
-    {label.slice(0, 5)}
+    {label}
   </Text>
 )
 

@@ -36,7 +36,7 @@ const Toggle = ({
     { isMultiPart: true }
   )
   return (
-    <Box role='group'>
+    <Box role='group' height='min-content'>
       <ToggleTrigger
         onToggle={onToggle}
         isToggled={isToggled}
@@ -44,11 +44,17 @@ const Toggle = ({
         {...rest}
       >
         {topIcon && <Icon as={topIcon} sx={iconStyles} />}
-        <span>
+        <Box
+          as='span'
+          display='flex'
+          alignItems='center'
+          justifyContent='center'
+          w='full'
+        >
           {leftIcon && <Icon as={leftIcon} sx={iconStyles} m='0' />}
           <ToggleText label={label} sx={textStyles} />
           {rightIcon && <Icon as={rightIcon} sx={iconStyles} m='0' />}
-        </span>
+        </Box>
         {bottomIcon && <Icon as={bottomIcon} sx={iconStyles} />}
       </ToggleTrigger>
     </Box>
