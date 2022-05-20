@@ -6,7 +6,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "gen:theme-typings": "chakra-cli tokens src/theme/index.ts --out node_modules/@chakra-ui/system/node_modules/@chakra-ui/styled-system/dist/types/theming.types.d.ts",
+    "gen:theme-typings": "chakra-cli tokens src/theme/index.ts --out node_modules/@chakra-ui/styled-system/dist/declarations/src/theming.types.d.ts",
     "postinstall": "npm run gen:theme-typings"
   },
   "dependencies": {
@@ -22,6 +22,7 @@
     "lodash.chunk": "^4.2.0",
     "next": "12.1.6",
     "next-auth": "^4.3.1",
+    "nextjs-progressbar": "^0.0.14",
     "query-string": "^7.1.1",
     "react": "18.1.0",
     "react-dom": "18.1.0",

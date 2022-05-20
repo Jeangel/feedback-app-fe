@@ -7,6 +7,7 @@ import type { AppProps } from 'next/app'
 import { SessionProvider } from 'next-auth/react'
 import { ChakraProvider, useColorMode } from '@chakra-ui/react'
 import theme from '../theme'
+import NavigationProgressBar from '@components/navigation/NavigationProgressBar'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,6 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <SessionProvider>
         <ChakraProvider theme={theme}>
           <Base>
+            <NavigationProgressBar />
             <Component {...pageProps} />
           </Base>
         </ChakraProvider>
