@@ -8,7 +8,13 @@ import { SessionProvider } from 'next-auth/react'
 import { ChakraProvider, useColorMode } from '@chakra-ui/react'
 import theme from '../theme'
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+    },
+  },
+})
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

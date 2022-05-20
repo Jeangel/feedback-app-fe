@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError, ResponseType } from 'axios'
 import queryString from 'query-string'
-import { getSession } from 'next-auth/react'
+import { getSession, signOut } from 'next-auth/react'
 import { CtxOrReq } from 'next-auth/client/_utils'
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL
@@ -121,7 +121,12 @@ const request = async <Response = any>(
 
     return response
   } catch (error) {
-    throw new ApiError(error as Error)
+    const apiError = new ApiError(error as Error)
+    if (apiError.httpStatusCode === 401) {
+      signOut()
+    }
+    throw apiError
+    
   }
 }
 
