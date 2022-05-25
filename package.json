@@ -10,9 +10,9 @@
     "postinstall": "npm run gen:theme-typings"
   },
   "dependencies": {
-    "@chakra-ui/icons": "^1.1.1",
-    "@chakra-ui/react": "^1.6.12",
-    "@chakra-ui/styled-system": "^1.14.1",
+    "@chakra-ui/icons": "^1.1.7",
+    "@chakra-ui/react": "^1.8.8",
+    "@chakra-ui/styled-system": "^1.19.0",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@fontsource/jost": "^4.5.1",
@@ -20,13 +20,14 @@
     "axios": "^0.26.1",
     "framer-motion": "^4",
     "lodash.chunk": "^4.2.0",
-    "next": "12.0.3",
+    "next": "12.1.6",
     "next-auth": "^4.3.1",
     "query-string": "^7.1.1",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
+    "react": "18.1.0",
+    "react-dom": "18.1.0",
     "react-hook-form": "^7.22.5",
     "react-icons": "^4.3.1",
+    "react-query": "^3.39.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {

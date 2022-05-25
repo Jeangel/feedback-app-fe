@@ -17,6 +17,7 @@ import {
   ChakraProps,
 } from '@chakra-ui/react'
 import FeedbackCategoriesCard from '@components/misc/FeedbackCategoriesCard'
+import ProfileCard from '@components/misc/ProfileCard'
 import RoadmapCard from '@components/misc/RoadmapCard'
 import { useSession } from 'next-auth/react'
 import { useRef } from 'react'
@@ -60,8 +61,9 @@ const Navbar = (props: INavbarProps) => {
             <DrawerCloseButton pos='static' />
           </Flex>
           <VStack spacing={6}>
+            <ProfileCard />
             <FeedbackCategoriesCard />
-            <RoadmapCard />
+            <RoadmapCard planned={0} inProgress={0} live={0} />
           </VStack>
         </DrawerContent>
       </Drawer>

@@ -20,8 +20,8 @@ const MainRightTemplate = ({ children, withNavbar = true }: ITemplateProps) => {
       >
         {childrenInPairs.map(([left, right], i) => (
           <React.Fragment key={i}>
-            <Box gridColumn={{ base: '1 / 13', lg: '1 / 5' }}>{left}</Box>
-            <Box gridColumn={{ base: '1 / 13', lg: '5 / 13' }}>{right}</Box>
+            <Box gridColumn={{ base: '1 / 13', lg: '1 / 4' }}>{left}</Box>
+            <Box gridColumn={{ base: '1 / 13', lg: '4 / 13' }}>{right}</Box>
           </React.Fragment>
         ))}
       </BaseGrid>

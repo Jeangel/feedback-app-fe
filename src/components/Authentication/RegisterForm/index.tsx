@@ -10,6 +10,7 @@ import {
   Center,
   useToast,
   useBoolean,
+  useId,
 } from '@chakra-ui/react'
 import AvatarPicker from '@components/forms/AvatarPicker'
 import PasswordInput from '@components/forms/PasswordInput'
@@ -17,9 +18,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { YupSchemaKeys } from 'types/yup'
 import FormControlError from '@components/forms/FormControlError'
-import { registerUser } from '@utils/requests/users'
 import { ApiError } from '@utils/axios'
 import { useRouter } from 'next/router'
+import { useRegisterUser } from '@hooks/api/useRegisterUser'
 
 interface IRegisterFormValues {
   avatarUrl: string
@@ -38,6 +39,7 @@ const validationSchema = yup.object<YupSchemaKeys<IRegisterFormValues>>({
 const RegisterForm = () => {
   const toast = useToast()
   const router = useRouter()
+  const id = useId()
   const {
     register,
     handleSubmit: makeHandleOnSubmit,
@@ -47,23 +49,25 @@ const RegisterForm = () => {
     resolver: yupResolver(validationSchema),
     mode: 'onTouched',
   })
-  const [isLoading, { on: setIsLoading, off: setIsNotLoading }] = useBoolean(false)
+  const { mutate: registerUser, isLoading } = useRegisterUser()
 
-  const handleOnSubmit = async (values: IRegisterFormValues) => {
-    try {
-      setIsLoading()
-      await registerUser({ user: values })
-      toast({
-        description: 'You have been registered successfully!',
-        status: 'success',
-      })
-      router.push('/login')
-    } catch (e) {
-      const error = e as ApiError
-      toast({ status: 'error', description: error.message })
-    } finally {
-      setIsNotLoading()
-    }
+  const handleOnSubmit = (values: IRegisterFormValues) => {
+    registerUser(
+      { user: values },
+      {
+        onSuccess: () => {
+          toast({
+            description: 'You have been registered successfully!',
+            status: 'success',
+          })
+          router.push('/login')
+        },
+        onError: (error) => {
+          const apiError = error as ApiError
+          toast({ status: 'error', description: apiError.message })
+        },
+      }
+    )
   }
 
   const handleOnAvatarChange = (avatarUrl: string) => {
@@ -79,17 +83,17 @@ const RegisterForm = () => {
           <AvatarPicker onChange={handleOnAvatarChange} />
         </Center>
         <VStack spacing={6} py='4'>
-          <FormControl id='fullName' isInvalid={!!errors.fullName}>
+          <FormControl id={`${id}-fullName`} isInvalid={!!errors.fullName}>
             <FormLabel>Full Name</FormLabel>
             <Input {...register('fullName')} />
             <FormControlError error={errors.fullName} />
           </FormControl>
-          <FormControl id='username' isInvalid={!!errors.username}>
+          <FormControl id={`${id}-username`} isInvalid={!!errors.username}>
             <FormLabel>Username</FormLabel>
             <Input {...register('username')} />
             <FormControlError error={errors.username} />
           </FormControl>
-          <FormControl id='password' isInvalid={!!errors.password}>
+          <FormControl id={`${id}-password`} isInvalid={!!errors.password}>
             <FormLabel>Password</FormLabel>
             <PasswordInput {...register('password')} />
             <FormControlError error={errors.password} />
