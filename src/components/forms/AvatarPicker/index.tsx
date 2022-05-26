@@ -1,7 +1,7 @@
 import { Box, Image, IconButton } from '@chakra-ui/react'
 import { Icon } from '@chakra-ui/icon'
 import { FaRandom } from 'react-icons/fa'
-import useRandomAvatar from '@hooks/useRandomAvatar'
+import { useRandomAvatar } from '@hooks/useRandomAvatar'
 import { useEffect } from 'react'
 import { isFunction } from '@utils/is'
 

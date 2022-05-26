@@ -102,7 +102,7 @@ const RegisterForm = () => {
         <Button
           mt='6'
           colorScheme='primary'
-          isFullWidth
+          width='full'
           type='submit'
           isLoading={isLoading}
           isDisabled={!isValid}

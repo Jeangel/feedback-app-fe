@@ -86,10 +86,10 @@ const LoginForm = () => {
         <Button
           mt='6'
           colorScheme='primary'
-          isFullWidth
           type='submit'
           isLoading={isLoading}
           isDisabled={!isValid}
+          width='full'
         >
           Login
         </Button>
@@ -98,7 +98,7 @@ const LoginForm = () => {
           variant='link'
           textDecoration='underline'
           color='tertiary.500'
-          isFullWidth
+          width='full'
         >
           Use demo user
         </Button>
