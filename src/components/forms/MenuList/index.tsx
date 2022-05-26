@@ -6,6 +6,8 @@ import {
   Flex,
   MenuDivider,
   SystemProps,
+  MenuListProps,
+  MenuItemOptionProps,
 } from '@chakra-ui/react'
 import React from 'react'
 
@@ -15,8 +17,8 @@ export interface IChakraMenuListProps {
   options: MenuListOption[]
   value?: string
   onChange: (value: string) => void
-  menuListProps?: SystemProps
-  menuItemOptionProps?: SystemProps
+  menuListProps?: MenuListProps
+  menuItemOptionProps?: MenuItemOptionProps
 }
 
 const MenuList = ({

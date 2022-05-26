@@ -50,6 +50,7 @@ const Toggle = ({
           alignItems='center'
           justifyContent='center'
           w='full'
+          padding='0 10px'
         >
           {leftIcon && <Icon as={leftIcon} sx={iconStyles} m='0' />}
           <ToggleText label={label} sx={textStyles} />

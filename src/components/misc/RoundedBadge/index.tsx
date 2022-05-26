@@ -1,5 +1,5 @@
-import { Box, ComponentWithAs, BoxProps, As } from '@chakra-ui/react'
-import { Icon, IconProps } from '@chakra-ui/icons'
+import { Box, BoxProps, As } from '@chakra-ui/react'
+import { Icon } from '@chakra-ui/icons'
 
 interface IRoundedBadgeProps extends BoxProps {
   icon: As
