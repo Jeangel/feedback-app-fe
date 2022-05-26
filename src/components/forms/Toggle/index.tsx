@@ -44,7 +44,13 @@ const Toggle = ({
         {...rest}
       >
         {topIcon && <Icon as={topIcon} sx={iconStyles} />}
-        <Box as="span" display="flex" alignItems="center" justifyContent="center" padding="0 10px">
+        <Box
+          as='span'
+          display='flex'
+          alignItems='center'
+          justifyContent='center'
+          padding='0 10px'
+        >
           {leftIcon && <Icon as={leftIcon} sx={iconStyles} m='0' />}
           <ToggleText label={label} sx={textStyles} />
           {rightIcon && <Icon as={rightIcon} sx={iconStyles} m='0' />}

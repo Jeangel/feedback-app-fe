@@ -98,7 +98,7 @@ const Components: NextPage = () => {
           options={selectOptions}
         />
         <Select
-          id="ghost-select"
+          id='ghost-select'
           placeholder='testy'
           value={value}
           onChange={setValue}
@@ -160,8 +160,8 @@ const Components: NextPage = () => {
       <hr />
       <br />
       <HStack spacing='2'>
-        <FeedbackCard 
-          title='Add tags for solutions' 
+        <FeedbackCard
+          title='Add tags for solutions'
           description='Easier to search for solutions based on a specific stack.'
           category='Enhancement'
           votesCount={112}

@@ -21,12 +21,15 @@ const FeedbackCard = ({
   votesCount,
   commentsCount,
 }: IFeedbackCardProps) => {
-  const [ isToggled, setIsToggled ] = React.useState(false)
-  const [ votes, setVotes ] = React.useState(votesCount)
-  const orientation = useBreakpointValue<"horizontal"|"vertical">({sm: 'horizontal', md: 'vertical'})
+  const [isToggled, setIsToggled] = React.useState(false)
+  const [votes, setVotes] = React.useState(votesCount)
+  const orientation = useBreakpointValue<'horizontal' | 'vertical'>({
+    sm: 'horizontal',
+    md: 'vertical',
+  })
 
   React.useEffect(() => {
-    setVotes(oldValue => isToggled ? oldValue + 1 : oldValue -1)
+    setVotes((oldValue) => (isToggled ? oldValue + 1 : oldValue - 1))
   }, [isToggled])
 
   const toggle = () => {
@@ -69,23 +72,18 @@ const FeedbackCard = ({
         topIcon={orientation === 'vertical' ? FaChevronUp : undefined}
         leftIcon={orientation === 'horizontal' ? FaChevronUp : undefined}
       />
-      <Box
-        display='flex'
-        flexDir='row'
-        alignItems='center'
-        order={{md: 2}}
-      >
+      <Box display='flex' flexDir='row' alignItems='center' order={{ md: 2 }}>
         <Icon
           as={FaComment}
           marginRight='4px'
           color='gray.300'
-          fontSize={{md: '18px'}}
+          fontSize={{ md: '18px' }}
         />
         <Text
           variant='body3'
           fontWeight='bold'
           color={commentsCount === 0 ? 'gray.400' : 'tertiary.500'}
-          fontSize={{md: '16px'}}
+          fontSize={{ md: '16px' }}
         >
           {commentsCount}
         </Text>
