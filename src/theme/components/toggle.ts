@@ -2,7 +2,7 @@ import { ComponentMultiStyleConfig } from '@chakra-ui/react'
 
 const toggle: ComponentMultiStyleConfig = {
   parts: ['trigger', 'text', 'icon'],
-  baseStyle: ({ isToggled }) => ({
+  baseStyle: ({ isToggled, orientation }) => ({
     trigger: {
       bg: isToggled ? 'secondary.500' : 'gray.100',
       _hover: { bg: 'tertiary.50' },
@@ -12,6 +12,7 @@ const toggle: ComponentMultiStyleConfig = {
       fontWeight: 'bold',
       color: isToggled ? 'white' : 'tertiary.500',
       _groupHover: { color: 'tertiary.500' },
+      marginLeft: orientation === 'horizontal' ? 2 : 0,
     },
     icon: {
       color: isToggled ? 'white' : 'secondary.500',

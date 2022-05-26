@@ -15,11 +15,13 @@ import {
   useBoolean,
   Badge,
   Textarea,
+  Box,
 } from '@chakra-ui/react'
 import Select from '@components/forms/Select'
 import React, { useState } from 'react'
 import Toggle from '@components/forms/Toggle'
 import RoadmapCard from '@components/misc/RoadmapCard'
+import FeedbackCard from '@components/misc/FeedbackCard'
 
 const Components: NextPage = () => {
   const { colorMode, toggleColorMode } = useColorMode()
@@ -32,7 +34,7 @@ const Components: NextPage = () => {
     { label: 'Test4', value: 'test4' },
   ]
   return (
-    <div style={{ padding: 20 }}>
+    <Box p='20px' bgColor={'gray.50'}>
       <Text>
         Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit.
         Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis
@@ -86,8 +88,9 @@ const Components: NextPage = () => {
       <br />
       <hr />
       <br />
-      <HStack spacing='2'>
+      <HStack flexWrap={'wrap'} spacing='2'>
         <Select
+          id='basic'
           placeholder='testy'
           value={value}
           onChange={setValue}
@@ -95,6 +98,7 @@ const Components: NextPage = () => {
           options={selectOptions}
         />
         <Select
+          id='ghost-select'
           placeholder='testy'
           value={value}
           onChange={setValue}
@@ -150,9 +154,21 @@ const Components: NextPage = () => {
       <hr />
       <br />
       <HStack spacing='2'>
-        <RoadmapCard planned={2} inProgress={3} live={1}/>
+        <RoadmapCard planned={2} inProgress={3} live={1} />
       </HStack>
-    </div>
+      <br />
+      <hr />
+      <br />
+      <HStack spacing='2'>
+        <FeedbackCard
+          title='Add tags for solutions'
+          description='Easier to search for solutions based on a specific stack.'
+          category='Enhancement'
+          votesCount={112}
+          commentsCount={0}
+        />
+      </HStack>
+    </Box>
   )
 }
 
