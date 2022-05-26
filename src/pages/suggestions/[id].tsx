@@ -27,7 +27,7 @@ import Select from '@components/forms/Select'
 import { useRouter } from 'next/router'
 import { ApiError } from '@utils/axios'
 import { EFeedbackCategory, feedbackCategoryOptions } from 'types/FeedbackCategory'
-import { useCreateFeedback } from '@hooks/api/useCreateFeedback'
+import { useUpdateFeedback } from '@hooks/api/useUpdateFeedback'
 import { EFeedbackStatus, feedbackStatusOptions } from '@app-types/FeedbackStatus'
 import { fetchSuggestion } from '@hooks/api/useSuggestion'
 import IFeedback from '@app-types/Feedback'
@@ -61,15 +61,13 @@ const EditSuggestion: NextPage<IEditSuggestionProps> = ({ suggestion }) => {
   } = useForm<IEditSuggestionForm>({
     resolver: yupResolver(validationSchema),
     mode: 'onTouched',
-    defaultValues: {
-      ...suggestion,
-    },
+    defaultValues: suggestion || {},
   })
-  const { mutate: createFeedback, isLoading } = useCreateFeedback()
+  const { mutate: updateFeedback, isLoading } = useUpdateFeedback()
   const [category, setCategory] = useState<EFeedbackCategory | undefined>(
     suggestion?.category
   )
-  const [status, setStatus] = useState<EFeedbackStatus | undefined>(undefined)
+  const [status, setStatus] = useState<EFeedbackStatus | undefined>(suggestion?.status)
   const toast = useToast()
 
   const handleOnCategoryChange = (value: EFeedbackCategory) => {
@@ -79,7 +77,7 @@ const EditSuggestion: NextPage<IEditSuggestionProps> = ({ suggestion }) => {
 
   const handleOnStatusChange = (value: EFeedbackStatus) => {
     setValue('status', value)
-    setStatus(status)
+    setStatus(value)
   }
 
   const handleOnCancel = () => {
@@ -87,13 +85,16 @@ const EditSuggestion: NextPage<IEditSuggestionProps> = ({ suggestion }) => {
   }
 
   const handleOnSubmit = async (values: IEditSuggestionForm) => {
-    createFeedback(
-      { feedback: values },
+    if (!suggestion) return
+
+    const updates = { ...values, _id: suggestion._id }
+    updateFeedback(
+      { feedback: updates },
       {
         onSuccess: () => {
           toast({
             status: 'success',
-            description: 'Feedback was created successfully',
+            description: 'Feedback was updated successfully',
           })
           router.back()
         },
@@ -107,6 +108,7 @@ const EditSuggestion: NextPage<IEditSuggestionProps> = ({ suggestion }) => {
 
   useEffect(() => {
     register('category')
+    register('status')
   }, [])
 
   return (

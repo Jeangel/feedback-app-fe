@@ -1,8 +1,8 @@
 export enum EFeedbackStatus {
   suggestion = 'Suggestion',
   planned = 'Planned',
-  InProgress = 'In-Progress',
-  Live = 'Live',
+  inProgress = 'In-Progress',
+  live = 'Live',
 }
 
 export const feedbackStatusOptions = [
@@ -15,11 +15,11 @@ export const feedbackStatusOptions = [
     label: 'Planned',
   },
   {
-    value: EFeedbackStatus.InProgress,
+    value: EFeedbackStatus.inProgress,
     label: 'In-Progress',
   },
   {
-    value: EFeedbackStatus.Live,
+    value: EFeedbackStatus.live,
     label: 'Live',
   },
 ]
