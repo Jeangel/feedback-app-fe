@@ -125,7 +125,7 @@ const request = async <Response = any>(
   } catch (error) {
     const apiError = new ApiError(error as Error)
     if (apiError.httpStatusCode === 401) {
-      signOut()
+      if (typeof window !== 'undefined') signOut()
     }
     throw apiError
   }
