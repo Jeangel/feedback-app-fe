@@ -3,7 +3,7 @@ import Feedback from '@app-types/Feedback'
 import { post } from '@utils/axios'
 
 interface ICreateFeedbackArgs {
-  feedback: Omit<Feedback, '_id'|'status'>
+  feedback: Pick<Feedback, 'title' | 'category' | 'description'>
 }
 
 interface ICreateFeedbackResponse {

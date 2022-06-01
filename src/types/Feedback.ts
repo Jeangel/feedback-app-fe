@@ -7,6 +7,12 @@ interface IFeedback {
   description: string
   category: EFeedbackCategory
   status: EFeedbackStatus
+  votesCount: number
+  commentsCount: number
+  myVote?: {
+    _id: string
+    value: number
+  }
 }
 
 export default IFeedback

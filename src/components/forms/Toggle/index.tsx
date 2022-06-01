@@ -1,4 +1,4 @@
-import { ButtonProps, Box, useStyleConfig } from '@chakra-ui/react'
+import { ButtonProps, Box, useStyleConfig, CSSObject } from '@chakra-ui/react'
 import { Icon } from '@chakra-ui/icons'
 import ToggleTrigger from './ToggleTrigger'
 import ToggleText from './ToggleText'
@@ -26,15 +26,12 @@ const Toggle = ({
   orientation,
   ...rest
 }: IToggleProps) => {
+  const result = useStyleConfig('Toggle', { size, variant, orientation, isToggled })
   const {
     trigger: triggerStyles,
-    text: textStyles,
     icon: iconStyles,
-  } = useStyleConfig(
-    'Toggle',
-    { size, variant, orientation, isToggled },
-    { isMultiPart: true }
-  )
+    text: textStyles,
+  } = result as Record<string, CSSObject>
   return (
     <Box role='group' height='min-content'>
       <ToggleTrigger
@@ -51,6 +48,7 @@ const Toggle = ({
           justifyContent='center'
           w='full'
           padding='0 10px'
+          columnGap='10px'
         >
           {leftIcon && <Icon as={leftIcon} sx={iconStyles} m='0' />}
           <ToggleText label={label} sx={textStyles} />

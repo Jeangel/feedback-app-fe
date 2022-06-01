@@ -117,6 +117,8 @@ const request = async <Response = any>(
       data: options?.data || undefined,
       baseURL,
       url,
+      paramsSerializer: (params: any) =>
+        queryString.stringify(params, { arrayFormat: 'bracket' }),
     })
 
     return response
@@ -126,7 +128,6 @@ const request = async <Response = any>(
       signOut()
     }
     throw apiError
-    
   }
 }
 
@@ -136,9 +137,7 @@ export const get = async <Response = any>({
   responseType,
   ...rest
 }: Omit<IRequest, 'body'> & IExtraRequestOptions) => {
-  const params = urlParams
-    ? queryString.stringify(urlParams, { arrayFormat: 'bracket' })
-    : ''
+  const params = urlParams ? queryString.stringify(urlParams, urlParams) : ''
 
   return request<Response>(`${path}?${params}`, {
     ...rest,

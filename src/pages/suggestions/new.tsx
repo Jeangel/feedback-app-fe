@@ -39,7 +39,7 @@ interface INewSuggestionForm {
 const validationSchema = yup.object<YupSchemaKeys<INewSuggestionForm>>({
   title: yup.string().label('Feedback Title').required().min(5).max(50),
   category: yup.string().label('Category').required(),
-  description: yup.string().label('Feedback Detail').required().min(20).max(200),
+  description: yup.string().label('Feedback Detail').required().min(20).max(600),
 })
 
 const NewSuggestion: NextPage = (props) => {

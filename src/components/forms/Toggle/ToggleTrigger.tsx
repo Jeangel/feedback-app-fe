@@ -19,7 +19,7 @@ const ToggleTrigger = ({
       {...rest}
       onClick={handleOnToggle}
       flexDirection='column'
-      size='none'
+      size='sm'
     >
       {children}
     </Button>

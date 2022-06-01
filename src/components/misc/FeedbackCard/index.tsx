@@ -1,17 +1,17 @@
 import React from 'react'
 
 import { Box, Flex, Text, Badge, Icon, useBreakpointValue } from '@chakra-ui/react'
-
 import { FaChevronUp, FaComment } from 'react-icons/fa'
-
-import Toggle from '../../forms/Toggle'
+import Toggle from 'components/forms/Toggle'
 
 interface IFeedbackCardProps {
   title: string
   description: string
   category: string
   votesCount: number
+  hasVoted: boolean
   commentsCount: number
+  onToggleVote: (value: boolean) => void
 }
 
 const FeedbackCard = ({
@@ -20,21 +20,13 @@ const FeedbackCard = ({
   category,
   votesCount,
   commentsCount,
+  hasVoted,
+  onToggleVote,
 }: IFeedbackCardProps) => {
-  const [isToggled, setIsToggled] = React.useState(false)
-  const [votes, setVotes] = React.useState(votesCount)
   const orientation = useBreakpointValue<'horizontal' | 'vertical'>({
     sm: 'horizontal',
     md: 'vertical',
   })
-
-  React.useEffect(() => {
-    setVotes((oldValue) => (isToggled ? oldValue + 1 : oldValue - 1))
-  }, [isToggled])
-
-  const toggle = () => {
-    setIsToggled(!isToggled)
-  }
 
   return (
     <Box
@@ -59,15 +51,15 @@ const FeedbackCard = ({
         <Text variant='body3' fontWeight='bold' fontSize={{ md: '18px' }}>
           {title}
         </Text>
-        <Text variant='body3' fontWeight='normal' fontSize={{ md: '16px' }}>
+        <Text variant='body3' fontWeight='normal' fontSize={{ md: '16px' }} noOfLines={1}>
           {description}
         </Text>
         <Badge variant='feedbackTag'>{category}</Badge>
       </Flex>
       <Toggle
-        isToggled={isToggled}
-        label={votes.toString()}
-        onToggle={toggle}
+        isToggled={hasVoted}
+        label={votesCount.toString()}
+        onToggle={onToggleVote}
         orientation={orientation}
         topIcon={orientation === 'vertical' ? FaChevronUp : undefined}
         leftIcon={orientation === 'horizontal' ? FaChevronUp : undefined}

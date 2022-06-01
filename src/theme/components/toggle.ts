@@ -15,7 +15,6 @@ const toggle: ComponentMultiStyleConfig = {
       fontWeight: 'bold',
       color: isToggled ? 'white' : 'tertiary.500',
       _groupHover: { color: 'tertiary.500' },
-      marginLeft: orientation === 'horizontal' ? 2 : 0,
     },
     icon: {
       color: isToggled ? 'white' : 'secondary.500',
