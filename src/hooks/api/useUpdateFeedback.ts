@@ -3,7 +3,7 @@ import Feedback from '@app-types/Feedback'
 import { patch } from '@utils/axios'
 
 interface IUpdateFeedbackArgs {
-  feedback: Feedback
+  feedback: Omit<Feedback, 'votesCount'|'commentsCount'|'myVote'>
 }
 
 interface IUpdateFeedbackResponse {

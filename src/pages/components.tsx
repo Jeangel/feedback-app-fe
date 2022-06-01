@@ -166,6 +166,8 @@ const Components: NextPage = () => {
           category='Enhancement'
           votesCount={112}
           commentsCount={0}
+          hasVoted={false}
+          onToggleVote={() => {}}
         />
       </HStack>
     </Box>
