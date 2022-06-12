@@ -68,6 +68,10 @@ const LoginForm = () => {
     }
   }
 
+  const handleOnUseDemoUser = () => {
+    handleOnSubmit({ username: 'demoUser', password: 'demoPassword' })
+  }
+
   return (
     <Box>
       <form onSubmit={makeHandleOnSubmit(handleOnSubmit)}>
@@ -99,6 +103,8 @@ const LoginForm = () => {
           textDecoration='underline'
           color='tertiary.500'
           width='full'
+          type='button'
+          onClick={handleOnUseDemoUser}
         >
           Use demo user
         </Button>
