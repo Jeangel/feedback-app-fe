@@ -1,3 +1,4 @@
+import IFeedback from '@app-types/Feedback'
 import { Stack, Box, useToast } from '@chakra-ui/react'
 import FeedbackCard from '@components/misc/FeedbackCard'
 import FeedbackCategoriesCard from '@components/misc/FeedbackCategoriesCard'
@@ -8,6 +9,7 @@ import MainRightTemplate from '@components/template/MainRightTemplate'
 import { useSaveFeedbackVote } from '@hooks/api/useSaveFeedbackVote'
 import { useSuggestions } from '@hooks/api/useSuggestions'
 import { ApiError } from '@utils/axios'
+import { makeLoadableList } from '@utils/list'
 import withAuth from 'hocs/withAuth'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
@@ -16,16 +18,16 @@ import React from 'react'
 const Suggestions: NextPage = (props) => {
   const toast = useToast()
   const router = useRouter()
-  const { data } = useSuggestions({ pagination: { limit: 6 } })
+  const { data, isLoading } = useSuggestions({ pagination: { limit: 6 } })
   const { mutate: saveFeedbackVote } = useSaveFeedbackVote()
   const onSuggestionClick = (id: string) => {
     router.push(`/suggestions/${id}`)
   }
-  const onToggleVote = (args: { feedbackId: string; vote: boolean }) => {
+  const onToggleVote = (args: { id: string; value: boolean }) => {
     saveFeedbackVote(
       {
-        feedbackId: args.feedbackId,
-        value: args.vote ? 1 : 0,
+        feedbackId: args.id,
+        value: args.value ? 1 : 0,
       },
       {
         onSuccess: () => {
@@ -41,6 +43,13 @@ const Suggestions: NextPage = (props) => {
       }
     )
   }
+
+  const suggestions = makeLoadableList({
+    isLoading,
+    skeletons: 4,
+    list: data,
+  })
+
   return (
     <MainRightTemplate>
       <Stack
@@ -54,15 +63,23 @@ const Suggestions: NextPage = (props) => {
         <RoadmapCard planned={2} inProgress={3} live={1} />
       </Stack>
       <div>
-        <SuggestionsBar />
-        <Box display='flex' flexDir='column' rowGap='20px' mt='24px'>
-          {data?.map((e) => (
+        <SuggestionsBar suggestionsCount={data?.length} />
+        <Box
+          display='flex'
+          flexDir='column'
+          justifyContent='center'
+          alignItems='center'
+          rowGap='20px'
+          mt='24px'
+        >
+          {suggestions.map((e, i) => (
             <FeedbackCard
-              key={e._id}
               {...e}
+              key={e?._id || i}
               commentsCount={0}
-              hasVoted={e.myVote?.value === 1}
-              onToggleVote={(vote) => onToggleVote({ feedbackId: e._id, vote })}
+              hasVoted={e?.myVote?.value === 1}
+              onToggleVote={onToggleVote}
+              isLoading={isLoading}
             />
           ))}
         </Box>

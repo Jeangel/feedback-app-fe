@@ -14,6 +14,7 @@ import Heading from './components/heading'
 import FormLabel from './components/label'
 import Badge from './components/badge'
 import Textarea from './components/textArea'
+import Skeleton from './components/skeleton'
 
 export const theme = extendTheme({
   colors,
@@ -31,6 +32,7 @@ export const theme = extendTheme({
     FormLabel,
     Badge,
     Textarea,
+    Skeleton
   },
   styles: {
     global,

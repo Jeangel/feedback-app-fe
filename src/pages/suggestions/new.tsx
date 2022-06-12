@@ -52,7 +52,7 @@ const NewSuggestion: NextPage = (props) => {
     reset,
   } = useForm<INewSuggestionForm>({
     resolver: yupResolver(validationSchema),
-    mode: 'onTouched',
+    mode: 'all',
   })
   const { mutate: createFeedback, isLoading } = useCreateFeedback()
   const [category, setCategory] = useState<EFeedbackCategory | undefined>(undefined)

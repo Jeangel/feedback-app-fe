@@ -6,6 +6,7 @@ import {
   Heading,
   HStack,
   Icon,
+  Skeleton,
 } from '@chakra-ui/react'
 import Select from '@components/forms/Select'
 import { useRouter } from 'next/router'
@@ -18,7 +19,11 @@ const sortingOptions = [
   { label: 'Least Comments', value: 'least-comments' },
 ]
 
-const SuggestionsBar = () => {
+interface ISuggestionBarProps {
+  suggestionsCount?: number
+}
+
+const SuggestionsBar = ({ suggestionsCount }: ISuggestionBarProps) => {
   const router = useRouter()
   return (
     <Flex
@@ -32,9 +37,11 @@ const SuggestionsBar = () => {
     >
       <HStack display={{ base: 'none', md: 'flex' }} spacing='16px' pr='38px'>
         <Icon as={HiOutlineLightBulb} color='white' fontSize='23px' />
-        <Heading variant='h3' color='white'>
-          6 Suggestions
-        </Heading>
+        <Skeleton variant='heading-h3' width='120px' isLoaded={!!suggestionsCount}>
+          <Heading variant='h3' color='white'>
+            <span>{suggestionsCount}</span> Suggestions
+          </Heading>
+        </Skeleton>
       </HStack>
       <FormControl position='static' w='auto'>
         <Flex alignItems='center' columnGap='4px'>
