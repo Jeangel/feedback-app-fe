@@ -1,7 +1,7 @@
-import IFeedback from '@app-types/Feedback'
 import { Stack, Box, useToast } from '@chakra-ui/react'
 import FeedbackCard from '@components/misc/FeedbackCard'
 import FeedbackCategoriesCard from '@components/misc/FeedbackCategoriesCard'
+import Pagination from '@components/misc/Pagination'
 import ProfileCard from '@components/misc/ProfileCard'
 import RoadmapCard from '@components/misc/RoadmapCard'
 import SuggestionsBar from '@components/misc/SuggestionsBar'
@@ -13,16 +13,17 @@ import { makeLoadableList } from '@utils/list'
 import withAuth from 'hocs/withAuth'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useState } from 'react'
 
 const Suggestions: NextPage = (props) => {
   const toast = useToast()
   const router = useRouter()
-  const { data, isLoading } = useSuggestions({ pagination: { limit: 6 } })
+  const [page, setPage] = useState(1)
+  const { data, pagination, isLoading, refetch } = useSuggestions({
+    pagination: { limit: 5, page },
+  })
   const { mutate: saveFeedbackVote } = useSaveFeedbackVote()
-  const onSuggestionClick = (id: string) => {
-    router.push(`/suggestions/${id}`)
-  }
+
   const onToggleVote = (args: { id: string; value: boolean }) => {
     saveFeedbackVote(
       {
@@ -63,7 +64,7 @@ const Suggestions: NextPage = (props) => {
         <RoadmapCard planned={2} inProgress={3} live={1} />
       </Stack>
       <div>
-        <SuggestionsBar suggestionsCount={data?.length} />
+        <SuggestionsBar suggestionsCount={pagination?.total} />
         <Box
           display='flex'
           flexDir='column'
@@ -83,6 +84,15 @@ const Suggestions: NextPage = (props) => {
             />
           ))}
         </Box>
+        {pagination && (
+          <Box mt='10'>
+            <Pagination
+              currentPage={page}
+              onPageChange={setPage}
+              totalPages={pagination.pages}
+            />
+          </Box>
+        )}
       </div>
     </MainRightTemplate>
   )

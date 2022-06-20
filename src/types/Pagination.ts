@@ -1,11 +1,15 @@
 export interface IPaginatedResults<T> {
   results: T[]
-  total: number
+  pagination: {
+    total: number
+    pages: number
+    currentPage: number
+  }
 }
 
 export interface IPaginationArgs {
   pagination: {
     limit?: number
-    offset?: number
+    page?: number
   }
 }

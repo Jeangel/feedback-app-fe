@@ -5,6 +5,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test": "jest",
     "lint": "next lint",
     "gen:theme-typings": "chakra-cli tokens src/theme/index.ts --out node_modules/@chakra-ui/styled-system/dist/declarations/src/theming.types.d.ts",
     "postinstall": "npm run gen:theme-typings"

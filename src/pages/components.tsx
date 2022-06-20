@@ -22,10 +22,12 @@ import React, { useState } from 'react'
 import Toggle from '@components/forms/Toggle'
 import RoadmapCard from '@components/misc/RoadmapCard'
 import FeedbackCard from '@components/misc/FeedbackCard'
+import Pagination from '@components/misc/Pagination'
 
 const Components: NextPage = () => {
   const { colorMode, toggleColorMode } = useColorMode()
   const [value, setValue] = useState('')
+  const [page, setPage] = useState(10)
   const [isToggled, { toggle }] = useBoolean()
   const selectOptions = [
     { label: 'Test', value: 'test' },
@@ -170,6 +172,15 @@ const Components: NextPage = () => {
           onToggleVote={() => {}}
         />
       </HStack>
+      <br />
+      <hr />
+      <br />
+      <Pagination
+        totalPages={20}
+        currentPage={page}
+        onPageChange={setPage}
+        maxVisibleItems={3}
+      />
     </Box>
   )
 }
