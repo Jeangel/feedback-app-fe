@@ -24,10 +24,10 @@ const Suggestions: NextPage = (props) => {
   })
   const { mutate: saveFeedbackVote } = useSaveFeedbackVote()
 
-  const onToggleVote = (args: { id: string; value: boolean }) => {
+  const onToggleVote = (args: { _id: string; value: boolean }) => {
     saveFeedbackVote(
       {
-        feedbackId: args.id,
+        feedbackId: args._id,
         value: args.value ? 1 : 0,
       },
       {

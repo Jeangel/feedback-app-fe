@@ -8,25 +8,24 @@ import {
   Icon,
   useBreakpointValue,
   Skeleton,
-  SkeletonText,
 } from '@chakra-ui/react'
 import { FaChevronUp, FaComment } from 'react-icons/fa'
 import Toggle from 'components/forms/Toggle'
 
 interface IFeedbackCardProps {
-  id?: string
+  _id?: string
   title?: string
   description?: string
   category?: string
   votesCount?: number
   hasVoted?: boolean
   commentsCount?: number
-  onToggleVote: (args: { value: boolean; id: string }) => void
+  onToggleVote: (args: { value: boolean; _id: string }) => void
   isLoading?: boolean
 }
 
 const FeedbackCard = ({
-  id,
+  _id,
   title,
   description,
   category,
@@ -89,7 +88,7 @@ const FeedbackCard = ({
         <Toggle
           isToggled={hasVoted!}
           label={votesCount?.toString() || ''}
-          onToggle={(value) => onToggleVote({ value, id: id! })}
+          onToggle={(value) => onToggleVote({ value, _id: _id! })}
           orientation={orientation}
           topIcon={orientation === 'vertical' ? FaChevronUp : undefined}
           leftIcon={orientation === 'horizontal' ? FaChevronUp : undefined}

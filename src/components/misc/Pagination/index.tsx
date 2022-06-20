@@ -43,7 +43,7 @@ const Pagination = ({
   return (
     <List as='ul' display='flex' justifyContent='center' columnGap='10px'>
       {pages.map((page) => (
-        <ListItem>
+        <ListItem key={`page-${page}`}>
           {page === DOTS ? (
             <DotsBox color='secondary'>...</DotsBox>
           ) : (
