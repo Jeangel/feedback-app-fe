@@ -37,9 +37,9 @@ const SuggestionsBar = ({ suggestionsCount }: ISuggestionBarProps) => {
     >
       <HStack display={{ base: 'none', md: 'flex' }} spacing='16px' pr='38px'>
         <Icon as={HiOutlineLightBulb} color='white' fontSize='23px' />
-        <Skeleton variant='heading-h3' minWidth='120px' isLoaded={!!suggestionsCount}>
+        <Skeleton variant='heading-h3' minWidth='120px' isLoaded={suggestionsCount !== undefined}>
           <Heading variant='h3' color='white'>
-            {suggestionsCount} Suggestions
+            {suggestionsCount} {suggestionsCount === 1 ? 'Suggestion' : 'Suggestions'}
           </Heading>
         </Skeleton>
       </HStack>
