@@ -1,10 +1,11 @@
+import { ISortArgs } from '@app-types/Pagination'
 import { Stack, Box, useToast } from '@chakra-ui/react'
 import FeedbackCard from '@components/misc/FeedbackCard'
 import FeedbackCategoriesCard from '@components/misc/FeedbackCategoriesCard'
 import Pagination from '@components/misc/Pagination'
 import ProfileCard from '@components/misc/ProfileCard'
 import RoadmapCard from '@components/misc/RoadmapCard'
-import SuggestionsBar from '@components/misc/SuggestionsBar'
+import SuggestionsBar, { ESuggestionsSort, fromSortArgs, toSortArgs } from '@components/misc/SuggestionsBar'
 import MainRightTemplate from '@components/template/MainRightTemplate'
 import { useSaveFeedbackVote } from '@hooks/api/useSaveFeedbackVote'
 import { useSuggestions } from '@hooks/api/useSuggestions'
@@ -19,8 +20,10 @@ const Suggestions: NextPage = (props) => {
   const toast = useToast()
   const router = useRouter()
   const [page, setPage] = useState(1)
+  const [sortBy, setSortBy] = useState<ESuggestionsSort>(ESuggestionsSort.mostUpVotes)
   const { data, pagination, isLoading, refetch } = useSuggestions({
     pagination: { limit: 5, page },
+    sort: toSortArgs(sortBy),
   })
   const { mutate: saveFeedbackVote } = useSaveFeedbackVote()
 
@@ -64,7 +67,11 @@ const Suggestions: NextPage = (props) => {
         <RoadmapCard planned={2} inProgress={3} live={1} />
       </Stack>
       <div>
-        <SuggestionsBar suggestionsCount={pagination?.total} />
+        <SuggestionsBar
+          suggestionsCount={pagination?.total}
+          onChangeSort={setSortBy}
+          sortBy={sortBy}
+        />
         <Box
           display='flex'
           flexDir='column'

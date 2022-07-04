@@ -12,4 +12,10 @@ export interface IPaginationArgs {
     limit?: number
     page?: number
   }
+  sort?: ISortArgs
+}
+
+export interface ISortArgs {
+  by: string
+  order: 1 | -1
 }

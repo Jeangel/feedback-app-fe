@@ -137,7 +137,13 @@ export const get = async <Response = any>({
   responseType,
   ...rest
 }: Omit<IRequest, 'body'> & IExtraRequestOptions) => {
-  const params = urlParams ? queryString.stringify(urlParams, urlParams) : ''
+  let params = ''
+
+  try {
+    params = urlParams ? queryString.stringify(urlParams) : ''
+  } catch (error) {
+    console.log('Could not parse URL parameters', error)
+  }
 
   return request<Response>(`${path}?${params}`, {
     ...rest,

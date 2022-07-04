@@ -1,3 +1,4 @@
+import { ISortArgs } from '@app-types/Pagination'
 import {
   Button,
   Flex,
@@ -12,18 +13,48 @@ import Select from '@components/forms/Select'
 import { useRouter } from 'next/router'
 import { HiOutlineLightBulb, HiPlusSm } from 'react-icons/hi'
 
+export enum ESuggestionsSort {
+  mostUpVotes = 'most-upvotes',
+  leastUpVotes = 'least-upvotes',
+  mostComments = 'most-comments',
+  leastComments = 'least-comments',
+}
+
 const sortingOptions = [
-  { label: 'Most Upvotes', value: 'most-upvotes' },
-  { label: 'Least Upvotes', value: 'least-upvotes' },
-  { label: 'Most Comments', value: 'most-comments' },
-  { label: 'Least Comments', value: 'least-comments' },
+  { label: 'Most Upvotes', value: ESuggestionsSort.mostUpVotes },
+  { label: 'Least Upvotes', value: ESuggestionsSort.leastUpVotes },
+  // { label: 'Most Comments', value: ESuggestionsSort.mostComments },
+  // { label: 'Least Comments', value: ESuggestionsSort.leastComments },
 ]
+
+export const toSortArgs = (value: ESuggestionsSort): ISortArgs => {
+  if (value === ESuggestionsSort.mostUpVotes) {
+    return { by: 'votesCount', order: -1 }
+  } else if (value === ESuggestionsSort.leastUpVotes) {
+    return { by: 'votesCount', order: 1 }
+  }
+  return { by: 'votesCount', order: -1 }
+}
+
+export const fromSortArgs = (value: ISortArgs) => {
+  if (value.by === 'votesCount' && value.order === -1) {
+    return ESuggestionsSort.mostUpVotes
+  } else if (value.by === 'votesCount' && value.order === 1) {
+    return ESuggestionsSort.mostUpVotes
+  }
+}
 
 interface ISuggestionBarProps {
   suggestionsCount?: number
+  onChangeSort: (value: ESuggestionsSort) => void
+  sortBy: ESuggestionsSort
 }
 
-const SuggestionsBar = ({ suggestionsCount }: ISuggestionBarProps) => {
+const SuggestionsBar = ({
+  suggestionsCount,
+  onChangeSort,
+  sortBy,
+}: ISuggestionBarProps) => {
   const router = useRouter()
   return (
     <Flex
@@ -37,7 +68,11 @@ const SuggestionsBar = ({ suggestionsCount }: ISuggestionBarProps) => {
     >
       <HStack display={{ base: 'none', md: 'flex' }} spacing='16px' pr='38px'>
         <Icon as={HiOutlineLightBulb} color='white' fontSize='23px' />
-        <Skeleton variant='heading-h3' minWidth='120px' isLoaded={suggestionsCount !== undefined}>
+        <Skeleton
+          variant='heading-h3'
+          minWidth='120px'
+          isLoaded={suggestionsCount !== undefined}
+        >
           <Heading variant='h3' color='white'>
             {suggestionsCount} {suggestionsCount === 1 ? 'Suggestion' : 'Suggestions'}
           </Heading>
@@ -57,13 +92,13 @@ const SuggestionsBar = ({ suggestionsCount }: ISuggestionBarProps) => {
           </FormLabel>
           <Select
             id='sortBy'
-            value='most-upvotes'
+            value={sortBy}
             variant='select-ghost'
             triggerProps={{ color: 'white', px: 0, fontSize: 'xs' }}
             iconProps={{ color: 'white' }}
             placeholderProps={{ color: 'white' }}
             options={sortingOptions}
-            onChange={() => {}}
+            onChange={onChangeSort}
           />
         </Flex>
       </FormControl>

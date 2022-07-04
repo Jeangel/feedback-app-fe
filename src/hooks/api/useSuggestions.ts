@@ -6,13 +6,17 @@ import { useQuery } from 'react-query'
 interface IUseSuggestionsArgs extends IPaginationArgs {}
 
 export const useSuggestions = (params?: IUseSuggestionsArgs) => {
-  const { data: response, ...rest } = useQuery(
-    ['suggestions', params?.pagination.page],
+  const {
+    data: response,
+    ...rest
+  } = useQuery(
+    ['suggestions', params?.pagination.page, params?.sort?.by, params?.sort?.order],
     () =>
       get<IPaginatedResults<IFeedback>>({
         path: '/feedback',
         urlParams: {
           pagination: JSON.stringify(params?.pagination),
+          sort: JSON.stringify(params?.sort),
         },
       }),
     { keepPreviousData: true }
