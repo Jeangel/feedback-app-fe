@@ -21,6 +21,8 @@ export const calculatePages = ({
   let to = 0
   pages.push(firstPage)
 
+  if (totalPages === 0) return []
+
   if (totalPages === 1) {
     return pages
   }
