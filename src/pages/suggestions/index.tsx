@@ -1,8 +1,7 @@
 import { EFeedbackCategory } from '@app-types/FeedbackCategory'
 import { Stack, Box, useToast } from '@chakra-ui/react'
-import FeedbackCard from '@components/misc/FeedbackCard'
+import SuggestionsList from '@components/feedback/SuggestionsList'
 import FeedbackCategoriesCard from '@components/misc/FeedbackCategoriesCard'
-import Pagination from '@components/misc/Pagination'
 import ProfileCard from '@components/misc/ProfileCard'
 import RoadmapCard from '@components/misc/RoadmapCard'
 import SuggestionsBar, {
@@ -13,9 +12,9 @@ import MainRightTemplate from '@components/template/MainRightTemplate'
 import { useSaveFeedbackVote } from '@hooks/api/useSaveFeedbackVote'
 import { useSuggestions } from '@hooks/api/useSuggestions'
 import { ApiError } from '@utils/axios'
-import { makeLoadableList } from '@utils/list'
 import withAuth from 'hocs/withAuth'
 import type { NextPage } from 'next'
+
 import React, { useState } from 'react'
 
 const Suggestions: NextPage = (props) => {
@@ -27,8 +26,8 @@ const Suggestions: NextPage = (props) => {
     pagination: { limit: 5, page },
     sort: toSortArgs(sortBy),
     filters: {
-      categories: feedbackCategories
-    }
+      categories: feedbackCategories,
+    },
   })
   const { mutate: saveFeedbackVote } = useSaveFeedbackVote()
 
@@ -53,12 +52,6 @@ const Suggestions: NextPage = (props) => {
     )
   }
 
-  const suggestions = makeLoadableList({
-    isLoading,
-    skeletons: 4,
-    list: data,
-  })
-
   return (
     <MainRightTemplate>
       <Stack
@@ -74,41 +67,20 @@ const Suggestions: NextPage = (props) => {
         />
         <RoadmapCard planned={2} inProgress={3} live={1} />
       </Stack>
-      <div>
+      <Box h='full'>
         <SuggestionsBar
           suggestionsCount={pagination?.total}
           onChangeSort={setSortBy}
           sortBy={sortBy}
         />
-        <Box
-          display='flex'
-          flexDir='column'
-          justifyContent='center'
-          alignItems='center'
-          rowGap='20px'
-          mt='24px'
-        >
-          {suggestions.map((e, i) => (
-            <FeedbackCard
-              {...e}
-              key={e?._id || i}
-              commentsCount={0}
-              hasVoted={e?.myVote?.value === 1}
-              onToggleVote={onToggleVote}
-              isLoading={isLoading}
-            />
-          ))}
-        </Box>
-        {pagination && (
-          <Box mt='10'>
-            <Pagination
-              currentPage={page}
-              onPageChange={setPage}
-              totalPages={pagination.pages}
-            />
-          </Box>
-        )}
-      </div>
+        <SuggestionsList
+          data={data}
+          pagination={pagination}
+          onToggleVote={onToggleVote}
+          isLoading={isLoading}
+          onPageChange={setPage}
+        />
+      </Box>
     </MainRightTemplate>
   )
 }

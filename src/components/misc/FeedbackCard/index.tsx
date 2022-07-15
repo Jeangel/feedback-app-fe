@@ -12,7 +12,7 @@ import {
 import { FaChevronUp, FaComment } from 'react-icons/fa'
 import Toggle from 'components/forms/Toggle'
 
-interface IFeedbackCardProps {
+export interface IFeedbackCardProps {
   _id?: string
   title?: string
   description?: string
