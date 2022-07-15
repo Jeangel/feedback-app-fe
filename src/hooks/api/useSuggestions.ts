@@ -1,12 +1,12 @@
-import IFeedback from '@app-types/Feedback'
-import { EFeedbackCategory } from '@app-types/FeedbackCategory'
+import ISuggestion from '@app-types/Suggestion'
+import { ESuggestionCategory } from '@app-types/SuggestionCategory'
 import { IPaginatedResults, IPaginationArgs } from '@app-types/Pagination'
 import { get } from '@utils/axios'
 import { useQuery } from 'react-query'
 
 interface IUseSuggestionsArgs extends IPaginationArgs {
   filters?: {
-    categories?: EFeedbackCategory[]
+    categories?: ESuggestionCategory[]
   }
 }
 
@@ -20,8 +20,8 @@ export const useSuggestions = (params?: IUseSuggestionsArgs) => {
       params?.filters?.categories?.join(''),
     ],
     () =>
-      get<IPaginatedResults<IFeedback>>({
-        path: '/feedback',
+      get<IPaginatedResults<ISuggestion>>({
+        path: '/suggestion',
         urlParams: {
           pagination: JSON.stringify(params?.pagination),
           sort: JSON.stringify(params?.sort),

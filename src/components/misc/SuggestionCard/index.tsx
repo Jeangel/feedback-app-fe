@@ -12,7 +12,7 @@ import {
 import { FaChevronUp, FaComment } from 'react-icons/fa'
 import Toggle from 'components/forms/Toggle'
 
-export interface IFeedbackCardProps {
+export interface ISuggestionCardProps {
   _id?: string
   title?: string
   description?: string
@@ -24,7 +24,7 @@ export interface IFeedbackCardProps {
   isLoading?: boolean
 }
 
-const FeedbackCard = ({
+const SuggestionCard = ({
   _id,
   title,
   description,
@@ -34,7 +34,7 @@ const FeedbackCard = ({
   hasVoted,
   onToggleVote,
   isLoading,
-}: IFeedbackCardProps) => {
+}: ISuggestionCardProps) => {
   const orientation = useBreakpointValue<'horizontal' | 'vertical'>({
     sm: 'horizontal',
     md: 'vertical',
@@ -77,7 +77,7 @@ const FeedbackCard = ({
           </Text>
         </Skeleton>
         <Skeleton height='33px' width='112px' isLoaded={!isLoading}>
-          <Badge variant='feedbackTag'>{category}</Badge>
+          <Badge variant='suggestionTag'>{category}</Badge>
         </Skeleton>
       </Flex>
       <Skeleton
@@ -116,4 +116,4 @@ const FeedbackCard = ({
   )
 }
 
-export default FeedbackCard
+export default SuggestionCard

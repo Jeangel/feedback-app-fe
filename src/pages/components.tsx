@@ -21,7 +21,7 @@ import Select from '@components/forms/Select'
 import React, { useState } from 'react'
 import Toggle from '@components/forms/Toggle'
 import RoadmapCard from '@components/misc/RoadmapCard'
-import FeedbackCard from '@components/misc/FeedbackCard'
+import SuggestionCard from '@components/misc/SuggestionCard'
 import Pagination from '@components/misc/Pagination'
 
 const Components: NextPage = () => {
@@ -150,7 +150,7 @@ const Components: NextPage = () => {
         <Badge colorScheme='secondary'>Feature</Badge>
         <Badge colorScheme='tertiary'>Bug</Badge>
         <Badge colorScheme='danger'>UI</Badge>
-        <Badge variant='feedbackTag'>UX</Badge>
+        <Badge variant='suggestionTag'>UX</Badge>
       </HStack>
       <br />
       <hr />
@@ -162,7 +162,7 @@ const Components: NextPage = () => {
       <hr />
       <br />
       <HStack spacing='2'>
-        <FeedbackCard
+        <SuggestionCard
           title='Add tags for solutions'
           description='Easier to search for solutions based on a specific stack.'
           category='Enhancement'

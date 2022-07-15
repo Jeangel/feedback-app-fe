@@ -1,17 +1,17 @@
-import { EFeedbackCategory } from '@app-types/FeedbackCategory'
+import { ESuggestionCategory } from '@app-types/SuggestionCategory'
 import { Flex } from '@chakra-ui/react'
 import Toggle from '@components/forms/Toggle'
 
-interface IFeedbackCategoriesCardProps {
-  selectedValues: EFeedbackCategory[]
-  onToggle: (values: EFeedbackCategory[]) => void
+interface ISuggestionCategoriesCardProps {
+  selectedValues: ESuggestionCategory[]
+  onToggle: (values: ESuggestionCategory[]) => void
 }
 
-const FeedbackCategoriesCard = ({
+const SuggestionCategoriesCard = ({
   onToggle,
   selectedValues,
-}: IFeedbackCategoriesCardProps) => {
-  const handleOnToggle = (value: EFeedbackCategory) => {
+}: ISuggestionCategoriesCardProps) => {
+  const handleOnToggle = (value: ESuggestionCategory) => {
     if (selectedValues.includes(value)) {
       onToggle(selectedValues.filter((e) => e !== value))
     } else {
@@ -36,17 +36,17 @@ const FeedbackCategoriesCard = ({
         isToggled={!selectedValues.length}
         onToggle={() => onToggle([])}
       />
-      {Object.keys(EFeedbackCategory).map((feedbackCategory) => (
+      {Object.keys(ESuggestionCategory).map((suggestionCategory) => (
         <Toggle
-          key={feedbackCategory}
+          key={suggestionCategory}
           size='sm'
-          label={feedbackCategory}
-          isToggled={selectedValues.includes(feedbackCategory as EFeedbackCategory)}
-          onToggle={() => handleOnToggle(feedbackCategory as EFeedbackCategory)}
+          label={suggestionCategory}
+          isToggled={selectedValues.includes(suggestionCategory as ESuggestionCategory)}
+          onToggle={() => handleOnToggle(suggestionCategory as ESuggestionCategory)}
         />
       ))}
     </Flex>
   )
 }
 
-export default FeedbackCategoriesCard
+export default SuggestionCategoriesCard

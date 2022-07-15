@@ -27,19 +27,19 @@ import { useForm } from 'react-hook-form'
 import Select from '@components/forms/Select'
 import { useRouter } from 'next/router'
 import { ApiError } from '@utils/axios'
-import { EFeedbackCategory, feedbackCategoryOptions } from 'types/FeedbackCategory'
-import { useCreateFeedback } from '@hooks/api/useCreateFeedback'
+import { ESuggestionCategory, suggestionCategoryOptions } from '@app-types/SuggestionCategory'
+import { useCreateSuggestion } from '@hooks/api/useCreateSuggestion'
 
 interface INewSuggestionForm {
   title: string
-  category: EFeedbackCategory
+  category: ESuggestionCategory
   description: string
 }
 
 const validationSchema = yup.object<YupSchemaKeys<INewSuggestionForm>>({
-  title: yup.string().label('Feedback Title').required().min(5).max(50),
+  title: yup.string().label('Suggestion Title').required().min(5).max(50),
   category: yup.string().label('Category').required(),
-  description: yup.string().label('Feedback Detail').required().min(20).max(600),
+  description: yup.string().label('Suggestion Detail').required().min(20).max(600),
 })
 
 const NewSuggestion: NextPage = (props) => {
@@ -54,11 +54,11 @@ const NewSuggestion: NextPage = (props) => {
     resolver: yupResolver(validationSchema),
     mode: 'all',
   })
-  const { mutate: createFeedback, isLoading } = useCreateFeedback()
-  const [category, setCategory] = useState<EFeedbackCategory | undefined>(undefined)
+  const { mutate: createSuggestion, isLoading } = useCreateSuggestion()
+  const [category, setCategory] = useState<ESuggestionCategory | undefined>(undefined)
   const toast = useToast()
 
-  const handleOnCategoryChange = (value: EFeedbackCategory) => {
+  const handleOnCategoryChange = (value: ESuggestionCategory) => {
     setValue('category', value)
     setCategory(value)
   }
@@ -68,13 +68,13 @@ const NewSuggestion: NextPage = (props) => {
   }
 
   const handleOnSubmit = async (values: INewSuggestionForm) => {
-    createFeedback(
-      { feedback: values },
+    createSuggestion(
+      { suggestion: values },
       {
         onSuccess: () => {
           toast({
             status: 'success',
-            description: 'Feedback was created successfully',
+            description: 'Suggestion was created successfully',
           })
           router.back()
         },
@@ -114,12 +114,12 @@ const NewSuggestion: NextPage = (props) => {
             top='-20px'
           />
           <Heading variant='h3' mb='24px'>
-            Create New Feedback.
+            Create New Suggestion.
           </Heading>
           <form onSubmit={makeHandleOnSubmit(handleOnSubmit)}>
             <VStack spacing={6}>
               <FormControl id='title' isInvalid={!!errors.title}>
-                <FormLabel>Feedback Title</FormLabel>
+                <FormLabel>Suggestion Title</FormLabel>
                 <Text variant='controlDescription'>
                   Add a short, descriptive headline
                 </Text>
@@ -129,17 +129,17 @@ const NewSuggestion: NextPage = (props) => {
               <FormControl id='category' isInvalid={!!errors.category}>
                 <FormLabel>Category</FormLabel>
                 <Text variant='controlDescription'>
-                  Choose a category for your feedback.
+                  Choose a category for your suggestion.
                 </Text>
                 <Select
-                  options={feedbackCategoryOptions}
+                  options={suggestionCategoryOptions}
                   value={category}
                   onChange={handleOnCategoryChange}
                 />
                 <FormControlError error={errors.category} />
               </FormControl>
               <FormControl id='description' isInvalid={!!errors.description}>
-                <FormLabel>Feedback Detail</FormLabel>
+                <FormLabel>Suggestion Detail</FormLabel>
                 <Text variant='controlDescription'>
                   Include any specific comments on what should be improved, added, etc.
                 </Text>
@@ -160,7 +160,7 @@ const NewSuggestion: NextPage = (props) => {
                 isLoading={isLoading}
                 isDisabled={!isValid}
               >
-                Add Feedback
+                Add Suggestion
               </Button>
               <Button
                 colorScheme='tertiary'

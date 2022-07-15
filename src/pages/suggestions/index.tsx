@@ -1,7 +1,7 @@
-import { EFeedbackCategory } from '@app-types/FeedbackCategory'
+import { ESuggestionCategory } from '@app-types/SuggestionCategory'
 import { Stack, Box, useToast } from '@chakra-ui/react'
-import SuggestionsList from '@components/feedback/SuggestionsList'
-import FeedbackCategoriesCard from '@components/misc/FeedbackCategoriesCard'
+import SuggestionsList from '@components/suggestion/SuggestionsList'
+import SuggestionCategoriesCard from '@components/misc/SuggestionCategoriesCard'
 import ProfileCard from '@components/misc/ProfileCard'
 import RoadmapCard from '@components/misc/RoadmapCard'
 import SuggestionsBar, {
@@ -10,7 +10,7 @@ import SuggestionsBar, {
 } from '@components/misc/SuggestionsBar'
 import Navbar from '@components/navigation/Navbar'
 import MainRightTemplate from '@components/template/MainRightTemplate'
-import { useSaveFeedbackVote } from '@hooks/api/useSaveFeedbackVote'
+import { useSaveSuggestionVote } from '@hooks/api/useSaveSuggestionVote'
 import { useSuggestions } from '@hooks/api/useSuggestions'
 import { ApiError } from '@utils/axios'
 import withAuth from 'hocs/withAuth'
@@ -21,20 +21,20 @@ const Suggestions: NextPage = (props) => {
   const toast = useToast()
   const [page, setPage] = useState(1)
   const [sortBy, setSortBy] = useState<ESuggestionsSort>(ESuggestionsSort.mostUpVotes)
-  const [feedbackCategories, setFeedbackCategories] = useState<EFeedbackCategory[]>([])
+  const [suggestionCategories, setSuggestionCategories] = useState<ESuggestionCategory[]>([])
   const { data, pagination, isLoading } = useSuggestions({
     pagination: { limit: 5, page },
     sort: toSortArgs(sortBy),
     filters: {
-      categories: feedbackCategories,
+      categories: suggestionCategories,
     },
   })
-  const { mutate: saveFeedbackVote } = useSaveFeedbackVote()
+  const { mutate: saveSuggestionVote } = useSaveSuggestionVote()
 
   const onToggleVote = (args: { _id: string; value: boolean }) => {
-    saveFeedbackVote(
+    saveSuggestionVote(
       {
-        feedbackId: args._id,
+        suggestionId: args._id,
         value: args.value ? 1 : 0,
       },
       {
@@ -54,9 +54,9 @@ const Suggestions: NextPage = (props) => {
 
   const Components = (
     <>
-      <FeedbackCategoriesCard
-        onToggle={setFeedbackCategories}
-        selectedValues={feedbackCategories}
+      <SuggestionCategoriesCard
+        onToggle={setSuggestionCategories}
+        selectedValues={suggestionCategories}
       />
       <RoadmapCard planned={2} inProgress={3} live={1} />
     </>

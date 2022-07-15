@@ -109,7 +109,7 @@ const SuggestionsBar = ({
         leftIcon={<Icon as={HiPlusSm} />}
         onClick={() => router.push('/suggestions/new')}
       >
-        Add Feedback
+        Add Suggestion
       </Button>
     </Flex>
   )

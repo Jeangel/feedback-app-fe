@@ -26,28 +26,28 @@ import { useForm } from 'react-hook-form'
 import Select from '@components/forms/Select'
 import { useRouter } from 'next/router'
 import { ApiError } from '@utils/axios'
-import { EFeedbackCategory, feedbackCategoryOptions } from 'types/FeedbackCategory'
-import { useUpdateFeedback } from '@hooks/api/useUpdateFeedback'
-import { EFeedbackStatus, feedbackStatusOptions } from '@app-types/FeedbackStatus'
+import { ESuggestionCategory, suggestionCategoryOptions } from '@app-types/SuggestionCategory'
+import { useUpdateSuggestion } from '@hooks/api/useUpdateSuggestion'
+import { ESuggestionStatus, suggestionStatusOptions } from '@app-types/SuggestionStatus'
 import { fetchSuggestion } from '@hooks/api/useSuggestion'
-import IFeedback from '@app-types/Feedback'
+import ISuggestion from '@app-types/Suggestion'
 
 interface IEditSuggestionForm {
   title: string
-  category: EFeedbackCategory
-  status: EFeedbackStatus
+  category: ESuggestionCategory
+  status: ESuggestionStatus
   description: string
 }
 
 const validationSchema = yup.object<YupSchemaKeys<IEditSuggestionForm>>({
-  title: yup.string().label('Feedback Title').required().min(5).max(50),
+  title: yup.string().label('Suggestion Title').required().min(5).max(50),
   category: yup.string().label('Category').required(),
   status: yup.string().label('Status').required(),
-  description: yup.string().label('Feedback Detail').required().min(20).max(200),
+  description: yup.string().label('Suggestion Detail').required().min(20).max(200),
 })
 
 interface IEditSuggestionProps {
-  suggestion: IFeedback | null
+  suggestion: ISuggestion | null
 }
 
 const EditSuggestion: NextPage<IEditSuggestionProps> = ({ suggestion }) => {
@@ -63,19 +63,19 @@ const EditSuggestion: NextPage<IEditSuggestionProps> = ({ suggestion }) => {
     mode: 'onTouched',
     defaultValues: suggestion || {},
   })
-  const { mutate: updateFeedback, isLoading } = useUpdateFeedback()
-  const [category, setCategory] = useState<EFeedbackCategory | undefined>(
+  const { mutate: updateSuggestion, isLoading } = useUpdateSuggestion()
+  const [category, setCategory] = useState<ESuggestionCategory | undefined>(
     suggestion?.category
   )
-  const [status, setStatus] = useState<EFeedbackStatus | undefined>(suggestion?.status)
+  const [status, setStatus] = useState<ESuggestionStatus | undefined>(suggestion?.status)
   const toast = useToast()
 
-  const handleOnCategoryChange = (value: EFeedbackCategory) => {
+  const handleOnCategoryChange = (value: ESuggestionCategory) => {
     setValue('category', value)
     setCategory(value)
   }
 
-  const handleOnStatusChange = (value: EFeedbackStatus) => {
+  const handleOnStatusChange = (value: ESuggestionStatus) => {
     setValue('status', value)
     setStatus(value)
   }
@@ -88,13 +88,13 @@ const EditSuggestion: NextPage<IEditSuggestionProps> = ({ suggestion }) => {
     if (!suggestion) return
 
     const updates = { ...values, _id: suggestion._id }
-    updateFeedback(
-      { feedback: updates },
+    updateSuggestion(
+      { suggestion: updates },
       {
         onSuccess: () => {
           toast({
             status: 'success',
-            description: 'Feedback was updated successfully',
+            description: 'Suggestion was updated successfully',
           })
           router.back()
         },
@@ -140,7 +140,7 @@ const EditSuggestion: NextPage<IEditSuggestionProps> = ({ suggestion }) => {
           <form onSubmit={makeHandleOnSubmit(handleOnSubmit)}>
             <VStack spacing={6}>
               <FormControl id='title' isInvalid={!!errors.title}>
-                <FormLabel>Feedback Title</FormLabel>
+                <FormLabel>Suggestion Title</FormLabel>
                 <Text variant='controlDescription'>
                   Add a short, descriptive headline
                 </Text>
@@ -150,10 +150,10 @@ const EditSuggestion: NextPage<IEditSuggestionProps> = ({ suggestion }) => {
               <FormControl id='category' isInvalid={!!errors.category}>
                 <FormLabel>Category</FormLabel>
                 <Text variant='controlDescription'>
-                  Choose a category for your feedback.
+                  Choose a category for your suggestion.
                 </Text>
                 <Select
-                  options={feedbackCategoryOptions}
+                  options={suggestionCategoryOptions}
                   value={category}
                   onChange={handleOnCategoryChange}
                 />
@@ -163,14 +163,14 @@ const EditSuggestion: NextPage<IEditSuggestionProps> = ({ suggestion }) => {
                 <FormLabel>Status</FormLabel>
                 <Text variant='controlDescription'>Change feature state</Text>
                 <Select
-                  options={feedbackStatusOptions}
+                  options={suggestionStatusOptions}
                   value={status}
                   onChange={handleOnStatusChange}
                 />
                 <FormControlError error={errors.category} />
               </FormControl>
               <FormControl id='description' isInvalid={!!errors.description}>
-                <FormLabel>Feedback Detail</FormLabel>
+                <FormLabel>Suggestion Detail</FormLabel>
                 <Text variant='controlDescription'>
                   Include any specific comments on what should be improved, added, etc.
                 </Text>

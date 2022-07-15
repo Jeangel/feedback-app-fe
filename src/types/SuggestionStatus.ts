@@ -1,25 +1,25 @@
-export enum EFeedbackStatus {
+export enum ESuggestionStatus {
   suggestion = 'Suggestion',
   planned = 'Planned',
   inProgress = 'In-Progress',
   live = 'Live',
 }
 
-export const feedbackStatusOptions = [
+export const suggestionStatusOptions = [
   {
-    value: EFeedbackStatus.suggestion,
+    value: ESuggestionStatus.suggestion,
     label: 'Suggestion',
   },
   {
-    value: EFeedbackStatus.planned,
+    value: ESuggestionStatus.planned,
     label: 'Planned',
   },
   {
-    value: EFeedbackStatus.inProgress,
+    value: ESuggestionStatus.inProgress,
     label: 'In-Progress',
   },
   {
-    value: EFeedbackStatus.live,
+    value: ESuggestionStatus.live,
     label: 'Live',
   },
 ]

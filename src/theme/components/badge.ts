@@ -13,7 +13,7 @@ const badge: ComponentSingleStyleConfig = {
     alignItems: 'center',
   },
   variants: {
-    feedbackTag: {
+    suggestionTag: {
       color: 'secondary.500',
       backgroundColor: 'gray.100',
     },

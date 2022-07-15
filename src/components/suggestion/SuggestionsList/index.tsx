@@ -1,17 +1,17 @@
-import IFeedback from '@app-types/Feedback'
+import ISuggestion from '@app-types/Suggestion'
 import { IPagination } from '@app-types/Pagination'
 import { Box, Center, Heading, Button, Icon, Text } from '@chakra-ui/react'
 import EmptyBox from '@components/animations/EmptyBox'
-import FeedbackCard, { IFeedbackCardProps } from '@components/misc/FeedbackCard'
+import SuggestionCard, { ISuggestionCardProps } from '@components/misc/SuggestionCard'
 import Pagination from '@components/misc/Pagination'
 import { makeLoadableList } from '@utils/list'
 import router from 'next/router'
 import { HiPlusSm } from 'react-icons/hi'
 
 interface ISuggestionsListProps {
-  onToggleVote: IFeedbackCardProps['onToggleVote']
+  onToggleVote: ISuggestionCardProps['onToggleVote']
   isLoading: boolean
-  data: IFeedback[] | undefined
+  data: ISuggestion[] | undefined
   pagination?: IPagination
   onPageChange: (page: number) => void
 }
@@ -42,7 +42,7 @@ const SuggestionsList = ({
         {!suggestions.length && (
           <Center h='full' w='full' flexDir='column'>
             <EmptyBox style={{ height: 200, width: 200 }} />
-            <Heading variant='h1'>There is no feedback yet</Heading>
+            <Heading variant='h1'>There is no suggestion yet</Heading>
             <Text textAlign='center' whiteSpace='pre-wrap' color='tertiary.200'>
               Got a suggestion? Found a bug that needs to be squashed? {'\n'} We love
               hearing about new ideas to improve our app.
@@ -54,12 +54,12 @@ const SuggestionsList = ({
               leftIcon={<Icon as={HiPlusSm} />}
               onClick={() => router.push('/suggestions/new')}
             >
-              Add Feedback
+              Add Suggestion
             </Button>
           </Center>
         )}
         {suggestions.map((e, i) => (
-          <FeedbackCard
+          <SuggestionCard
             {...e}
             key={e?._id || i}
             commentsCount={0}

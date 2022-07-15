@@ -1,4 +1,4 @@
-import IFeedback from '@app-types/Feedback'
+import ISuggestion from '@app-types/Suggestion'
 import { get, IExtraRequestOptions } from '@utils/axios'
 import { useQuery } from 'react-query'
 
@@ -7,11 +7,11 @@ interface IFetchSuggestionRequest extends IExtraRequestOptions {
 }
 
 interface IFetchSuggestionResponse {
-  feedback: IFeedback[]
+  suggestion: ISuggestion[]
 }
 
 export const fetchSuggestion = async ({ id, ssr }: IFetchSuggestionRequest) => {
-  return get<IFetchSuggestionResponse>({ path: `/feedback/${id}`, ssr })
+  return get<IFetchSuggestionResponse>({ path: `/suggestion/${id}`, ssr })
 }
 
 export const useSuggestion = ({ id }: IFetchSuggestionRequest) => {
