@@ -2,7 +2,22 @@ import { EFeedbackCategory } from '@app-types/FeedbackCategory'
 import { Flex } from '@chakra-ui/react'
 import Toggle from '@components/forms/Toggle'
 
-const FeedbackCategoriesCard = () => {
+interface IFeedbackCategoriesCardProps {
+  selectedValues: EFeedbackCategory[]
+  onToggle: (values: EFeedbackCategory[]) => void
+}
+
+const FeedbackCategoriesCard = ({
+  onToggle,
+  selectedValues,
+}: IFeedbackCategoriesCardProps) => {
+  const handleOnToggle = (value: EFeedbackCategory) => {
+    if (selectedValues.includes(value)) {
+      onToggle(selectedValues.filter((e) => e !== value))
+    } else {
+      onToggle(selectedValues.concat(value))
+    }
+  }
   return (
     <Flex
       h='178px'
@@ -18,20 +33,16 @@ const FeedbackCategoriesCard = () => {
       <Toggle
         size='sm'
         label='All'
-        isToggled
-        onToggle={function (toggled: boolean): void {
-          throw new Error('Function not implemented.')
-        }}
+        isToggled={!selectedValues.length}
+        onToggle={() => onToggle([])}
       />
       {Object.keys(EFeedbackCategory).map((feedbackCategory) => (
         <Toggle
           key={feedbackCategory}
           size='sm'
           label={feedbackCategory}
-          isToggled={false}
-          onToggle={function (toggled: boolean): void {
-            throw new Error('Function not implemented.')
-          }}
+          isToggled={selectedValues.includes(feedbackCategory as EFeedbackCategory)}
+          onToggle={() => handleOnToggle(feedbackCategory as EFeedbackCategory)}
         />
       ))}
     </Flex>

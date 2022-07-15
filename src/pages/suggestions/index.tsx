@@ -1,11 +1,14 @@
-import { ISortArgs } from '@app-types/Pagination'
+import { EFeedbackCategory } from '@app-types/FeedbackCategory'
 import { Stack, Box, useToast } from '@chakra-ui/react'
 import FeedbackCard from '@components/misc/FeedbackCard'
 import FeedbackCategoriesCard from '@components/misc/FeedbackCategoriesCard'
 import Pagination from '@components/misc/Pagination'
 import ProfileCard from '@components/misc/ProfileCard'
 import RoadmapCard from '@components/misc/RoadmapCard'
-import SuggestionsBar, { ESuggestionsSort, fromSortArgs, toSortArgs } from '@components/misc/SuggestionsBar'
+import SuggestionsBar, {
+  ESuggestionsSort,
+  toSortArgs,
+} from '@components/misc/SuggestionsBar'
 import MainRightTemplate from '@components/template/MainRightTemplate'
 import { useSaveFeedbackVote } from '@hooks/api/useSaveFeedbackVote'
 import { useSuggestions } from '@hooks/api/useSuggestions'
@@ -13,17 +16,19 @@ import { ApiError } from '@utils/axios'
 import { makeLoadableList } from '@utils/list'
 import withAuth from 'hocs/withAuth'
 import type { NextPage } from 'next'
-import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 
 const Suggestions: NextPage = (props) => {
   const toast = useToast()
-  const router = useRouter()
   const [page, setPage] = useState(1)
   const [sortBy, setSortBy] = useState<ESuggestionsSort>(ESuggestionsSort.mostUpVotes)
-  const { data, pagination, isLoading, refetch } = useSuggestions({
+  const [feedbackCategories, setFeedbackCategories] = useState<EFeedbackCategory[]>([])
+  const { data, pagination, isLoading } = useSuggestions({
     pagination: { limit: 5, page },
     sort: toSortArgs(sortBy),
+    filters: {
+      categories: feedbackCategories
+    }
   })
   const { mutate: saveFeedbackVote } = useSaveFeedbackVote()
 
@@ -63,7 +68,10 @@ const Suggestions: NextPage = (props) => {
         w='full'
       >
         <ProfileCard />
-        <FeedbackCategoriesCard />
+        <FeedbackCategoriesCard
+          onToggle={setFeedbackCategories}
+          selectedValues={feedbackCategories}
+        />
         <RoadmapCard planned={2} inProgress={3} live={1} />
       </Stack>
       <div>
