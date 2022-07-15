@@ -15,7 +15,7 @@ export const useUpdateSuggestion = () => {
   return useMutation(
     ({ suggestion }: IUpdateSuggestionArgs) => {
       const { _id, ...updates } = suggestion
-      return patch<IUpdateSuggestionResponse>({ path: `/suggestion/${_id}`, body: updates })
+      return patch<IUpdateSuggestionResponse>({ path: `/suggestions/${_id}`, body: updates })
     },
     {
       onSettled: () => queryClient.invalidateQueries('suggestion'),

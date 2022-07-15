@@ -21,7 +21,7 @@ export const useSuggestions = (params?: IUseSuggestionsArgs) => {
     ],
     () =>
       get<IPaginatedResults<ISuggestion>>({
-        path: '/suggestion',
+        path: '/suggestions',
         urlParams: {
           pagination: JSON.stringify(params?.pagination),
           sort: JSON.stringify(params?.sort),

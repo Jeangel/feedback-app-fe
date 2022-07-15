@@ -11,7 +11,7 @@ interface IFetchSuggestionResponse {
 }
 
 export const fetchSuggestion = async ({ id, ssr }: IFetchSuggestionRequest) => {
-  return get<IFetchSuggestionResponse>({ path: `/suggestion/${id}`, ssr })
+  return get<IFetchSuggestionResponse>({ path: `/suggestions/${id}`, ssr })
 }
 
 export const useSuggestion = ({ id }: IFetchSuggestionRequest) => {

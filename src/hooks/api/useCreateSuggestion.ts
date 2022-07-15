@@ -14,7 +14,7 @@ export const useCreateSuggestion = () => {
   const queryClient = useQueryClient()
   return useMutation(
     ({ suggestion }: ICreateSuggestionArgs) =>
-      post<ICreateSuggestionResponse>({ path: '/suggestion', body: suggestion }),
+      post<ICreateSuggestionResponse>({ path: '/suggestions', body: suggestion }),
     {
       onSettled: () => queryClient.invalidateQueries('suggestion'),
     }
