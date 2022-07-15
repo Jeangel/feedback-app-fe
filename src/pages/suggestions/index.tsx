@@ -8,13 +8,13 @@ import SuggestionsBar, {
   ESuggestionsSort,
   toSortArgs,
 } from '@components/misc/SuggestionsBar'
+import Navbar from '@components/navigation/Navbar'
 import MainRightTemplate from '@components/template/MainRightTemplate'
 import { useSaveFeedbackVote } from '@hooks/api/useSaveFeedbackVote'
 import { useSuggestions } from '@hooks/api/useSuggestions'
 import { ApiError } from '@utils/axios'
 import withAuth from 'hocs/withAuth'
 import type { NextPage } from 'next'
-
 import React, { useState } from 'react'
 
 const Suggestions: NextPage = (props) => {
@@ -52,36 +52,45 @@ const Suggestions: NextPage = (props) => {
     )
   }
 
+  const Components = (
+    <>
+      <FeedbackCategoriesCard
+        onToggle={setFeedbackCategories}
+        selectedValues={feedbackCategories}
+      />
+      <RoadmapCard planned={2} inProgress={3} live={1} />
+    </>
+  )
+
   return (
-    <MainRightTemplate>
-      <Stack
-        display={{ base: 'none', md: 'flex' }}
-        direction={{ base: 'row', lg: 'column' }}
-        spacing='10px'
-        w='full'
-      >
-        <ProfileCard />
-        <FeedbackCategoriesCard
-          onToggle={setFeedbackCategories}
-          selectedValues={feedbackCategories}
-        />
-        <RoadmapCard planned={2} inProgress={3} live={1} />
-      </Stack>
-      <Box h='full'>
-        <SuggestionsBar
-          suggestionsCount={pagination?.total}
-          onChangeSort={setSortBy}
-          sortBy={sortBy}
-        />
-        <SuggestionsList
-          data={data}
-          pagination={pagination}
-          onToggleVote={onToggleVote}
-          isLoading={isLoading}
-          onPageChange={setPage}
-        />
-      </Box>
-    </MainRightTemplate>
+    <>
+      <Navbar>{Components}</Navbar>
+      <MainRightTemplate>
+        <Stack
+          display={{ base: 'none', md: 'flex' }}
+          direction={{ base: 'row', lg: 'column' }}
+          spacing='10px'
+          w='full'
+        >
+          <ProfileCard />
+          {Components}
+        </Stack>
+        <Box h='full'>
+          <SuggestionsBar
+            suggestionsCount={pagination?.total}
+            onChangeSort={setSortBy}
+            sortBy={sortBy}
+          />
+          <SuggestionsList
+            data={data}
+            pagination={pagination}
+            onToggleVote={onToggleVote}
+            isLoading={isLoading}
+            onPageChange={setPage}
+          />
+        </Box>
+      </MainRightTemplate>
+    </>
   )
 }
 

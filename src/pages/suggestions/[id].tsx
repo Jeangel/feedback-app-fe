@@ -112,7 +112,7 @@ const EditSuggestion: NextPage<IEditSuggestionProps> = ({ suggestion }) => {
   }, [])
 
   return (
-    <CenterTemplate withNavbar={false}>
+    <CenterTemplate>
       <Flex justifyContent='flex-start'>
         <GoBackButton />
       </Flex>

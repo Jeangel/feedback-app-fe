@@ -1,36 +1,32 @@
 import {
   Box,
   Flex,
-  Text,
   IconButton,
   Icon,
   Heading,
-  Button,
   Drawer,
-  DrawerBody,
   DrawerCloseButton,
   DrawerContent,
   DrawerOverlay,
   useDisclosure,
-  DrawerContentProps,
   VStack,
   ChakraProps,
 } from '@chakra-ui/react'
-import FeedbackCategoriesCard from '@components/misc/FeedbackCategoriesCard'
 import ProfileCard from '@components/misc/ProfileCard'
-import RoadmapCard from '@components/misc/RoadmapCard'
 import { useSession } from 'next-auth/react'
 import { useRef } from 'react'
 import { RiMenuFill } from 'react-icons/ri'
 
-interface INavbarProps extends ChakraProps {}
+interface INavbarProps extends ChakraProps {
+  children?: React.ReactNode
+}
 
 const Navbar = (props: INavbarProps) => {
   const { data } = useSession()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef(null)
   return (
-    <Box {...props}>
+    <Box {...props} display={{ sm: 'block', md: 'none' }}>
       <Flex
         minH='72px'
         bg='primary-gradient.300'
@@ -62,8 +58,7 @@ const Navbar = (props: INavbarProps) => {
           </Flex>
           <VStack spacing={6}>
             <ProfileCard />
-            <FeedbackCategoriesCard />
-            <RoadmapCard planned={0} inProgress={0} live={0} />
+            {props.children}
           </VStack>
         </DrawerContent>
       </Drawer>

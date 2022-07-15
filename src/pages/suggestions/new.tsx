@@ -91,7 +91,7 @@ const NewSuggestion: NextPage = (props) => {
   }, [])
 
   return (
-    <CenterTemplate withNavbar={false}>
+    <CenterTemplate>
       <Flex justifyContent='flex-start'>
         <GoBackButton />
       </Flex>

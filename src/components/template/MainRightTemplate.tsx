@@ -1,15 +1,13 @@
 import React from 'react'
 import chunk from 'lodash.chunk'
 import { Box } from '@chakra-ui/react'
-import Navbar from '@components/navigation/Navbar'
 import BaseGrid from './BaseGrid'
 import { ITemplateProps } from './types'
 
-const MainRightTemplate = ({ children, withNavbar = true }: ITemplateProps) => {
+const MainRightTemplate = ({ children }: ITemplateProps) => {
   const childrenInPairs = chunk(React.Children.toArray(children), 2)
   return (
     <>
-      {withNavbar && <Navbar display={{ sm: 'block', md: 'none' }} />}
       <BaseGrid
         bg='gray.50'
         p={{

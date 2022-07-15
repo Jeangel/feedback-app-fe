@@ -1,13 +1,11 @@
 import React from 'react'
 import { Flex } from '@chakra-ui/react'
-import Navbar from '@components/navigation/Navbar'
 import BaseGrid from './BaseGrid'
 import { ITemplateProps } from './types'
 
-const CenterTemplate = ({ children, withNavbar = true }: ITemplateProps) => {
+const CenterTemplate = ({ children }: ITemplateProps) => {
   return (
     <>
-      {withNavbar && <Navbar display={{ sm: 'block', md: 'none' }} />}
       <BaseGrid
         bg='gray.50'
         p={{
@@ -16,7 +14,12 @@ const CenterTemplate = ({ children, withNavbar = true }: ITemplateProps) => {
           lg: '30px',
         }}
       >
-        <Flex direction='column' minH='full' w='full' gridColumn={{ base: '1 / 13', lg: '1 / 13' }}>
+        <Flex
+          direction='column'
+          minH='full'
+          w='full'
+          gridColumn={{ base: '1 / 13', lg: '1 / 13' }}
+        >
           {children}
         </Flex>
       </BaseGrid>
