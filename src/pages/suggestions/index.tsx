@@ -16,9 +16,11 @@ import { ApiError } from '@utils/axios'
 import withAuth from 'hocs/withAuth'
 import type { NextPage } from 'next'
 import React, { useState } from 'react'
+import { useRouter } from 'next/router'
 
 const Suggestions: NextPage = (props) => {
   const toast = useToast()
+  const router = useRouter()
   const [page, setPage] = useState(1)
   const [sortBy, setSortBy] = useState<ESuggestionsSort>(ESuggestionsSort.mostUpVotes)
   const [suggestionCategories, setSuggestionCategories] = useState<ESuggestionCategory[]>([])
@@ -31,7 +33,7 @@ const Suggestions: NextPage = (props) => {
   })
   const { mutate: saveSuggestionVote } = useSaveSuggestionVote()
 
-  const onToggleVote = (args: { _id: string; value: boolean }) => {
+  const onSuggestionVote = (args: { _id: string; value: boolean }) => {
     saveSuggestionVote(
       {
         suggestionId: args._id,
@@ -50,6 +52,10 @@ const Suggestions: NextPage = (props) => {
         },
       }
     )
+  }
+
+  const onSuggestionClick = (id: string) => {
+    router.push(`/suggestions/${id}`)
   }
 
   const Components = (
@@ -84,9 +90,11 @@ const Suggestions: NextPage = (props) => {
           <SuggestionsList
             data={data}
             pagination={pagination}
-            onToggleVote={onToggleVote}
+            onSuggestionVote={onSuggestionVote}
+            onSuggestionClick={onSuggestionClick}
             isLoading={isLoading}
             onPageChange={setPage}
+
           />
         </Box>
       </MainRightTemplate>

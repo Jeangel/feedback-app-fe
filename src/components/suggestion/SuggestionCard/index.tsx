@@ -11,29 +11,22 @@ import {
 } from '@chakra-ui/react'
 import { FaChevronUp, FaComment } from 'react-icons/fa'
 import Toggle from 'components/forms/Toggle'
+import ISuggestion from '@app-types/Suggestion'
 
 export interface ISuggestionCardProps {
-  _id?: string
-  title?: string
-  description?: string
-  category?: string
-  votesCount?: number
   hasVoted?: boolean
-  commentsCount?: number
+  suggestion?: ISuggestion | null
   onToggleVote: (args: { value: boolean; _id: string }) => void
+  onClick?: () => void
   isLoading?: boolean
 }
 
 const SuggestionCard = ({
-  _id,
-  title,
-  description,
-  category,
-  votesCount,
-  commentsCount,
+  suggestion,
   hasVoted,
   onToggleVote,
   isLoading,
+  onClick,
 }: ISuggestionCardProps) => {
   const orientation = useBreakpointValue<'horizontal' | 'vertical'>({
     sm: 'horizontal',
@@ -47,11 +40,13 @@ const SuggestionCard = ({
       display='flex'
       flexWrap='wrap'
       w='full'
-      maxW={{ sm: '327px', md: '689px', lg: '825px' }}
+      maxW={{ sm: '327px', md: '689px', lg: '100%' }}
       h={{ sm: '200px', md: '151px', lg: '151px' }}
       p={{ sm: '24px', md: '32px' }}
       borderRadius='10px'
       justifyContent='space-between'
+      onClick={onClick}
+      cursor={onClick ? 'pointer' : 'auto'}
     >
       <Flex
         h='104px'
@@ -63,7 +58,7 @@ const SuggestionCard = ({
       >
         <Skeleton variant='text-body3' isLoaded={!isLoading}>
           <Text variant='body3' fontWeight='bold' fontSize={{ md: '18px' }}>
-            {title}
+            {suggestion?.title}
           </Text>
         </Skeleton>
         <Skeleton variant='text-body3' isLoaded={!isLoading}>
@@ -73,11 +68,11 @@ const SuggestionCard = ({
             fontSize={{ md: '16px' }}
             noOfLines={1}
           >
-            {description}
+            {suggestion?.description}
           </Text>
         </Skeleton>
         <Skeleton height='33px' width='112px' isLoaded={!isLoading}>
-          <Badge variant='suggestionTag'>{category}</Badge>
+          <Badge variant='suggestionTag'>{suggestion?.category}</Badge>
         </Skeleton>
       </Flex>
       <Skeleton
@@ -87,8 +82,8 @@ const SuggestionCard = ({
       >
         <Toggle
           isToggled={hasVoted!}
-          label={votesCount?.toString() || ''}
-          onToggle={(value) => onToggleVote({ value, _id: _id! })}
+          label={suggestion?.votesCount?.toString() || ''}
+          onToggle={(value) => onToggleVote({ value, _id: suggestion?._id! })}
           orientation={orientation}
           topIcon={orientation === 'vertical' ? FaChevronUp : undefined}
           leftIcon={orientation === 'horizontal' ? FaChevronUp : undefined}
@@ -105,10 +100,10 @@ const SuggestionCard = ({
           <Text
             variant='body3'
             fontWeight='bold'
-            color={commentsCount === 0 ? 'gray.400' : 'tertiary.500'}
+            color={suggestion?.commentsCount === 0 ? 'gray.400' : 'tertiary.500'}
             fontSize={{ md: '16px' }}
           >
-            {commentsCount}
+            {suggestion?.commentsCount}
           </Text>
         </Skeleton>
       </Box>

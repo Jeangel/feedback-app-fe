@@ -2,32 +2,39 @@ import ISuggestion from '@app-types/Suggestion'
 import { IPagination } from '@app-types/Pagination'
 import { Box, Center, Heading, Button, Icon, Text } from '@chakra-ui/react'
 import EmptyBox from '@components/animations/EmptyBox'
-import SuggestionCard, { ISuggestionCardProps } from '@components/suggestion/SuggestionCard'
+import SuggestionCard, {
+  ISuggestionCardProps,
+} from '@components/suggestion/SuggestionCard'
 import Pagination from '@components/misc/Pagination'
 import { makeLoadableList } from '@utils/list'
 import router from 'next/router'
 import { HiPlusSm } from 'react-icons/hi'
 
 interface ISuggestionsListProps {
-  onToggleVote: ISuggestionCardProps['onToggleVote']
+  onSuggestionVote: ISuggestionCardProps['onToggleVote']
   isLoading: boolean
   data: ISuggestion[] | undefined
   pagination?: IPagination
   onPageChange: (page: number) => void
+  onSuggestionClick?: (id: string) => void
 }
 
 const SuggestionsList = ({
   data,
   isLoading,
-  onToggleVote,
+  onSuggestionVote,
   pagination,
   onPageChange,
+  onSuggestionClick,
 }: ISuggestionsListProps) => {
   const suggestions = makeLoadableList({
     isLoading,
     skeletons: 4,
     list: data,
   })
+  const handleOnSuggestionClick = (id?: string) => {
+    if (id && onSuggestionClick) onSuggestionClick(id)
+  }
   const hasSuggestions = !!suggestions.length
   return (
     <>
@@ -61,12 +68,12 @@ const SuggestionsList = ({
         )}
         {suggestions.map((e, i) => (
           <SuggestionCard
-            {...e}
             key={e?._id || i}
-            commentsCount={0}
             hasVoted={e?.myVote?.value === 1}
-            onToggleVote={onToggleVote}
+            suggestion={e}
+            onToggleVote={onSuggestionVote}
             isLoading={isLoading}
+            onClick={() => handleOnSuggestionClick(e?._id)}
           />
         ))}
       </Box>

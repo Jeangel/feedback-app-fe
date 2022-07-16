@@ -23,6 +23,8 @@ import Toggle from '@components/forms/Toggle'
 import RoadmapCard from '@components/misc/RoadmapCard'
 import SuggestionCard from '@components/suggestion/SuggestionCard'
 import Pagination from '@components/misc/Pagination'
+import { ESuggestionCategory } from '@app-types/SuggestionCategory'
+import { ESuggestionStatus } from '@app-types/SuggestionStatus'
 
 const Components: NextPage = () => {
   const { colorMode, toggleColorMode } = useColorMode()
@@ -163,12 +165,15 @@ const Components: NextPage = () => {
       <br />
       <HStack spacing='2'>
         <SuggestionCard
-          title='Add tags for solutions'
-          description='Easier to search for solutions based on a specific stack.'
-          category='Enhancement'
-          votesCount={112}
-          commentsCount={0}
-          hasVoted={false}
+          suggestion={{
+            title: 'Add tags for solutions',
+            description: 'Easier to search for solutions based on a specific stack.',
+            category: ESuggestionCategory.Enhancement,
+            votesCount: 112,
+            commentsCount: 0,
+            _id: 'test',
+            status: ESuggestionStatus.planned,
+          }}
           onToggleVote={() => {}}
         />
       </HStack>

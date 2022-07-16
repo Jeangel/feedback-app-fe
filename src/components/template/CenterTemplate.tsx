@@ -1,9 +1,13 @@
 import React from 'react'
-import { Flex } from '@chakra-ui/react'
+import { Flex, GridProps, ChakraProps } from '@chakra-ui/react'
 import BaseGrid from './BaseGrid'
 import { ITemplateProps } from './types'
 
-const CenterTemplate = ({ children }: ITemplateProps) => {
+interface ICenterTemplateProps extends ITemplateProps, ChakraProps {
+  gridColumn?: GridProps['gridColumn']
+}
+
+const CenterTemplate = ({ children, gridColumn }: ICenterTemplateProps) => {
   return (
     <>
       <BaseGrid
@@ -13,12 +17,13 @@ const CenterTemplate = ({ children }: ITemplateProps) => {
           md: '30px',
           lg: '30px',
         }}
+        display={{ sm: 'block', md: 'grid', lg: 'grid' }}
       >
         <Flex
           direction='column'
           minH='full'
           w='full'
-          gridColumn={{ base: '1 / 13', lg: '1 / 13' }}
+          gridColumn={gridColumn || { base: '1 / 13', md: '3 / 11', lg: '4 / 10' }}
         >
           {children}
         </Flex>

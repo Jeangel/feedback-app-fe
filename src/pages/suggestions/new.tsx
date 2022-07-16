@@ -27,7 +27,10 @@ import { useForm } from 'react-hook-form'
 import Select from '@components/forms/Select'
 import { useRouter } from 'next/router'
 import { ApiError } from '@utils/axios'
-import { ESuggestionCategory, suggestionCategoryOptions } from '@app-types/SuggestionCategory'
+import {
+  ESuggestionCategory,
+  suggestionCategoryOptions,
+} from '@app-types/SuggestionCategory'
 import { useCreateSuggestion } from '@hooks/api/useCreateSuggestion'
 
 interface INewSuggestionForm {
@@ -92,10 +95,10 @@ const NewSuggestion: NextPage = (props) => {
 
   return (
     <CenterTemplate>
-      <Flex justifyContent='flex-start'>
+      <Flex>
         <GoBackButton />
       </Flex>
-      <Flex w='full' pt='55px' justifyContent='center'>
+      <Flex w='full' pt='55px'>
         <Flex
           w='100%'
           px='24px'
@@ -103,7 +106,7 @@ const NewSuggestion: NextPage = (props) => {
           bg='white'
           pos='relative'
           borderRadius='10px'
-          maxW={{ sm: '100%', md: '540px', lg: '540px' }}
+          maxW={{ sm: '100%', md: '540px', lg: '570px' }}
           direction='column'
         >
           <RoundedBadge
