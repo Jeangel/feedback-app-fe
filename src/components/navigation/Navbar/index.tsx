@@ -12,7 +12,7 @@ import {
   VStack,
   ChakraProps,
 } from '@chakra-ui/react'
-import ProfileCard from '@components/misc/ProfileCard'
+import ProfileCard from '@components/profile/ProfileCard'
 import { useSession } from 'next-auth/react'
 import { useRef } from 'react'
 import { RiMenuFill } from 'react-icons/ri'

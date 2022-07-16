@@ -21,7 +21,7 @@ import Select from '@components/forms/Select'
 import React, { useState } from 'react'
 import Toggle from '@components/forms/Toggle'
 import RoadmapCard from '@components/misc/RoadmapCard'
-import SuggestionCard from '@components/misc/SuggestionCard'
+import SuggestionCard from '@components/suggestion/SuggestionCard'
 import Pagination from '@components/misc/Pagination'
 
 const Components: NextPage = () => {

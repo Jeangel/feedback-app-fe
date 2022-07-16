@@ -1,13 +1,13 @@
 import { ESuggestionCategory } from '@app-types/SuggestionCategory'
 import { Stack, Box, useToast } from '@chakra-ui/react'
 import SuggestionsList from '@components/suggestion/SuggestionsList'
-import SuggestionCategoriesCard from '@components/misc/SuggestionCategoriesCard'
-import ProfileCard from '@components/misc/ProfileCard'
+import SuggestionCategoriesCard from '@components/suggestion/SuggestionCategoriesCard'
+import ProfileCard from '@components/profile/ProfileCard'
 import RoadmapCard from '@components/misc/RoadmapCard'
 import SuggestionsBar, {
   ESuggestionsSort,
   toSortArgs,
-} from '@components/misc/SuggestionsBar'
+} from '@components/suggestion/SuggestionsBar'
 import Navbar from '@components/navigation/Navbar'
 import MainRightTemplate from '@components/template/MainRightTemplate'
 import { useSaveSuggestionVote } from '@hooks/api/useSaveSuggestionVote'

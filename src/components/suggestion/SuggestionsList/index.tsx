@@ -2,7 +2,7 @@ import ISuggestion from '@app-types/Suggestion'
 import { IPagination } from '@app-types/Pagination'
 import { Box, Center, Heading, Button, Icon, Text } from '@chakra-ui/react'
 import EmptyBox from '@components/animations/EmptyBox'
-import SuggestionCard, { ISuggestionCardProps } from '@components/misc/SuggestionCard'
+import SuggestionCard, { ISuggestionCardProps } from '@components/suggestion/SuggestionCard'
 import Pagination from '@components/misc/Pagination'
 import { makeLoadableList } from '@utils/list'
 import router from 'next/router'
@@ -28,6 +28,7 @@ const SuggestionsList = ({
     skeletons: 4,
     list: data,
   })
+  const hasSuggestions = !!suggestions.length
   return (
     <>
       <Box
@@ -36,13 +37,13 @@ const SuggestionsList = ({
         justifyContent='center'
         alignItems='center'
         rowGap='20px'
-        mt={suggestions.length ? '24px' : 0}
-        minH={suggestions.length ? 'auto' : '475px'}
+        mt={hasSuggestions ? '24px' : 0}
+        minH={hasSuggestions ? 'auto' : '475px'}
       >
-        {!suggestions.length && (
+        {!hasSuggestions && (
           <Center h='full' w='full' flexDir='column'>
             <EmptyBox style={{ height: 200, width: 200 }} />
-            <Heading variant='h1'>There is no suggestion yet</Heading>
+            <Heading variant='h1'>There are no suggestions</Heading>
             <Text textAlign='center' whiteSpace='pre-wrap' color='tertiary.200'>
               Got a suggestion? Found a bug that needs to be squashed? {'\n'} We love
               hearing about new ideas to improve our app.
@@ -69,7 +70,7 @@ const SuggestionsList = ({
           />
         ))}
       </Box>
-      {!!suggestions.length && pagination && (
+      {hasSuggestions && pagination && (
         <Box mt='10'>
           <Pagination
             currentPage={pagination.currentPage}
