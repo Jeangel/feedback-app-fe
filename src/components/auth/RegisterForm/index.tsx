@@ -20,7 +20,7 @@ import { YupSchemaKeys } from 'types/yup'
 import FormControlError from '@components/forms/FormControlError'
 import { ApiError } from '@utils/axios'
 import { useRouter } from 'next/router'
-import { useRegisterUser } from '@hooks/api/useRegisterUser'
+import { useRegisterUser } from '@hooks/api/users/useRegisterUser'
 
 interface IRegisterFormValues {
   avatarUrl: string

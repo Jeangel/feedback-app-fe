@@ -31,7 +31,7 @@ import {
   ESuggestionCategory,
   suggestionCategoryOptions,
 } from '@app-types/SuggestionCategory'
-import { useCreateSuggestion } from '@hooks/api/useCreateSuggestion'
+import { useCreateSuggestion } from '@hooks/api/suggestions/useCreateSuggestion'
 
 interface INewSuggestionForm {
   title: string
@@ -106,7 +106,7 @@ const NewSuggestion: NextPage = (props) => {
           bg='white'
           pos='relative'
           borderRadius='10px'
-          maxW={{ sm: '100%', md: '540px', lg: '570px' }}
+          maxW={{ sm: '100%', md: '540px', lg: '100%' }}
           direction='column'
         >
           <RoundedBadge

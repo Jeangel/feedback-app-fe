@@ -27,9 +27,9 @@ import Select from '@components/forms/Select'
 import { useRouter } from 'next/router'
 import { ApiError } from '@utils/axios'
 import { ESuggestionCategory, suggestionCategoryOptions } from '@app-types/SuggestionCategory'
-import { useUpdateSuggestion } from '@hooks/api/useUpdateSuggestion'
+import { useUpdateSuggestion } from '@hooks/api/suggestions/useUpdateSuggestion'
 import { ESuggestionStatus, suggestionStatusOptions } from '@app-types/SuggestionStatus'
-import { fetchSuggestion } from '@hooks/api/useSuggestion'
+import { fetchSuggestion } from '@hooks/api/suggestions/useSuggestion'
 import ISuggestion from '@app-types/Suggestion'
 
 interface IEditSuggestionForm {
