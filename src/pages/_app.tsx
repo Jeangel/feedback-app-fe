@@ -14,7 +14,7 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: 1,
-      refetchOnWindowFocus: false
+      refetchOnWindowFocus: false,
     },
   },
 })
@@ -42,6 +42,7 @@ const Base = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const HJID = process.env.NEXT_PUBLIC_HOTJAR_HJID
     const HJSV = process.env.NEXT_PUBLIC_HOTJAR_HJSV
+    console.log({ HJSV, HJID })
     if (HJID && HJSV) {
       hotjar.initialize(Number(HJID), Number(HJSV))
     }
