@@ -19,7 +19,7 @@ const heading = {
       lineHeight: 'tall'
     },
     h4: {
-      fontSize: '2xs',
+      fontSize: 'xs',
       fontWeight: 'bold',
       lineHeight: 'shorter',
       color: 'tertiary.500',

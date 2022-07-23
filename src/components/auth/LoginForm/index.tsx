@@ -38,7 +38,8 @@ const LoginForm = () => {
     formState: { errors, isValid },
   } = useForm<ILoginFormValues>({
     resolver: yupResolver(validationSchema),
-    mode: 'onTouched',
+    mode: 'onChange',
+    delayError: 500
   })
   const router = useRouter()
   const id = useId()

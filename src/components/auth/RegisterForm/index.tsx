@@ -47,7 +47,8 @@ const RegisterForm = () => {
     formState: { errors, isValid },
   } = useForm<IRegisterFormValues>({
     resolver: yupResolver(validationSchema),
-    mode: 'onTouched',
+    mode: 'onChange',
+    delayError: 500
   })
   const { mutate: registerUser, isLoading } = useRegisterUser()
 
