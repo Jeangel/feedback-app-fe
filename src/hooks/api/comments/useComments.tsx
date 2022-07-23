@@ -6,13 +6,16 @@ interface IUseCommentsArgs {
   suggestionId: string
 }
 
-export const useComments = (params?: IUseCommentsArgs) => {
+const fetchComments = ({ suggestionId }: IUseCommentsArgs) => {
+  return get<IComment[]>({
+    path: `/suggestions/${suggestionId}/comments`,
+  })
+}
+
+export const useComments = ({ suggestionId }: IUseCommentsArgs) => {
   const { data: response, ...rest } = useQuery(
-    [`suggestion-${params?.suggestionId}-comments`],
-    () =>
-      get<IComment[]>({
-        path: `/suggestions/${params?.suggestionId}/comments`,
-      }),
+    [`suggestion.${suggestionId}.comments`],
+    () => fetchComments({ suggestionId }),
     { keepPreviousData: true }
   )
   return { data: response?.data, ...rest }

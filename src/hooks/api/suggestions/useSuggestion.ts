@@ -6,15 +6,13 @@ interface IFetchSuggestionRequest extends IExtraRequestOptions {
   id: string
 }
 
-interface IFetchSuggestionResponse {
-  suggestion: ISuggestion[]
-}
+interface IFetchSuggestionResponse extends ISuggestion {}
 
 export const fetchSuggestion = async ({ id, ssr }: IFetchSuggestionRequest) => {
   return get<IFetchSuggestionResponse>({ path: `/suggestions/${id}`, ssr })
 }
 
 export const useSuggestion = ({ id }: IFetchSuggestionRequest) => {
-  const { data, ...rest } = useQuery([id], () => fetchSuggestion({ id }))
+  const { data, ...rest } = useQuery(`suggestions.${id}`, () => fetchSuggestion({ id }))
   return { data: data?.data, ...rest }
 }

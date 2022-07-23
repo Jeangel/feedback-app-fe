@@ -1,22 +1,24 @@
 import React from 'react'
-import type { NextPage, GetServerSidePropsContext } from 'next'
+import type { GetServerSidePropsContext, NextPage } from 'next'
 import withAuth from '@hocs/withAuth'
 import { Flex } from '@chakra-ui/react'
 import GoBackButton from '@components/navigation/GoBackButton'
 import CenterTemplate from '@components/template/CenterTemplate'
-import { fetchSuggestion } from '@hooks/api/suggestions/useSuggestion'
-import ISuggestion from '@app-types/Suggestion'
+import { useSuggestion } from '@hooks/api/suggestions/useSuggestion'
 import SuggestionCard from '@components/suggestion/SuggestionCard'
 import { useComments } from '@hooks/api/comments/useComments'
 import CommentsList from '@components/comment/CommentsList'
 import CommentForm from '@components/comment/CommentForm'
+import useOnSuggestionVote from '@hooks/actions/useOnSuggestionVote'
 interface ISuggestionDetailProps {
-  suggestion: ISuggestion | null
+  suggestionId: string
 }
 
-const SuggestionDetail: NextPage<ISuggestionDetailProps> = ({ suggestion }) => {
+const SuggestionDetail: NextPage<ISuggestionDetailProps> = ({ suggestionId }) => {
+  const { data: suggestion } = useSuggestion({ id: suggestionId })
+  const onSuggestionVote = useOnSuggestionVote()
   const { data: comments, isLoading: isLoadingComments } = useComments({
-    suggestionId: suggestion?._id!,
+    suggestionId: suggestionId,
   })
 
   return (
@@ -26,9 +28,11 @@ const SuggestionDetail: NextPage<ISuggestionDetailProps> = ({ suggestion }) => {
       </Flex>
       <Flex w='full' pt='55px' justifyContent='center'>
         <SuggestionCard
-          suggestion={suggestion}
+          suggestion={
+            suggestion ? { ...suggestion, commentsCount: comments?.length } : undefined
+          }
           hasVoted={suggestion?.myVote?.value === 1}
-          onToggleVote={() => {}}
+          onToggleVote={onSuggestionVote}
           isLoading={!suggestion}
           isFull
         />
@@ -49,21 +53,11 @@ interface IPageParams {
 export async function getServerSideProps(
   context: GetServerSidePropsContext<IPageParams>
 ) {
-  let suggestion = null
   if (context.params?.id) {
-    try {
-      const suggestionId = context.params.id
-      const response = await fetchSuggestion({
-        id: suggestionId,
-        ssr: {
-          contextOrRequest: context,
-        },
-      })
-      suggestion = response.data
-    } catch (error) {}
+    return { props: { suggestionId: context.params.id } }
   }
 
-  return { props: { suggestion } }
+  return { props: { suggestionId: undefined } }
 }
 
 export default withAuth(SuggestionDetail)

@@ -1,5 +1,5 @@
 import { ESuggestionCategory } from '@app-types/SuggestionCategory'
-import { Stack, Box, useToast } from '@chakra-ui/react'
+import { Stack, Box } from '@chakra-ui/react'
 import SuggestionsList from '@components/suggestion/SuggestionsList'
 import SuggestionCategoriesCard from '@components/suggestion/SuggestionCategoriesCard'
 import ProfileCard from '@components/profile/ProfileCard'
@@ -10,16 +10,14 @@ import SuggestionsBar, {
 } from '@components/suggestion/SuggestionsBar'
 import Navbar from '@components/navigation/Navbar'
 import MainRightTemplate from '@components/template/MainRightTemplate'
-import { useSaveSuggestionVote } from '@hooks/api/suggestions/useSaveSuggestionVote'
 import { useSuggestions } from '@hooks/api/suggestions/useSuggestions'
-import { ApiError } from '@utils/axios'
 import withAuth from 'hocs/withAuth'
 import type { NextPage } from 'next'
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
+import useOnSuggestionVote from '@hooks/actions/useOnSuggestionVote'
 
 const Suggestions: NextPage = (props) => {
-  const toast = useToast()
   const router = useRouter()
   const [page, setPage] = useState(1)
   const [sortBy, setSortBy] = useState<ESuggestionsSort>(ESuggestionsSort.mostUpVotes)
@@ -31,28 +29,7 @@ const Suggestions: NextPage = (props) => {
       categories: suggestionCategories,
     },
   })
-  const { mutate: saveSuggestionVote } = useSaveSuggestionVote()
-
-  const onSuggestionVote = (args: { _id: string; value: boolean }) => {
-    saveSuggestionVote(
-      {
-        suggestionId: args._id,
-        value: args.value ? 1 : 0,
-      },
-      {
-        onSuccess: () => {
-          toast({
-            status: 'success',
-            description: 'Voted was saved successfully',
-          })
-        },
-        onError: (error) => {
-          const apiError = error as ApiError
-          toast({ status: 'error', description: apiError.message })
-        },
-      }
-    )
-  }
+  const onSuggestionVote = useOnSuggestionVote()
 
   const onSuggestionClick = (id: string) => {
     router.push(`/suggestions/${id}`)

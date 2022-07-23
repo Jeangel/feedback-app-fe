@@ -24,7 +24,10 @@ export const useSaveSuggestionVote = () => {
       return post<ISaveSuggestionVoterResponse>({ path: `/votes`, body })
     },
     {
-      onSettled: () => queryClient.invalidateQueries('suggestions'),
+      onSettled: (data, error, variables) => {
+        queryClient.invalidateQueries('suggestions')
+        queryClient.invalidateQueries(`suggestions.${variables.suggestionId}`)
+      },
     }
   )
 }

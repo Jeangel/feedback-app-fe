@@ -8,7 +8,7 @@ interface ISuggestion {
   category: ESuggestionCategory
   status: ESuggestionStatus
   votesCount: number
-  commentsCount: number
+  commentsCount?: number
   myVote?: {
     _id: string
     value: number

@@ -63,7 +63,7 @@ const SuggestionCard = ({
             {suggestion?.title}
           </Text>
         </Skeleton>
-        <Skeleton variant='text-body3' isLoaded={!isLoading}>
+        <Skeleton variant='text-body3' isLoaded={!isLoading} my={isFull ? '12px' : undefined}>
           <Text
             variant='body3'
             fontWeight='normal'
