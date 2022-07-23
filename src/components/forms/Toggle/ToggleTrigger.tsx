@@ -1,4 +1,5 @@
 import { Button, ButtonProps } from '@chakra-ui/react'
+import { MouseEventHandler } from 'react'
 
 interface IToggleTriggerProps extends ButtonProps {
   onToggle: (isToggled: boolean) => void
@@ -11,7 +12,8 @@ const ToggleTrigger = ({
   children,
   ...rest
 }: IToggleTriggerProps) => {
-  const handleOnToggle = () => {
+  const handleOnToggle: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.stopPropagation()
     onToggle(!isToggled)
   }
   return (
