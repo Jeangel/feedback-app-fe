@@ -19,6 +19,7 @@ export interface ISuggestionCardProps {
   onToggleVote: (args: { value: boolean; _id: string }) => void
   onClick?: () => void
   isLoading?: boolean
+  isFull?: boolean
 }
 
 const SuggestionCard = ({
@@ -27,6 +28,7 @@ const SuggestionCard = ({
   onToggleVote,
   isLoading,
   onClick,
+  isFull,
 }: ISuggestionCardProps) => {
   const orientation = useBreakpointValue<'horizontal' | 'vertical'>({
     sm: 'horizontal',
@@ -41,7 +43,7 @@ const SuggestionCard = ({
       flexWrap='wrap'
       w='full'
       maxW={{ sm: '327px', md: '689px', lg: '100%' }}
-      h={{ sm: '200px', md: '151px', lg: '151px' }}
+      h={isFull ? '100%' : { sm: '200px', md: '151px', lg: '151px' }}
       p={{ sm: '24px', md: '32px' }}
       borderRadius='10px'
       justifyContent='space-between'
@@ -49,7 +51,7 @@ const SuggestionCard = ({
       cursor={onClick ? 'pointer' : 'auto'}
     >
       <Flex
-        h='104px'
+        h={isFull ? '100%' : '104px'}
         direction='column'
         justifyContent='space-between'
         marginBottom={{ sm: '16px', md: 0 }}
@@ -66,7 +68,8 @@ const SuggestionCard = ({
             variant='body3'
             fontWeight='normal'
             fontSize={{ md: '16px' }}
-            noOfLines={1}
+            noOfLines={isFull ? undefined : 1}
+            py={isFull ? '12px' : undefined}
           >
             {suggestion?.description}
           </Text>
