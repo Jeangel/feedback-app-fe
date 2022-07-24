@@ -14,7 +14,7 @@ const fetchComments = ({ suggestionId }: IUseCommentsArgs) => {
 
 export const useComments = ({ suggestionId }: IUseCommentsArgs) => {
   const { data: response, ...rest } = useQuery(
-    [`suggestion.${suggestionId}.comments`],
+    `suggestions.${suggestionId}.comments`,
     () => fetchComments({ suggestionId }),
     { keepPreviousData: true }
   )

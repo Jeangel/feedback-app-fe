@@ -15,51 +15,54 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { usePostComment } from '@hooks/api/comments/usePostComment'
 import { ApiError } from 'next/dist/server/api-utils'
 import { useForm } from 'react-hook-form'
+import IComment from '@app-types/Comment'
+import { usePostReply } from '@hooks/api/comments/usePostReply'
 
-interface ICommentFormProps {
-  suggestionId?: string
+interface IReplyFormProps {
+  comment: IComment
+  onReplyPosted?: () => void
 }
 
-interface ICommentForm {
-  comment: string
+interface IReplyForm {
+  body: string
 }
 
 const MAX_COMMENT_LENGTH = 500
-const validationSchema = yup.object<YupSchemaKeys<ICommentForm>>({
-  comment: yup.string().label('Comment').min(20).max(MAX_COMMENT_LENGTH),
+const validationSchema = yup.object<YupSchemaKeys<IReplyForm>>({
+  body: yup.string().label('Comment').min(20).max(MAX_COMMENT_LENGTH),
 })
 
-const CommentForm = ({ suggestionId }: ICommentFormProps) => {
+const ReplyForm = ({ comment, onReplyPosted }: IReplyFormProps) => {
   const {
     register,
     handleSubmit: makeHandleOnSubmit,
     formState: { errors, isValid },
     reset,
     watch,
-  } = useForm<ICommentForm>({
+  } = useForm<IReplyForm>({
     resolver: yupResolver(validationSchema),
     mode: 'onChange',
     delayError: 500,
-    defaultValues: { comment: '' },
+    defaultValues: { body: '' },
   })
-  const { mutate: postComment, isLoading } = usePostComment()
+  const { mutate: postReply, isLoading } = usePostReply()
   const toast = useToast()
 
-  const handleOnSubmit = async (values: ICommentForm) => {
-    if (!suggestionId) return
-
-    postComment(
+  const handleOnSubmit = async (values: IReplyForm) => {
+    postReply(
       {
-        suggestionId,
-        body: values.comment,
+        suggestionId: comment.resourceId,
+        commentId: comment._id,
+        body: values.body,
       },
       {
         onSuccess: () => {
           toast({
             status: 'success',
-            description: 'Comment was posted successfully',
+            description: 'Reply was posted successfully',
           })
           reset()
+          onReplyPosted && onReplyPosted()
         },
         onError: (error) => {
           const apiError = error as ApiError
@@ -77,17 +80,18 @@ const CommentForm = ({ suggestionId }: ICommentFormProps) => {
         alignItems='flex-start'
         p='24px 32px 32px 34px'
       >
-        <Heading variant='h1'>Add Comment</Heading>
-        <FormControl id='comment' isInvalid={!!errors.comment}>
+        <FormControl id='body' isInvalid={!!errors.body}>
           <Textarea
-            placeholder='Type your comment here'
+            placeholder='Type your Reply here'
             resize='block'
-            {...register('comment')}
+            {...register('body')}
           />
-          <FormControlError error={errors.comment} />
+          <FormControlError error={errors.body} />
         </FormControl>
         <Flex justifyContent='space-between' w='full'>
-          <Text color='tertiary.200'>{MAX_COMMENT_LENGTH - watch('comment').length} Characters left</Text>
+          <Text color='tertiary.200'>
+            {MAX_COMMENT_LENGTH - watch('body').length} Characters left
+          </Text>
           <Button
             colorScheme='primary'
             w={{ sm: 'full', lg: 'auto' }}
@@ -95,7 +99,7 @@ const CommentForm = ({ suggestionId }: ICommentFormProps) => {
             isLoading={isLoading}
             isDisabled={!isValid}
           >
-            Post Comment
+            Post Reply
           </Button>
         </Flex>
       </VStack>
@@ -103,4 +107,4 @@ const CommentForm = ({ suggestionId }: ICommentFormProps) => {
   )
 }
 
-export default CommentForm
+export default ReplyForm
