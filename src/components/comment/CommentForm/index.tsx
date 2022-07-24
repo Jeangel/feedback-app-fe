@@ -87,7 +87,7 @@ const CommentForm = ({ suggestionId }: ICommentFormProps) => {
           <FormControlError error={errors.comment} />
         </FormControl>
         <Flex justifyContent='space-between' w='full'>
-          <Text>{MAX_COMMENT_LENGTH - watch('comment').length} Characters left</Text>
+          <Text color='tertiary.200'>{MAX_COMMENT_LENGTH - watch('comment').length} Characters left</Text>
           <Button
             colorScheme='primary'
             w={{ sm: 'full', lg: 'auto' }}

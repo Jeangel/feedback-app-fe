@@ -22,8 +22,10 @@ export const usePostComment = () => {
         },
       }),
     {
-      onSettled: (data, error, variables) =>
-        queryClient.invalidateQueries(`suggestion-${variables.suggestionId}-comments`),
+      onSettled: (data, error, variables) => {
+        queryClient.invalidateQueries(`suggestion.${variables.suggestionId}.comments`)
+        queryClient.invalidateQueries(`suggestion.${variables.suggestionId}`)
+      },
     }
   )
 }

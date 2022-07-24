@@ -16,7 +16,7 @@ const useOnSuggestionVote = () => {
         onSuccess: () => {
           toast({
             status: 'success',
-            description: 'Voted was saved successfully',
+            description: 'Vote was saved successfully',
           })
         },
         onError: (error) => {
