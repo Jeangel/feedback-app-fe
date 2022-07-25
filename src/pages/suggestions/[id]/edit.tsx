@@ -26,11 +26,15 @@ import { useForm } from 'react-hook-form'
 import Select from '@components/forms/Select'
 import { useRouter } from 'next/router'
 import { ApiError } from '@utils/axios'
-import { ESuggestionCategory, suggestionCategoryOptions } from '@app-types/SuggestionCategory'
+import {
+  ESuggestionCategory,
+  suggestionCategoryOptions,
+} from '@app-types/SuggestionCategory'
 import { useUpdateSuggestion } from '@hooks/api/suggestions/useUpdateSuggestion'
 import { ESuggestionStatus, suggestionStatusOptions } from '@app-types/SuggestionStatus'
 import { fetchSuggestion } from '@hooks/api/suggestions/useSuggestion'
 import ISuggestion from '@app-types/Suggestion'
+import { getSession } from 'next-auth/react'
 
 interface IEditSuggestionForm {
   title: string
@@ -217,6 +221,7 @@ export async function getServerSideProps(
   context: GetServerSidePropsContext<IPageParams>
 ) {
   let suggestion = null
+  let session = null
   if (context.params?.id) {
     try {
       const suggestionId = context.params.id
@@ -227,9 +232,18 @@ export async function getServerSideProps(
         },
       })
       suggestion = response.data
+      session = await getSession(context)
     } catch (error) {}
   }
-
+  const isOwn = suggestion && session?.user && suggestion?.authorId === session?.user._id
+  if (!isOwn) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: suggestion ? `/suggestions/${suggestion._id}` : '/suggestions',
+      },
+    }
+  }
   return { props: { suggestion } }
 }
 
