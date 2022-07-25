@@ -13,13 +13,14 @@ https://feedback-app-fe.vercel.app/
 - [x] Vote suggestions
 - [x] Comments & Replies
 - [x] Edit your own suggestions
-- [ ] No results section (no suggestion results)
+- [x] No results section (no suggestion results)
 - [ ] Delete your own suggestions
 - [ ] Roadmap
-- [ ] (Internal) Cypress E2E tests
+- [ ] Cypress E2E tests
 
 ## Built with
 
+- [Typescript](https://www.typescriptlang.org/)
 - [NextJS](https://nextjs.org/)
 - [ChakraUI](https://chakra-ui.com/)
 - [React Query](https://react-query.tanstack.com/)
