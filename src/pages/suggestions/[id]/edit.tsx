@@ -61,10 +61,10 @@ const EditSuggestion: NextPage<IEditSuggestionProps> = ({ suggestion }) => {
     handleSubmit: makeHandleOnSubmit,
     formState: { errors, isValid },
     setValue,
-    reset,
+    trigger,
   } = useForm<IEditSuggestionForm>({
     resolver: yupResolver(validationSchema),
-    mode: 'onTouched',
+    mode: 'onChange',
     defaultValues: suggestion || {},
   })
   const { mutate: updateSuggestion, isLoading } = useUpdateSuggestion()
@@ -114,6 +114,12 @@ const EditSuggestion: NextPage<IEditSuggestionProps> = ({ suggestion }) => {
     register('category')
     register('status')
   }, [])
+
+  useEffect(() => {
+    if (trigger) {
+      trigger()
+    }
+  }, [trigger])
 
   return (
     <CenterTemplate>
