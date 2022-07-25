@@ -166,6 +166,7 @@ const Components: NextPage = () => {
       <HStack spacing='2'>
         <SuggestionCard
           suggestion={{
+            authorId: '',
             title: 'Add tags for solutions',
             description: 'Easier to search for solutions based on a specific stack.',
             category: ESuggestionCategory.Enhancement,
