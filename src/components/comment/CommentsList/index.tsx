@@ -1,5 +1,5 @@
 import IComment from '@app-types/Comment'
-import { Box, Divider, Heading, Skeleton } from '@chakra-ui/react'
+import { Box, Divider, Heading, Skeleton, SlideFade } from '@chakra-ui/react'
 import React from 'react'
 import CommentNode from '../CommentNode'
 
@@ -22,14 +22,16 @@ const CommentsList = ({ comments, isLoading }: ICommentsListProps) => {
           {comments?.length} Comment{comments?.length !== 1 ? 's' : ''}
         </Heading>
       </Skeleton>
-      <Box>
-        {comments?.map((comment, index) => (
-          <React.Fragment key={comment._id}>
-            <CommentNode comment={comment} />
-            {index < comments.length - 1 && <Divider my='32px' />}
-          </React.Fragment>
-        ))}
-      </Box>
+      <SlideFade in={!!comments?.length}>
+        <Box>
+          {comments?.map((comment, index) => (
+            <React.Fragment key={comment._id}>
+              <CommentNode comment={comment} />
+              {index < comments.length - 1 && <Divider my='32px' />}
+            </React.Fragment>
+          ))}
+        </Box>
+      </SlideFade>
     </Box>
   )
 }

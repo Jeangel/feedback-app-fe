@@ -1,13 +1,19 @@
 import IComment, { IReply } from '@app-types/Comment'
-import { Text, Avatar, Flex, Heading, Button, Box, useBoolean } from '@chakra-ui/react'
+import {
+  Text,
+  Avatar,
+  Flex,
+  Heading,
+  Button,
+  Box,
+  useBoolean,
+  Collapse,
+  SlideFade,
+} from '@chakra-ui/react'
 import ReplyForm from '../ReplyForm'
 
 interface ICommentNodeProps {
   comment: IComment
-}
-
-const isComment = (commentOrReply: IComment | IReply): commentOrReply is IComment => {
-  return (commentOrReply as IComment).replies !== undefined
 }
 
 interface ICommentBlockProps {
@@ -37,11 +43,11 @@ const CommentBlock = ({ author, body, comment }: ICommentBlockProps) => {
             <Text color='tertiary.200'>{body}</Text>
           </Box>
         </Flex>
-        {isReplyFormOpen && (
+        <Collapse in={isReplyFormOpen} animateOpacity>
           <Flex direction='column' w='full'>
             <ReplyForm comment={comment} onReplyPosted={closeReplyForm} />
           </Flex>
-        )}
+        </Collapse>
       </Flex>
     </Flex>
   )
@@ -53,8 +59,8 @@ const CommentNode = ({ comment }: ICommentNodeProps) => {
   return (
     <Flex w='full' direction='column' pos='relative'>
       <CommentBlock author={author} body={body} comment={comment} />
-      {hasReplies &&
-        replies.map((reply) => (
+      <SlideFade in={hasReplies}>
+        {replies.map((reply) => (
           <Flex
             pl='50px'
             pt='32px'
@@ -66,6 +72,7 @@ const CommentNode = ({ comment }: ICommentNodeProps) => {
             <CommentBlock author={reply.author} body={reply.body} comment={comment} />
           </Flex>
         ))}
+      </SlideFade>
     </Flex>
   )
 }
