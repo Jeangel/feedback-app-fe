@@ -23,17 +23,21 @@ export enum ESuggestionsSort {
 const sortingOptions = [
   { label: 'Most Upvotes', value: ESuggestionsSort.mostUpVotes },
   { label: 'Least Upvotes', value: ESuggestionsSort.leastUpVotes },
-  // { label: 'Most Comments', value: ESuggestionsSort.mostComments },
-  // { label: 'Least Comments', value: ESuggestionsSort.leastComments },
+  { label: 'Most Comments', value: ESuggestionsSort.mostComments },
+  { label: 'Least Comments', value: ESuggestionsSort.leastComments },
 ]
 
 export const toSortArgs = (value: ESuggestionsSort): ISortArgs => {
-  if (value === ESuggestionsSort.mostUpVotes) {
-    return { by: 'votesCount', order: -1 }
-  } else if (value === ESuggestionsSort.leastUpVotes) {
-    return { by: 'votesCount', order: 1 }
+  switch (value) {
+    case ESuggestionsSort.mostUpVotes:
+      return { by: 'votesCount', order: -1 }
+    case ESuggestionsSort.leastUpVotes:
+      return { by: 'votesCount', order: 1 }
+    case ESuggestionsSort.mostComments:
+      return { by: 'commentsCount', order: -1 }
+    case ESuggestionsSort.leastComments:
+      return { by: 'commentsCount', order: 1 }
   }
-  return { by: 'votesCount', order: -1 }
 }
 
 export const fromSortArgs = (value: ISortArgs) => {
