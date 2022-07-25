@@ -3,7 +3,6 @@ import { YupSchemaKeys } from '@app-types/yup'
 import {
   useToast,
   VStack,
-  Heading,
   FormControl,
   Textarea,
   Flex,
@@ -12,7 +11,6 @@ import {
 } from '@chakra-ui/react'
 import FormControlError from '@components/forms/FormControlError'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { usePostComment } from '@hooks/api/comments/usePostComment'
 import { ApiError } from 'next/dist/server/api-utils'
 import { useForm } from 'react-hook-form'
 import IComment from '@app-types/Comment'

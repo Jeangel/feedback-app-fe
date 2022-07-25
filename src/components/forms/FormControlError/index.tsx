@@ -1,4 +1,3 @@
-import React from 'react'
 import { FormErrorMessage } from '@chakra-ui/react'
 import { FieldError } from 'react-hook-form'
 

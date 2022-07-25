@@ -1,4 +1,3 @@
-import React from 'react'
 import type { GetServerSidePropsContext, NextPage } from 'next'
 import withAuth from '@hocs/withAuth'
 import { Button, Flex } from '@chakra-ui/react'

@@ -49,7 +49,7 @@ describe('Calculate pages', () => {
     const pages = calculatePages({
       currentPage: 5,
       totalPages: 10,
-      maxVisibleItems: 3
+      maxVisibleItems: 3,
     })
     expect(pages).toEqual([1, 0, 4, 5, 6, 0, 10])
   })

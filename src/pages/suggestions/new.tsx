@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import withAuth from '@hocs/withAuth'
 import {
@@ -11,7 +11,6 @@ import {
   Textarea,
   VStack,
   Button,
-  useBoolean,
   useToast,
   Stack,
 } from '@chakra-ui/react'
@@ -45,14 +44,13 @@ const validationSchema = yup.object<YupSchemaKeys<INewSuggestionForm>>({
   description: yup.string().label('Suggestion Detail').required().min(20).max(600),
 })
 
-const NewSuggestion: NextPage = (props) => {
+const NewSuggestion: NextPage = () => {
   const router = useRouter()
   const {
     register,
     handleSubmit: makeHandleOnSubmit,
     formState: { errors, isValid },
     setValue,
-    reset,
   } = useForm<INewSuggestionForm>({
     resolver: yupResolver(validationSchema),
     mode: 'all',
@@ -91,7 +89,7 @@ const NewSuggestion: NextPage = (props) => {
 
   useEffect(() => {
     register('category')
-  }, [])
+  }, [register])
 
   return (
     <CenterTemplate>

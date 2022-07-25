@@ -1,4 +1,4 @@
-import IComment, { IReply } from '@app-types/Comment'
+import IComment from '@app-types/Comment'
 import {
   Text,
   Avatar,

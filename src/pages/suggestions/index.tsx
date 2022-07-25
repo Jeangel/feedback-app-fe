@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { ESuggestionCategory } from '@app-types/SuggestionCategory'
 import { Stack, Box } from '@chakra-ui/react'
 import SuggestionsList from '@components/suggestion/SuggestionsList'
@@ -13,15 +14,16 @@ import MainRightTemplate from '@components/template/MainRightTemplate'
 import { useSuggestions } from '@hooks/api/suggestions/useSuggestions'
 import withAuth from 'hocs/withAuth'
 import type { NextPage } from 'next'
-import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import useOnSuggestionVote from '@hooks/actions/useOnSuggestionVote'
 
-const Suggestions: NextPage = (props) => {
+const Suggestions: NextPage = () => {
   const router = useRouter()
   const [page, setPage] = useState(1)
   const [sortBy, setSortBy] = useState<ESuggestionsSort>(ESuggestionsSort.mostUpVotes)
-  const [suggestionCategories, setSuggestionCategories] = useState<ESuggestionCategory[]>([])
+  const [suggestionCategories, setSuggestionCategories] = useState<ESuggestionCategory[]>(
+    []
+  )
   const { data, pagination, isLoading } = useSuggestions({
     pagination: { limit: 5, page },
     sort: toSortArgs(sortBy),
@@ -71,7 +73,6 @@ const Suggestions: NextPage = (props) => {
             onSuggestionClick={onSuggestionClick}
             isLoading={isLoading}
             onPageChange={setPage}
-
           />
         </Box>
       </MainRightTemplate>

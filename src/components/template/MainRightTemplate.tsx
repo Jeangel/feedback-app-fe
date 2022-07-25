@@ -1,11 +1,11 @@
-import React from 'react'
+import { Children, Fragment } from 'react'
 import chunk from 'lodash.chunk'
 import { Box } from '@chakra-ui/react'
 import BaseGrid from './BaseGrid'
 import { ITemplateProps } from './types'
 
 const MainRightTemplate = ({ children }: ITemplateProps) => {
-  const childrenInPairs = chunk(React.Children.toArray(children), 2)
+  const childrenInPairs = chunk(Children.toArray(children), 2)
   return (
     <>
       <BaseGrid
@@ -17,10 +17,10 @@ const MainRightTemplate = ({ children }: ITemplateProps) => {
         }}
       >
         {childrenInPairs.map(([left, right], i) => (
-          <React.Fragment key={i}>
+          <Fragment key={i}>
             <Box gridColumn={{ base: '1 / 13', lg: '1 / 4' }}>{left}</Box>
             <Box gridColumn={{ base: '1 / 13', lg: '4 / 13' }}>{right}</Box>
-          </React.Fragment>
+          </Fragment>
         ))}
       </BaseGrid>
     </>

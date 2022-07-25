@@ -17,12 +17,7 @@ const ToggleTrigger = ({
     onToggle(!isToggled)
   }
   return (
-    <Button
-      {...rest}
-      onClick={handleOnToggle}
-      flexDirection='column'
-      size='sm'
-    >
+    <Button {...rest} onClick={handleOnToggle} flexDirection='column' size='sm'>
       {children}
     </Button>
   )

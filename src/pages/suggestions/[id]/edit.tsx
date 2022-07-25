@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { NextPage, GetServerSidePropsContext } from 'next'
 import withAuth from '@hocs/withAuth'
 import {
@@ -113,7 +113,7 @@ const EditSuggestion: NextPage<IEditSuggestionProps> = ({ suggestion }) => {
   useEffect(() => {
     register('category')
     register('status')
-  }, [])
+  }, [register])
 
   useEffect(() => {
     if (trigger) {

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { NextPage } from 'next'
 import {
   ChevronDownIcon,
@@ -18,7 +19,6 @@ import {
   Box,
 } from '@chakra-ui/react'
 import Select from '@components/forms/Select'
-import React, { useState } from 'react'
 import Toggle from '@components/forms/Toggle'
 import RoadmapCard from '@components/misc/RoadmapCard'
 import SuggestionCard from '@components/suggestion/SuggestionCard'

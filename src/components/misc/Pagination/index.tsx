@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  HStack,
-  ListItem,
-  List,
-  ButtonProps,
-  BoxProps,
-} from '@chakra-ui/react'
+import { Box, Button, ListItem, List, ButtonProps, BoxProps } from '@chakra-ui/react'
 import { useMemo } from 'react'
 import { calculatePages, DOTS } from './utils'
 

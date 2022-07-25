@@ -1,4 +1,3 @@
-import React from 'react'
 import { Flex, GridProps, ChakraProps } from '@chakra-ui/react'
 import BaseGrid from './BaseGrid'
 import { ITemplateProps } from './types'

@@ -1,4 +1,3 @@
-import React from 'react'
 import { useForm } from 'react-hook-form'
 import {
   VStack,
@@ -9,7 +8,6 @@ import {
   Box,
   Center,
   useToast,
-  useBoolean,
   useId,
 } from '@chakra-ui/react'
 import AvatarPicker from '@components/forms/AvatarPicker'
@@ -48,7 +46,7 @@ const RegisterForm = () => {
   } = useForm<IRegisterFormValues>({
     resolver: yupResolver(validationSchema),
     mode: 'onChange',
-    delayError: 500
+    delayError: 500,
   })
   const { mutate: registerUser, isLoading } = useRegisterUser()
 

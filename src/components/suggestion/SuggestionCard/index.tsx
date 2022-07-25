@@ -1,5 +1,3 @@
-import React from 'react'
-
 import {
   Box,
   Flex,
@@ -35,6 +33,12 @@ const SuggestionCard = ({
     md: 'vertical',
   })
 
+  const handleOnToggleVote = (value: boolean) => {
+    if (suggestion) {
+      onToggleVote({ value, _id: suggestion._id })
+    }
+  }
+
   return (
     <Box
       bg='white'
@@ -63,7 +67,11 @@ const SuggestionCard = ({
             {suggestion?.title}
           </Text>
         </Skeleton>
-        <Skeleton variant='text-body3' isLoaded={!isLoading} my={isFull ? '12px' : undefined}>
+        <Skeleton
+          variant='text-body3'
+          isLoaded={!isLoading}
+          my={isFull ? '12px' : undefined}
+        >
           <Text
             variant='body3'
             fontWeight='normal'
@@ -84,9 +92,9 @@ const SuggestionCard = ({
         isLoaded={!isLoading}
       >
         <Toggle
-          isToggled={hasVoted!}
+          isToggled={!!hasVoted}
           label={suggestion?.votesCount?.toString() || ''}
-          onToggle={(value) => onToggleVote({ value, _id: suggestion?._id! })}
+          onToggle={handleOnToggleVote}
           orientation={orientation}
           topIcon={orientation === 'vertical' ? FaChevronUp : undefined}
           leftIcon={orientation === 'horizontal' ? FaChevronUp : undefined}

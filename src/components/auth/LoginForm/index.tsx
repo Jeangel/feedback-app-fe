@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   VStack,
   Input,
@@ -17,8 +16,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import FormControlError from '@components/forms/FormControlError'
 import { ApiError } from '@utils/axios'
-import { signIn } from 'next-auth/react'
-import { SignInResponse } from 'next-auth/react'
+import { signIn, SignInResponse } from 'next-auth/react'
 import { useRouter } from 'next/router'
 
 interface ILoginFormValues {
@@ -39,7 +37,7 @@ const LoginForm = () => {
   } = useForm<ILoginFormValues>({
     resolver: yupResolver(validationSchema),
     mode: 'onChange',
-    delayError: 500
+    delayError: 500,
   })
   const router = useRouter()
   const id = useId()

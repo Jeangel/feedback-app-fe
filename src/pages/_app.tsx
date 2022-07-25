@@ -38,7 +38,7 @@ const Base = ({ children }: { children: React.ReactNode }) => {
   const { setColorMode } = useColorMode()
   useEffect(() => {
     setColorMode('light')
-  }, [])
+  }, [setColorMode])
   useEffect(() => {
     const HJID = process.env.NEXT_PUBLIC_HOTJAR_HJID
     const HJSV = process.env.NEXT_PUBLIC_HOTJAR_HJSV

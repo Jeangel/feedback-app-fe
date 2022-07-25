@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Image, IconButton } from '@chakra-ui/react'
 import { Icon } from '@chakra-ui/icon'
 import { FaRandom } from 'react-icons/fa'

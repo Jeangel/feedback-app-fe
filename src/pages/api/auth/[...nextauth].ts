@@ -50,4 +50,6 @@ const pages: NextAuthOptions['pages'] = {
   signIn: 'login',
 }
 
-export default (req: any, res: any) => NextAuth(req, res, { providers, callbacks, pages })
+const init = (req: any, res: any) => NextAuth(req, res, { providers, callbacks, pages })
+
+export default init

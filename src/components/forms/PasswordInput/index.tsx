@@ -1,4 +1,4 @@
-import React from 'react'
+import { forwardRef } from 'react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import {
   Input,
@@ -39,4 +39,4 @@ const PasswordInput = (
   )
 }
 
-export default React.forwardRef(PasswordInput)
+export default forwardRef(PasswordInput)
