@@ -9,6 +9,7 @@ interface ISuggestion {
   status: ESuggestionStatus
   votesCount: number
   commentsCount?: number
+  authorId: string
   myVote?: {
     _id: string
     value: number

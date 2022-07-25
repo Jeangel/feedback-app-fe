@@ -3,7 +3,7 @@ import Suggestion from '@app-types/Suggestion'
 import { patch } from '@utils/axios'
 
 interface IUpdateSuggestionArgs {
-  suggestion: Omit<Suggestion, 'votesCount'|'commentsCount'|'myVote'>
+  suggestion: Omit<Suggestion, 'votesCount'|'commentsCount'|'myVote'|'authorId'>
 }
 
 interface IUpdateSuggestionResponse {
