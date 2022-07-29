@@ -1,14 +1,13 @@
 import ISuggestion from '@app-types/Suggestion'
 import { IPagination } from '@app-types/Pagination'
-import { Box, Center, Heading, Button, Icon, Text } from '@chakra-ui/react'
+import { Box, Center, Heading, Text } from '@chakra-ui/react'
 import EmptyBox from '@components/animations/EmptyBox'
 import SuggestionCard, {
   ISuggestionCardProps,
 } from '@components/suggestion/SuggestionCard'
 import Pagination from '@components/misc/Pagination'
 import { makeLoadableList } from '@utils/list'
-import router from 'next/router'
-import { HiPlusSm } from 'react-icons/hi'
+import AddSuggestionButton from '../AddSuggestionButton'
 
 interface ISuggestionsListProps {
   onSuggestionVote: ISuggestionCardProps['onToggleVote']
@@ -55,15 +54,7 @@ const SuggestionsList = ({
               Got a suggestion? Found a bug that needs to be squashed? {'\n'} We love
               hearing about new ideas to improve our app.
             </Text>
-            <Button
-              mt='48px'
-              minW={{ sm: '130px', base: '145px' }}
-              colorScheme='primary'
-              leftIcon={<Icon as={HiPlusSm} />}
-              onClick={() => router.push('/suggestions/new')}
-            >
-              Add Suggestion
-            </Button>
+            <AddSuggestionButton mt='48px' />
           </Center>
         )}
         {suggestions.map((e, i) => (

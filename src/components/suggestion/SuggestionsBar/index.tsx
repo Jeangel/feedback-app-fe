@@ -1,6 +1,5 @@
 import { ISortArgs } from '@app-types/Pagination'
 import {
-  Button,
   Flex,
   FormControl,
   FormLabel,
@@ -10,8 +9,8 @@ import {
   Skeleton,
 } from '@chakra-ui/react'
 import Select from '@components/forms/Select'
-import { useRouter } from 'next/router'
-import { HiOutlineLightBulb, HiPlusSm } from 'react-icons/hi'
+import { HiOutlineLightBulb } from 'react-icons/hi'
+import AddSuggestionButton from '../AddSuggestionButton'
 
 export enum ESuggestionsSort {
   mostUpVotes = 'most-upvotes',
@@ -59,7 +58,6 @@ const SuggestionsBar = ({
   onChangeSort,
   sortBy,
 }: ISuggestionBarProps) => {
-  const router = useRouter()
   return (
     <Flex
       w='full'
@@ -106,15 +104,7 @@ const SuggestionsBar = ({
           />
         </Flex>
       </FormControl>
-      <Button
-        minW={{ sm: '130px', base: '145px' }}
-        marginLeft={{ sm: 'auto' }}
-        colorScheme='primary'
-        leftIcon={<Icon as={HiPlusSm} />}
-        onClick={() => router.push('/suggestions/new')}
-      >
-        Add Suggestion
-      </Button>
+      <AddSuggestionButton marginLeft={{ sm: 'auto' }} />
     </Flex>
   )
 }
