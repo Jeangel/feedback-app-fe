@@ -77,7 +77,7 @@ const CommentForm = ({ suggestionId }: ICommentFormProps) => {
         alignItems='flex-start'
         p='24px 32px 32px 34px'
       >
-        <Heading variant='h1'>Add Comment</Heading>
+        <Heading variant='h3'>Add Comment</Heading>
         <FormControl id='comment' isInvalid={!!errors.comment}>
           <Textarea
             placeholder='Type your comment here'

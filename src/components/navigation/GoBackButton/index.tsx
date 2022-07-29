@@ -1,8 +1,12 @@
-import { Button, Icon } from '@chakra-ui/react'
+import { Button, ChakraProps, Icon } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { HiChevronLeft } from 'react-icons/hi'
 
-const GoBackButton = () => {
+interface IGoBackButtonProps extends ChakraProps {
+  iconProps?: ChakraProps
+}
+
+const GoBackButton = ({ iconProps, ...buttonProps }: IGoBackButtonProps) => {
   const router = useRouter()
   const handleOnClick = () => {
     router.back()
@@ -11,9 +15,9 @@ const GoBackButton = () => {
     <Button
       variant='link'
       color='tertiary.200'
-      leftIcon={<Icon as={HiChevronLeft} color='secondary.500' />}
+      leftIcon={<Icon color='secondary.500' {...iconProps} as={HiChevronLeft} />}
+      {...buttonProps}
       fontWeight='bold'
-      _hover={{ textDecoration: 'none' }}
       onClick={handleOnClick}
     >
       Go Back

@@ -23,7 +23,9 @@ const ProfileCard = () => {
       justifyContent='space-between'
     >
       <Flex direction='column' justifyContent='flex-end'>
-        <Heading color='white'>{sessionData?.user.fullName}</Heading>
+        <Heading variant='h2' color='white'>
+          {sessionData?.user.fullName}
+        </Heading>
         <Text variant='body2' color='white'>
           @{sessionData?.user.username}
         </Text>

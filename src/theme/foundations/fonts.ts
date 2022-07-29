@@ -5,10 +5,10 @@ const fonts = {
   },
   fontSizes: {
     '2xs': '0.813rem', // h4
-    xs: '0.875rem', //body3
+    xs: '0.875rem', // body3
     sm: '0.938rem', // body2
     md: '1rem', // body
-    lg: '1.125rem', //h3
+    lg: '1.125rem', // h3
     xl: '1.25rem', // h2
     '2xl': '1.5rem', // h1
     '3xl': '1.875rem',
