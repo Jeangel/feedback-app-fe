@@ -4,7 +4,7 @@ import { Stack, Box } from '@chakra-ui/react'
 import SuggestionsList from '@components/suggestion/SuggestionsList'
 import SuggestionCategoriesCard from '@components/suggestion/SuggestionCategoriesCard'
 import ProfileCard from '@components/profile/ProfileCard'
-import RoadmapCard from '@components/misc/RoadmapCard'
+import RoadmapCard from '@components/roadmap/RoadmapCard'
 import SuggestionsBar, {
   ESuggestionsSort,
   toSortArgs,

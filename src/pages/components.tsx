@@ -20,7 +20,7 @@ import {
 } from '@chakra-ui/react'
 import Select from '@components/forms/Select'
 import Toggle from '@components/forms/Toggle'
-import RoadmapCard from '@components/misc/RoadmapCard'
+import RoadmapCard from '@components/roadmap/RoadmapCard'
 import SuggestionCard from '@components/suggestion/SuggestionCard'
 import Pagination from '@components/misc/Pagination'
 import { ESuggestionCategory } from '@app-types/SuggestionCategory'

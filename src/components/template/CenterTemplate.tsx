@@ -4,19 +4,25 @@ import { ITemplateProps } from './types'
 
 interface ICenterTemplateProps extends ITemplateProps, ChakraProps {
   gridColumn?: GridProps['gridColumn']
+  baseGridProps?: ChakraProps
 }
 
-const CenterTemplate = ({ children, gridColumn }: ICenterTemplateProps) => {
+const CenterTemplate = ({
+  children,
+  gridColumn,
+  baseGridProps,
+}: ICenterTemplateProps) => {
   return (
     <>
       <BaseGrid
         bg='gray.50'
+        display={{ sm: 'block', md: 'grid', lg: 'grid' }}
         p={{
           base: '24px',
           md: '30px',
           lg: '30px',
         }}
-        display={{ sm: 'block', md: 'grid', lg: 'grid' }}
+        {...baseGridProps}
       >
         <Flex
           direction='column'
