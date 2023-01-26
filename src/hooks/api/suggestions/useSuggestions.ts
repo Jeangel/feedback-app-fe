@@ -25,7 +25,7 @@ export const useSuggestions = (params?: IUseSuggestionsArgs) => {
         urlParams: {
           pagination: JSON.stringify(params?.pagination),
           sort: JSON.stringify(params?.sort),
-          filters: JSON.stringify(params?.filters)
+          filters: JSON.stringify(params?.filters),
         },
       }),
     { keepPreviousData: true }
