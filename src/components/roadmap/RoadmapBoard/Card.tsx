@@ -1,17 +1,24 @@
-import { Center } from '@chakra-ui/react'
+import SuggestionRoadmapCard, {
+  ISuggestionRoadmapCardProps,
+} from '@components/suggestion/SuggestionRoadmapCard'
 import { Draggable } from 'react-beautiful-dnd'
 
-const Card = ({ name, index }: { name: string; index: number }) => (
-  <Draggable draggableId={name} index={index}>
+interface CardProps extends ISuggestionRoadmapCardProps {
+  index: number
+}
+
+const Card = ({ index, suggestion, ...rest }: CardProps) => (
+  <Draggable
+    draggableId={suggestion ? suggestion._id : `suggestion-card-${index}`}
+    index={index}
+  >
     {(dragProvided) => (
       <div
         ref={dragProvided.innerRef}
         {...dragProvided.draggableProps}
         {...dragProvided.dragHandleProps}
       >
-        <Center h='100' w='100' outline='1px solid black' m='10px'>
-          {name}
-        </Center>
+        <SuggestionRoadmapCard suggestion={suggestion} {...rest} />
       </div>
     )}
   </Draggable>

@@ -1,72 +1,112 @@
 import { useState, useEffect } from 'react'
-import { Box } from '@chakra-ui/react'
-import { DragDropContext, DragDropContextProps } from 'react-beautiful-dnd'
+import {
+  Box,
+  Hide,
+  Show,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+} from '@chakra-ui/react'
+import { DragDropContext, DragDropContextProps, DropResult } from 'react-beautiful-dnd'
 import Column from './Column'
+import { IBoardColumn } from '@app-types/Board'
 
-interface IColumnData<T> {
-  name: string
-  description: string
-  items: T[]
+interface IRoadmapBoardProps {
+  columns: IBoardColumn[]
 }
 
-const tempDataArr: IColumnData<string>[] = [
-  {
-    name: 'Todo',
-    description: 'Ideas prioritized for research',
-    items: ['hello', 'hallo', 'alo', 'ola'],
-  },
-  {
-    name: 'In Progress',
-    description: 'Currently being developed',
-    items: ['good', 'gut', 'bem', 'bien'],
-  },
-  { name: 'Done', description: 'Released features', items: ['abc', 'def', 'ghi', 'jkl'] },
-]
-
-const RoadmapBoard = () => {
+const RoadmapBoard = ({ columns }: IRoadmapBoardProps) => {
   const [isWindowReady, setIsWindowReady] = useState(false)
-  const [columns, setColumns] = useState<IColumnData<string>[]>(tempDataArr)
+  const [tabIndex, setTabIndex] = useState(0)
+  // const [columns, setColumns] = useState<IBoardColumn[]>(initialColumns)
   useEffect(() => {
     setIsWindowReady(typeof window !== 'undefined')
   }, [])
 
   if (!isWindowReady) return null
 
-  const handleOnDragEnd: DragDropContextProps['onDragEnd'] = (result) => {
+  const handleOnDragInColumn = (result: DropResult) => {
     const { source, destination, draggableId: element } = result
     if (!destination) return
 
     // Remove element from source
     let newColumns = columns.map((e) => {
-      const isSource = e.name === source.droppableId
+      const isSource = e._id === source.droppableId
       if (!isSource) return e
-      return { ...e, items: e.items.filter((e) => e !== element) }
+      return { ...e, suggestions: e.suggestions.filter((e) => e._id !== element) }
     })
     // Add element to destination
     newColumns = newColumns.map((e) => {
-      const isDestination = e.name === destination.droppableId
+      const isDestination = e._id === destination.droppableId
       if (!isDestination) return e
-      const items = [...e.items]
-      items.splice(destination.index, 0, element)
-      return { ...e, items }
+      const suggestions = [...e.suggestions]
+      // suggestions.splice(destination.index, 0, element)
+      return { ...e, suggestions }
     })
-    setColumns(newColumns)
+    // setColumns(newColumns)
+  }
+
+  const handleOnDragInTab = (result: DropResult) => {
+    const { destination } = result
+    if (!destination) return
+    setTabIndex(columns.findIndex((e) => e._id === destination?.droppableId))
+  }
+
+  const handleOnDragEnd: DragDropContextProps['onDragEnd'] = (result) => {
+    const { destination } = result
+    if (!destination) return
+
+    if (destination.droppableId.startsWith('tab')) {
+      handleOnDragInTab(result)
+    } else {
+      handleOnDragInColumn(result)
+    }
   }
 
   return (
-    <DragDropContext onDragEnd={handleOnDragEnd}>
-      <Box display='flex'>
-        {columns.map((column) => (
-          <Column
-            items={column.items}
-            key={column.name}
-            name={column.name}
-            description={column.description}
-            width={`${Math.floor(100 / columns.length)}%`}
-          />
-        ))}
-      </Box>
-    </DragDropContext>
+    <Box>
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        <Hide above='sm'>
+          <Tabs index={tabIndex} onChange={setTabIndex} isFitted>
+            <TabList>
+              {columns.map((column) => (
+                <Tab fontSize='12px' key={column._id}>
+                  {column._id} ({column.suggestions.length})
+                </Tab>
+              ))}
+            </TabList>
+            <TabPanels>
+              {columns.map((column) => (
+                <TabPanel key={column._id}>
+                  <Column
+                    items={column.suggestions}
+                    key={column._id}
+                    name={column._id}
+                    description={column.description}
+                    width='100%'
+                  />
+                </TabPanel>
+              ))}
+            </TabPanels>
+          </Tabs>
+        </Hide>
+        <Show above='sm'>
+          <Box display='flex'>
+            {columns.map((column) => (
+              <Column
+                items={column.suggestions}
+                key={column._id}
+                name={column._id}
+                description={column.description}
+                width={`${Math.floor(100 / columns.length)}%`}
+              />
+            ))}
+          </Box>
+        </Show>
+      </DragDropContext>
+    </Box>
   )
 }
 

@@ -1,10 +1,11 @@
+import ISuggestion from '@app-types/Suggestion'
 import { Box, Heading, Text } from '@chakra-ui/react'
 import { StrictModeDroppable } from '@components/helper/StrictModeDroppable'
 import Card from './Card'
 
 interface IColumnProps {
   width: number | string
-  items: string[]
+  items: ISuggestion[]
   name: string
   description: string
 }
@@ -23,7 +24,7 @@ const Column = ({ items, name, width, description }: IColumnProps) => {
             </Text>
           </Box>
           {items.map((e, i) => (
-            <Card name={e} key={e} index={i} />
+            <Card index={i} suggestion={e} key={e._id} />
           ))}
           {provided.placeholder}
         </Box>
