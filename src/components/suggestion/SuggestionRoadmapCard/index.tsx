@@ -47,7 +47,7 @@ const SuggestionRoadmapCard = ({ suggestion }: ISuggestionRoadmapCardProps) => {
       <Flex direction='column' justify='space-between' h='full'>
         <Flex direction='column'>
           {suggestion && <StatusBadge status={suggestion.status} />}
-          <Heading variant='h4' as='p' mt='14px' mb='11px'>
+          <Heading variant='h4' as='p' mt='14px' mb='11px' noOfLines={2}>
             {suggestion.title}
           </Heading>
           <Text variant='body4' noOfLines={3} mb='14px'>
