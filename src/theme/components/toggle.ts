@@ -22,6 +22,15 @@ const toggle: ComponentMultiStyleConfig = {
     },
   }),
   sizes: {
+    xs: ({ orientation }) => ({
+      trigger: {
+        minH: orientation === 'horizontal' ? '28px' : '50px',
+        minW: orientation === 'horizontal' ? '40px' : '30px',
+      },
+      icon: {
+        fontSize: '10px',
+      },
+    }),
     sm: ({ orientation }) => ({
       trigger: {
         minH: orientation === 'horizontal' ? '30px' : '50px',

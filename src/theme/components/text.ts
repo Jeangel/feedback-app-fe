@@ -18,6 +18,12 @@ const text = {
       lineHeight: 'shortest',
       color: 'tertiary.500',
     },
+    body4: {
+      fontSize: '2xs',
+      fontWeight: 'normal',
+      lineHeight: 'shortest',
+      color: 'tertiary.500',
+    },
     controlDescription: {
       fontWeight: 'normal',
       lineHeight: 'shortest',

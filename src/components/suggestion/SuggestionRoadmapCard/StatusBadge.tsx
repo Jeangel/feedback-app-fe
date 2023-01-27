@@ -9,7 +9,7 @@ export interface IStatusBadgeProps {
 const StatusBadge = ({ status }: IStatusBadgeProps) => (
   <Flex alignItems='center'>
     <Circle size='8px' bg={colorsMap[status]} />
-    <Text ml='16px' color='tertiary.200'>
+    <Text variant='body4' ml='16px' color='tertiary.200'>
       {status}
     </Text>
   </Flex>
