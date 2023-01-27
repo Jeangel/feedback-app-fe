@@ -27,6 +27,7 @@ export const useSaveSuggestionVote = () => {
       onSettled: (data, error, variables) => {
         queryClient.invalidateQueries('suggestions')
         queryClient.invalidateQueries(`suggestions.${variables.suggestionId}`)
+        queryClient.invalidateQueries('board-suggestions')
       },
     }
   )
