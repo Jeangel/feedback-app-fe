@@ -1,6 +1,7 @@
 import ISuggestion from '@app-types/Suggestion'
 import { Badge, Box, Flex, Heading, Text } from '@chakra-ui/react'
 import Toggle from '@components/forms/Toggle'
+import useOnSuggestionVote from '@hooks/actions/useOnSuggestionVote'
 import { FaChevronUp } from 'react-icons/fa'
 import StatusBadge from './StatusBadge'
 import { colorsMap } from './util'
@@ -14,10 +15,13 @@ export interface ISuggestionRoadmapCardProps {
 }
 
 const SuggestionRoadmapCard = ({ suggestion }: ISuggestionRoadmapCardProps) => {
+  const onSuggestionVote = useOnSuggestionVote()
   if (!suggestion) return null
 
   const hasVoted = suggestion.myVote?.value === 1
-  const handleOnToggleVote = () => {}
+  const handleOnToggleVote = (value: boolean) => {
+    onSuggestionVote({ _id: suggestion._id, value })
+  }
   return (
     <Box
       h='272px'
@@ -57,7 +61,7 @@ const SuggestionRoadmapCard = ({ suggestion }: ISuggestionRoadmapCardProps) => {
           <Flex justify='space-between'>
             <Toggle
               isToggled={!!hasVoted}
-              label={suggestion?.votesCount?.toString() || ''}
+              label={suggestion.votesCount.toString()}
               onToggle={handleOnToggleVote}
               orientation='horizontal'
               leftIcon={FaChevronUp}

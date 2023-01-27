@@ -2,15 +2,12 @@ import ISuggestion from '@app-types/Suggestion'
 import { IPagination } from '@app-types/Pagination'
 import { Box, Center, Heading, Text } from '@chakra-ui/react'
 import EmptyBox from '@components/animations/EmptyBox'
-import SuggestionCard, {
-  ISuggestionCardProps,
-} from '@components/suggestion/SuggestionCard'
+import SuggestionCard from '@components/suggestion/SuggestionCard'
 import Pagination from '@components/misc/Pagination'
 import { makeLoadableList } from '@utils/list'
 import AddSuggestionButton from '../AddSuggestionButton'
 
 interface ISuggestionsListProps {
-  onSuggestionVote: ISuggestionCardProps['onToggleVote']
   isLoading: boolean
   data: ISuggestion[] | undefined
   pagination?: IPagination
@@ -21,7 +18,6 @@ interface ISuggestionsListProps {
 const SuggestionsList = ({
   data,
   isLoading,
-  onSuggestionVote,
   pagination,
   onPageChange,
   onSuggestionClick,
@@ -62,7 +58,6 @@ const SuggestionsList = ({
             key={e?._id || i}
             hasVoted={e?.myVote?.value === 1}
             suggestion={e}
-            onToggleVote={onSuggestionVote}
             isLoading={isLoading}
             onClick={() => handleOnSuggestionClick(e?._id)}
           />

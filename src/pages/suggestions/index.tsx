@@ -15,7 +15,6 @@ import { useSuggestions } from '@hooks/api/suggestions/useSuggestions'
 import withAuth from 'hocs/withAuth'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import useOnSuggestionVote from '@hooks/actions/useOnSuggestionVote'
 
 const Suggestions: NextPage = () => {
   const router = useRouter()
@@ -31,7 +30,6 @@ const Suggestions: NextPage = () => {
       categories: suggestionCategories,
     },
   })
-  const onSuggestionVote = useOnSuggestionVote()
 
   const onSuggestionClick = (id: string) => {
     router.push(`/suggestions/${id}`)
@@ -69,7 +67,6 @@ const Suggestions: NextPage = () => {
           <SuggestionsList
             data={data}
             pagination={pagination}
-            onSuggestionVote={onSuggestionVote}
             onSuggestionClick={onSuggestionClick}
             isLoading={isLoading}
             onPageChange={setPage}

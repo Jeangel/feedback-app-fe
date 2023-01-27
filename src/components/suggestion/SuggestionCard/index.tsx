@@ -10,11 +10,11 @@ import {
 import { FaChevronUp, FaComment } from 'react-icons/fa'
 import Toggle from 'components/forms/Toggle'
 import ISuggestion from '@app-types/Suggestion'
+import useOnSuggestionVote from '@hooks/actions/useOnSuggestionVote'
 
 export interface ISuggestionCardProps {
   hasVoted?: boolean
   suggestion?: ISuggestion | null
-  onToggleVote: (args: { value: boolean; _id: string }) => void
   onClick?: () => void
   isLoading?: boolean
   isFull?: boolean
@@ -23,11 +23,11 @@ export interface ISuggestionCardProps {
 const SuggestionCard = ({
   suggestion,
   hasVoted,
-  onToggleVote,
   isLoading,
   onClick,
   isFull,
 }: ISuggestionCardProps) => {
+  const onSuggestionVote = useOnSuggestionVote()
   const orientation = useBreakpointValue<'horizontal' | 'vertical'>({
     sm: 'horizontal',
     md: 'vertical',
@@ -35,7 +35,7 @@ const SuggestionCard = ({
 
   const handleOnToggleVote = (value: boolean) => {
     if (suggestion) {
-      onToggleVote({ value, _id: suggestion._id })
+      onSuggestionVote({ value, _id: suggestion._id })
     }
   }
 
