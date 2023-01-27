@@ -1,6 +1,6 @@
 import { useToast } from '@chakra-ui/react'
 import { useSaveSuggestionVote } from '@hooks/api/suggestions/useSaveSuggestionVote'
-import { ApiError } from 'next/dist/server/api-utils'
+import { ApiError } from '@utils/axios'
 
 const useOnSuggestionVote = () => {
   const toast = useToast()

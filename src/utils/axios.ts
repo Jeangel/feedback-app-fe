@@ -42,8 +42,8 @@ interface IErrorData {
 
 export class ApiError extends Error {
   isCancel: boolean
-
   httpStatusCode: number | undefined
+  message!: string
 
   constructor(error: AxiosError<IErrorData> | Error) {
     if (isAxiosError(error)) {
@@ -75,6 +75,7 @@ export class ApiError extends Error {
         logApiError(JSON.stringify(error.toJSON()))
       }
       super(message)
+      this.message = message
       this.httpStatusCode = httpStatusCode
       this.isCancel = false
     } else if (isAxiosCancel(error)) {

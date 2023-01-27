@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react'
 import FormControlError from '@components/forms/FormControlError'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { ApiError } from 'next/dist/server/api-utils'
+import { ApiError } from '@utils/axios'
 import { useForm } from 'react-hook-form'
 import IComment from '@app-types/Comment'
 import { usePostReply } from '@hooks/api/comments/usePostReply'

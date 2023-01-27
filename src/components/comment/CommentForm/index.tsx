@@ -13,7 +13,7 @@ import {
 import FormControlError from '@components/forms/FormControlError'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { usePostComment } from '@hooks/api/comments/usePostComment'
-import { ApiError } from 'next/dist/server/api-utils'
+import { ApiError } from '@utils/axios'
 import { useForm } from 'react-hook-form'
 
 interface ICommentFormProps {
