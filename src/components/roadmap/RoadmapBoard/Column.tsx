@@ -1,10 +1,10 @@
 import ISuggestion from '@app-types/Suggestion'
-import { Box, Heading, Text } from '@chakra-ui/react'
+import { Box, Heading, LayoutProps, Text } from '@chakra-ui/react'
 import { StrictModeDroppable } from '@components/helper/StrictModeDroppable'
 import Card from './Card'
 
 interface IColumnProps {
-  width: number | string
+  width: LayoutProps['width']
   items: ISuggestion[]
   name: string
   description: string
@@ -14,7 +14,12 @@ const Column = ({ items, name, width, description }: IColumnProps) => {
   return (
     <StrictModeDroppable droppableId={name}>
       {(provided) => (
-        <Box ref={provided.innerRef} {...provided.droppableProps} w={width}>
+        <Box
+          ref={provided.innerRef}
+          {...provided.droppableProps}
+          w={width}
+          minWidth='207px'
+        >
           <Box px='10px' mb='24px'>
             <Heading variant='h4' mb='4px'>
               {name} ({items.length})

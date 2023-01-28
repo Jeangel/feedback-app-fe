@@ -20,7 +20,7 @@ const Roadmap: NextPage = () => {
       }}
     >
       <RoadmapNav />
-      <Box pt='10px'>
+      <Box pt='10px' overflowX='scroll'>
         <RoadmapBoard columns={columns} />
       </Box>
     </CenterTemplate>

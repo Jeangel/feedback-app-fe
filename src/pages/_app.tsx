@@ -6,7 +6,14 @@ import { hotjar } from 'react-hotjar'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import type { AppProps } from 'next/app'
 import { SessionProvider } from 'next-auth/react'
-import { ChakraProvider, useColorMode } from '@chakra-ui/react'
+import {
+  Center,
+  ChakraProvider,
+  Heading,
+  Hide,
+  Show,
+  useColorMode,
+} from '@chakra-ui/react'
 import theme from '../theme'
 import NavigationProgressBar from '@components/navigation/NavigationProgressBar'
 
@@ -26,7 +33,14 @@ function MyApp({ Component, pageProps }: AppProps) {
         <ChakraProvider theme={theme}>
           <Base>
             <NavigationProgressBar />
-            <Component {...pageProps} />
+            <Show above='sm'>
+              <Component {...pageProps} />
+            </Show>
+            <Hide above='sm'>
+              <Center height='full'>
+                <Heading textAlign='center'>No way! 🤷🏻‍♂️</Heading>
+              </Center>
+            </Hide>
           </Base>
         </ChakraProvider>
       </SessionProvider>
