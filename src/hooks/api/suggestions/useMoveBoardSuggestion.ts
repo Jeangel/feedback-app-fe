@@ -54,7 +54,7 @@ export const useMoveSuggestion = () => {
       // If the mutation fails,
       // use the context returned from onMutate to roll back
       onError: (_err, variables, context) => {
-        const previousResponse = context
+        const previousResponse = context as QueryResponse
         if (previousResponse) {
           queryClient.setQueryData<QueryResponse>('board-suggestions', previousResponse)
         }

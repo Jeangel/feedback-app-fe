@@ -8,7 +8,6 @@ import SuggestionCard from '@components/suggestion/SuggestionCard'
 import { useComments } from '@hooks/api/comments/useComments'
 import CommentsList from '@components/comment/CommentsList'
 import CommentForm from '@components/comment/CommentForm'
-import useOnSuggestionVote from '@hooks/actions/useOnSuggestionVote'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 interface ISuggestionDetailProps {
@@ -19,7 +18,6 @@ const SuggestionDetail: NextPage<ISuggestionDetailProps> = ({ suggestionId }) =>
   const router = useRouter()
   const { data: session } = useSession()
   const { data: suggestion } = useSuggestion({ id: suggestionId })
-  const onSuggestionVote = useOnSuggestionVote()
   const { data: comments, isLoading: isLoadingComments } = useComments({
     suggestionId: suggestionId,
   })
@@ -46,7 +44,6 @@ const SuggestionDetail: NextPage<ISuggestionDetailProps> = ({ suggestionId }) =>
             suggestion ? { ...suggestion, commentsCount: comments?.length } : undefined
           }
           hasVoted={suggestion?.myVote?.value === 1}
-          onToggleVote={onSuggestionVote}
           isLoading={!suggestion}
           isFull
         />

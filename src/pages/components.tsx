@@ -175,7 +175,6 @@ const Components: NextPage = () => {
             _id: 'test',
             status: ESuggestionStatus.planned,
           }}
-          onToggleVote={() => {}}
         />
       </HStack>
       <br />
