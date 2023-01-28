@@ -3,7 +3,9 @@ import Suggestion from '@app-types/Suggestion'
 import { patch } from '@utils/axios'
 
 interface IUpdateSuggestionArgs {
-  suggestion: Omit<Suggestion, 'votesCount'|'commentsCount'|'myVote'|'authorId'>
+  suggestion: Partial<
+    Omit<Suggestion, 'votesCount' | 'commentsCount' | 'myVote' | 'authorId'>
+  >
 }
 
 interface IUpdateSuggestionResponse {
@@ -15,10 +17,16 @@ export const useUpdateSuggestion = () => {
   return useMutation(
     ({ suggestion }: IUpdateSuggestionArgs) => {
       const { _id, ...updates } = suggestion
-      return patch<IUpdateSuggestionResponse>({ path: `/suggestions/${_id}`, body: updates })
+      return patch<IUpdateSuggestionResponse>({
+        path: `/suggestions/${_id}`,
+        body: updates,
+      })
     },
     {
-      onSettled: () => queryClient.invalidateQueries('suggestion'),
+      onSettled: () => {
+        queryClient.invalidateQueries('suggestion')
+        queryClient.invalidateQueries('board-suggestions')
+      },
     }
   )
 }

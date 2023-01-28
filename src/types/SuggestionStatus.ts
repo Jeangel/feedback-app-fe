@@ -23,3 +23,7 @@ export const suggestionStatusOptions = [
     label: 'Live',
   },
 ]
+
+export const isSuggestionStatus = (value: string): value is ESuggestionStatus => {
+  return Object.values(ESuggestionStatus).includes(value as ESuggestionStatus)
+}

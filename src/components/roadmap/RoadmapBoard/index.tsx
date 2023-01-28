@@ -8,44 +8,75 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
+  useToast,
 } from '@chakra-ui/react'
 import { DragDropContext, DragDropContextProps, DropResult } from 'react-beautiful-dnd'
 import Column from './Column'
 import { IBoardColumn } from '@app-types/Board'
+import { isSuggestionStatus } from '@app-types/SuggestionStatus'
+import { ApiError } from '@utils/axios'
+import { useMoveSuggestion } from '@hooks/api/suggestions/useMoveBoardSuggestion'
 
 interface IRoadmapBoardProps {
   columns: IBoardColumn[]
 }
 
 const RoadmapBoard = ({ columns }: IRoadmapBoardProps) => {
+  const { mutate: moveSuggestion } = useMoveSuggestion()
   const [isWindowReady, setIsWindowReady] = useState(false)
   const [tabIndex, setTabIndex] = useState(0)
-  // const [columns, setColumns] = useState<IBoardColumn[]>(initialColumns)
+  const toast = useToast()
+
   useEffect(() => {
     setIsWindowReady(typeof window !== 'undefined')
   }, [])
 
   if (!isWindowReady) return null
 
-  const handleOnDragInColumn = (result: DropResult) => {
+  const handleOnDragInColumn = async (result: DropResult) => {
     const { source, destination, draggableId: element } = result
     if (!destination) return
 
-    // Remove element from source
-    let newColumns = columns.map((e) => {
-      const isSource = e._id === source.droppableId
-      if (!isSource) return e
-      return { ...e, suggestions: e.suggestions.filter((e) => e._id !== element) }
-    })
-    // Add element to destination
-    newColumns = newColumns.map((e) => {
-      const isDestination = e._id === destination.droppableId
-      if (!isDestination) return e
-      const suggestions = [...e.suggestions]
-      // suggestions.splice(destination.index, 0, element)
-      return { ...e, suggestions }
-    })
-    // setColumns(newColumns)
+    const newStatus = destination.droppableId
+    const oldStatus = source.droppableId
+    if (isSuggestionStatus(newStatus) && isSuggestionStatus(oldStatus)) {
+      moveSuggestion(
+        {
+          suggestionId: element,
+          from: oldStatus,
+          to: newStatus,
+        },
+        {
+          onError: (error) => {
+            const apiError = error as ApiError
+            if (apiError.httpStatusCode === 403) {
+              toast({
+                status: 'error',
+                description: 'You can only update your own suggestions',
+              })
+            } else {
+              toast({ status: 'error', description: apiError.message })
+            }
+          },
+        }
+      )
+    }
+
+    // // Remove element from source
+    // let newColumns = columns.map((e) => {
+    //   const isSource = e._id === source.droppableId
+    //   if (!isSource) return e
+    //   return { ...e, suggestions: e.suggestions.filter((e) => e._id !== element) }
+    // })
+    // // Add element to destination
+    // newColumns = newColumns.map((e) => {
+    //   const isDestination = e._id === destination.droppableId
+    //   if (!isDestination) return e
+    //   const suggestions = [...e.suggestions]
+    //   // suggestions.splice(destination.index, 0, element)
+    //   return { ...e, suggestions }
+    // })
+    // // setColumns(newColumns)
   }
 
   const handleOnDragInTab = (result: DropResult) => {

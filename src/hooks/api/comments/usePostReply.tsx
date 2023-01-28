@@ -24,7 +24,6 @@ export const usePostReply = () => {
       }),
     {
       onSettled: (data, error, variables) => {
-        console.log(variables.suggestionId)
         queryClient.invalidateQueries(`suggestions.${variables.suggestionId}.comments`)
       },
     }
