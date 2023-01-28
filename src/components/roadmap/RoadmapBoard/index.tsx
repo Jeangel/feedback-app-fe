@@ -1,15 +1,5 @@
 import { useState, useEffect } from 'react'
-import {
-  Box,
-  Hide,
-  Show,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  useToast,
-} from '@chakra-ui/react'
+import { Box, Show, useToast } from '@chakra-ui/react'
 import { DragDropContext, DragDropContextProps, DropResult } from 'react-beautiful-dnd'
 import Column from './Column'
 import { IBoardColumn } from '@app-types/Board'
