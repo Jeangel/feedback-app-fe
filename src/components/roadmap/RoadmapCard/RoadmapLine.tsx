@@ -8,7 +8,7 @@ interface IRoadmapLineProps {
 
 const RoadmapLine = ({ bulletColor, concept, amount }: IRoadmapLineProps) => {
   return (
-    <Flex direction='row' justify='space-between' align='center' marginBottom='8px'>
+    <Flex direction='row' justify='space-between' align='center' marginBottom='2px'>
       <Flex direction='row' align='center'>
         <Box
           bgColor={bulletColor}

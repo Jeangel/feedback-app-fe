@@ -15,6 +15,7 @@ import { useSuggestions } from '@hooks/api/suggestions/useSuggestions'
 import withAuth from 'hocs/withAuth'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
+import { useSuggestionsStats } from '@hooks/api/suggestions/useSuggestionsStats'
 
 const Suggestions: NextPage = () => {
   const router = useRouter()
@@ -30,6 +31,7 @@ const Suggestions: NextPage = () => {
       categories: suggestionCategories,
     },
   })
+  const { data: stats } = useSuggestionsStats()
 
   const onSuggestionClick = (id: string) => {
     router.push(`/suggestions/${id}`)
@@ -41,7 +43,12 @@ const Suggestions: NextPage = () => {
         onToggle={setSuggestionCategories}
         selectedValues={suggestionCategories}
       />
-      <RoadmapCard planned={2} inProgress={3} live={1} />
+      <RoadmapCard
+        suggestion={stats?.countByStatus.Suggestion}
+        planned={stats?.countByStatus.Planned}
+        inProgress={stats?.countByStatus['In-Progress']}
+        live={stats?.countByStatus.Live}
+      />
     </>
   )
 

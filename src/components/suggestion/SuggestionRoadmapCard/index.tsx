@@ -1,10 +1,10 @@
 import ISuggestion from '@app-types/Suggestion'
+import { colorsMap } from '@app-types/SuggestionStatus'
 import { Badge, Box, Flex, Heading, Text } from '@chakra-ui/react'
 import Toggle from '@components/forms/Toggle'
 import useOnSuggestionVote from '@hooks/actions/useOnSuggestionVote'
 import { FaChevronUp } from 'react-icons/fa'
 import StatusBadge from './StatusBadge'
-import { colorsMap } from './util'
 import VotesCount from './VotesCount'
 
 export interface ISuggestionRoadmapCardProps {

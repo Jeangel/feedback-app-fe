@@ -1,6 +1,5 @@
-import { ESuggestionStatus } from '@app-types/SuggestionStatus'
+import { ESuggestionStatus, colorsMap } from '@app-types/SuggestionStatus'
 import { Text, Circle, Flex } from '@chakra-ui/react'
-import { colorsMap } from './util'
 
 export interface IStatusBadgeProps {
   status: ESuggestionStatus
