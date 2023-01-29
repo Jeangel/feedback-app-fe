@@ -14,8 +14,7 @@ https://feedback-app-fe.vercel.app/
 - [x] Comments & Replies
 - [x] Edit your own suggestions
 - [x] No results section (no suggestion results)
-- [ ] Delete your own suggestions
-- [ ] Roadmap
+- [x] Roadmap
 - [ ] Cypress E2E tests
 
 ## Built with
