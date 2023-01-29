@@ -2,7 +2,6 @@ import { Flex, IconButton, Heading, Text, Icon, HStack } from '@chakra-ui/react'
 import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { FiLogOut } from 'react-icons/fi'
-import { BsGear } from 'react-icons/bs'
 
 const ProfileCard = () => {
   const router = useRouter()
@@ -31,14 +30,6 @@ const ProfileCard = () => {
         </Text>
       </Flex>
       <HStack spacing='10px' justifyContent='flex-end'>
-        <IconButton
-          size='xs'
-          variant='unstyled'
-          aria-label='Settings'
-          icon={<Icon as={BsGear} color='white' fontSize='16px' />}
-          alignSelf='flex-end'
-          pb='0'
-        />
         <IconButton
           size='xs'
           variant='unstyled'
