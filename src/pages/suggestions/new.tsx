@@ -31,6 +31,8 @@ import {
   suggestionCategoryOptions,
 } from '@app-types/SuggestionCategory'
 import { useCreateSuggestion } from '@hooks/api/suggestions/useCreateSuggestion'
+import AutoFillButton from '@components/forms/AutoFillButton'
+import { randomSentences, randomWords, sampleEnumValue } from '@utils/random'
 
 interface INewSuggestionForm {
   title: string
@@ -49,8 +51,9 @@ const NewSuggestion: NextPage = () => {
   const {
     register,
     handleSubmit: makeHandleOnSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitSuccessful },
     setValue,
+    trigger,
   } = useForm<INewSuggestionForm>({
     resolver: yupResolver(validationSchema),
     mode: 'all',
@@ -87,6 +90,13 @@ const NewSuggestion: NextPage = () => {
     )
   }
 
+  const handleAutoFill = () => {
+    handleOnCategoryChange(sampleEnumValue(ESuggestionCategory))
+    setValue('title', randomWords({ min: 3, max: 5 }))
+    setValue('description', randomSentences({ min: 2, max: 6 }))
+    trigger()
+  }
+
   useEffect(() => {
     register('category')
   }, [register])
@@ -114,9 +124,12 @@ const NewSuggestion: NextPage = () => {
             left='24px'
             top='-20px'
           />
-          <Heading variant='h3' mb='24px'>
-            Create New Suggestion.
-          </Heading>
+          <Flex justifyContent='space-between'>
+            <Heading variant='h3' mb='24px'>
+              Create New Suggestion.
+            </Heading>
+            <AutoFillButton onClick={handleAutoFill} />
+          </Flex>
           <form onSubmit={makeHandleOnSubmit(handleOnSubmit)}>
             <VStack spacing={6}>
               <FormControl id='title' isInvalid={!!errors.title}>
@@ -159,7 +172,7 @@ const NewSuggestion: NextPage = () => {
                 w={{ sm: 'full', lg: 'auto' }}
                 type='submit'
                 isLoading={isLoading}
-                isDisabled={!isValid}
+                isDisabled={!isValid || isLoading || isSubmitSuccessful}
               >
                 Add Suggestion
               </Button>

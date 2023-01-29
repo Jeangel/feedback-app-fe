@@ -15,6 +15,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { usePostComment } from '@hooks/api/comments/usePostComment'
 import { ApiError } from '@utils/axios'
 import { useForm } from 'react-hook-form'
+import AutoFillButton from '@components/forms/AutoFillButton'
+import { randomSentences } from '@utils/random'
 
 interface ICommentFormProps {
   suggestionId?: string
@@ -33,9 +35,11 @@ const CommentForm = ({ suggestionId }: ICommentFormProps) => {
   const {
     register,
     handleSubmit: makeHandleOnSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitSuccessful },
     reset,
     watch,
+    setValue,
+    trigger,
   } = useForm<ICommentForm>({
     resolver: yupResolver(validationSchema),
     mode: 'onChange',
@@ -68,6 +72,11 @@ const CommentForm = ({ suggestionId }: ICommentFormProps) => {
       }
     )
   }
+
+  const handleOnAutoFill = () => {
+    setValue('comment', randomSentences({ min: 2, max: 5 }))
+    trigger()
+  }
   return (
     <form onSubmit={makeHandleOnSubmit(handleOnSubmit)}>
       <VStack
@@ -77,7 +86,10 @@ const CommentForm = ({ suggestionId }: ICommentFormProps) => {
         alignItems='flex-start'
         p='24px 32px 32px 34px'
       >
-        <Heading variant='h3'>Add Comment</Heading>
+        <Flex justify='space-between' w='full'>
+          <Heading variant='h3'>Add Comment</Heading>
+          <AutoFillButton onClick={handleOnAutoFill} />
+        </Flex>
         <FormControl id='comment' isInvalid={!!errors.comment}>
           <Textarea
             placeholder='Type your comment here'
@@ -95,7 +107,7 @@ const CommentForm = ({ suggestionId }: ICommentFormProps) => {
             w={{ sm: 'full', lg: 'auto' }}
             type='submit'
             isLoading={isLoading}
-            isDisabled={!isValid}
+            isDisabled={!isValid || isLoading || isSubmitSuccessful}
           >
             Post Comment
           </Button>

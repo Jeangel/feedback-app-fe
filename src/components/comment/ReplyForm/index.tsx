@@ -15,6 +15,8 @@ import { ApiError } from '@utils/axios'
 import { useForm } from 'react-hook-form'
 import IComment from '@app-types/Comment'
 import { usePostReply } from '@hooks/api/comments/usePostReply'
+import AutoFillButton from '@components/forms/AutoFillButton'
+import { randomSentences } from '@utils/random'
 
 interface IReplyFormProps {
   comment: IComment
@@ -34,9 +36,11 @@ const ReplyForm = ({ comment, onReplyPosted }: IReplyFormProps) => {
   const {
     register,
     handleSubmit: makeHandleOnSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitSuccessful },
     reset,
     watch,
+    setValue,
+    trigger,
   } = useForm<IReplyForm>({
     resolver: yupResolver(validationSchema),
     mode: 'onChange',
@@ -69,6 +73,12 @@ const ReplyForm = ({ comment, onReplyPosted }: IReplyFormProps) => {
       }
     )
   }
+
+  const handleOnAutoFill = () => {
+    setValue('body', randomSentences({ min: 2, max: 5 }))
+    trigger()
+  }
+
   return (
     <form onSubmit={makeHandleOnSubmit(handleOnSubmit)}>
       <VStack
@@ -79,6 +89,9 @@ const ReplyForm = ({ comment, onReplyPosted }: IReplyFormProps) => {
         p='24px 32px 32px 34px'
       >
         <FormControl id='body' isInvalid={!!errors.body}>
+          <Flex justify='flex-end' pb='8px'>
+            <AutoFillButton onClick={handleOnAutoFill} />
+          </Flex>
           <Textarea
             placeholder='Type your Reply here'
             resize='block'
@@ -95,7 +108,7 @@ const ReplyForm = ({ comment, onReplyPosted }: IReplyFormProps) => {
             w={{ sm: 'full', lg: 'auto' }}
             type='submit'
             isLoading={isLoading}
-            isDisabled={!isValid}
+            isDisabled={!isValid || isLoading || isSubmitSuccessful}
           >
             Post Reply
           </Button>

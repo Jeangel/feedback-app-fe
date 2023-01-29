@@ -47,7 +47,7 @@ const validationSchema = yup.object<YupSchemaKeys<IEditSuggestionForm>>({
   title: yup.string().label('Suggestion Title').required().min(5).max(50),
   category: yup.string().label('Category').required(),
   status: yup.string().label('Status').required(),
-  description: yup.string().label('Suggestion Detail').required().min(20).max(200),
+  description: yup.string().label('Suggestion Detail').required().min(20).max(600),
 })
 
 interface IEditSuggestionProps {
