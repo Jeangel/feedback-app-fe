@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react'
 import theme from '../theme'
 import NavigationProgressBar from '@components/navigation/NavigationProgressBar'
+import useIsWindowReady from '@hooks/useIsWindowReady'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,6 +28,7 @@ const queryClient = new QueryClient({
 })
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const isWindowReady = useIsWindowReady()
   return (
     <QueryClientProvider client={queryClient}>
       <SessionProvider>
@@ -36,11 +38,13 @@ function MyApp({ Component, pageProps }: AppProps) {
             <Show above='sm'>
               <Component {...pageProps} />
             </Show>
-            <Hide above='sm'>
-              <Center height='full'>
-                <Heading textAlign='center'>No way! 🤷🏻‍♂️</Heading>
-              </Center>
-            </Hide>
+            {isWindowReady && (
+              <Hide above='sm'>
+                <Center height='full'>
+                  <Heading textAlign='center'>No way! 🤷🏻‍♂️</Heading>
+                </Center>
+              </Hide>
+            )}
           </Base>
         </ChakraProvider>
       </SessionProvider>

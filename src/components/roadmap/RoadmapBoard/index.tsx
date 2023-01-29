@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import { Box, Show, useToast } from '@chakra-ui/react'
 import { DragDropContext, DragDropContextProps, DropResult } from 'react-beautiful-dnd'
 import Column from './Column'
@@ -6,6 +5,7 @@ import { IBoardColumn } from '@app-types/Board'
 import { isSuggestionStatus } from '@app-types/SuggestionStatus'
 import { ApiError } from '@utils/axios'
 import { useMoveSuggestion } from '@hooks/api/suggestions/useMoveBoardSuggestion'
+import useIsWindowReady from '@hooks/useIsWindowReady'
 
 interface IRoadmapBoardProps {
   columns: IBoardColumn[]
@@ -13,13 +13,8 @@ interface IRoadmapBoardProps {
 
 const RoadmapBoard = ({ columns }: IRoadmapBoardProps) => {
   const { mutate: moveSuggestion } = useMoveSuggestion()
-  const [isWindowReady, setIsWindowReady] = useState(false)
-  const [tabIndex, setTabIndex] = useState(0)
+  const isWindowReady = useIsWindowReady()
   const toast = useToast()
-
-  useEffect(() => {
-    setIsWindowReady(typeof window !== 'undefined')
-  }, [])
 
   if (!isWindowReady) return null
 
@@ -53,21 +48,11 @@ const RoadmapBoard = ({ columns }: IRoadmapBoardProps) => {
     }
   }
 
-  const handleOnDragInTab = (result: DropResult) => {
-    const { destination } = result
-    if (!destination) return
-    setTabIndex(columns.findIndex((e) => e._id === destination?.droppableId))
-  }
-
   const handleOnDragEnd: DragDropContextProps['onDragEnd'] = (result) => {
     const { destination } = result
     if (!destination) return
 
-    if (destination.droppableId.startsWith('tab')) {
-      handleOnDragInTab(result)
-    } else {
-      handleOnDragInColumn(result)
-    }
+    handleOnDragInColumn(result)
   }
 
   return (
