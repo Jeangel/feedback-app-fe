@@ -4,7 +4,7 @@ import SuggestionRoadmapCard, {
 import { useSession } from 'next-auth/react'
 import { Draggable } from 'react-beautiful-dnd'
 
-interface CardProps extends ISuggestionRoadmapCardProps {
+interface CardProps extends Omit<ISuggestionRoadmapCardProps, 'isOwn'> {
   index: number
 }
 
@@ -30,7 +30,7 @@ const Card = ({ index, suggestion, ...rest }: CardProps) => {
           <SuggestionRoadmapCard
             suggestion={suggestion}
             {...rest}
-            isDragDisabled={!isOwnSuggestion || rest.isDragDisabled}
+            isOwn={isOwnSuggestion}
           />
         </div>
       )}

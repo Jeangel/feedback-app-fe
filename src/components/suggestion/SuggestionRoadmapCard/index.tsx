@@ -6,19 +6,18 @@ import useOnSuggestionVote from '@hooks/actions/useOnSuggestionVote'
 import { FaChevronUp } from 'react-icons/fa'
 import StatusBadge from './StatusBadge'
 import VotesCount from './VotesCount'
+import { EditIcon } from '@chakra-ui/icons'
+import Link from 'next/link'
 
 export interface ISuggestionRoadmapCardProps {
   hasVoted?: boolean
   suggestion?: ISuggestion | null
   onClick?: () => void
   isLoading?: boolean
-  isDragDisabled?: boolean
+  isOwn?: boolean
 }
 
-const SuggestionRoadmapCard = ({
-  suggestion,
-  isDragDisabled,
-}: ISuggestionRoadmapCardProps) => {
+const SuggestionRoadmapCard = ({ suggestion, isOwn }: ISuggestionRoadmapCardProps) => {
   const onSuggestionVote = useOnSuggestionVote()
   if (!suggestion) return null
 
@@ -37,7 +36,7 @@ const SuggestionRoadmapCard = ({
       position='relative'
       cursor='grab'
     >
-      {isDragDisabled && (
+      {!isOwn && (
         <Tooltip label='You can only move your own suggestions' placement='top' hasArrow>
           <Box position='absolute' inset={0} cursor='not-allowed' />
         </Tooltip>
@@ -53,7 +52,16 @@ const SuggestionRoadmapCard = ({
       />
       <Flex direction='column' justify='space-between' h='full'>
         <Flex direction='column'>
-          {suggestion && <StatusBadge status={suggestion.status} />}
+          <Flex justify='space-between'>
+            {suggestion && <StatusBadge status={suggestion.status} />}
+            {isOwn && (
+              <Link href={`/suggestions/${suggestion._id}/edit`} passHref>
+                <a aria-label='Go to Edit Suggestion'>
+                  <EditIcon fontSize='14px' color='gray.500' />
+                </a>
+              </Link>
+            )}
+          </Flex>
           <Heading variant='h4' as='p' mt='14px' mb='11px' noOfLines={2}>
             {suggestion.title}
           </Heading>
