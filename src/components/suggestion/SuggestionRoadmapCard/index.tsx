@@ -1,6 +1,6 @@
 import ISuggestion from '@app-types/Suggestion'
 import { colorsMap } from '@app-types/SuggestionStatus'
-import { Badge, Box, Flex, Heading, Text } from '@chakra-ui/react'
+import { Badge, Box, Flex, Heading, Text, Tooltip } from '@chakra-ui/react'
 import Toggle from '@components/forms/Toggle'
 import useOnSuggestionVote from '@hooks/actions/useOnSuggestionVote'
 import { FaChevronUp } from 'react-icons/fa'
@@ -12,9 +12,13 @@ export interface ISuggestionRoadmapCardProps {
   suggestion?: ISuggestion | null
   onClick?: () => void
   isLoading?: boolean
+  isDragDisabled?: boolean
 }
 
-const SuggestionRoadmapCard = ({ suggestion }: ISuggestionRoadmapCardProps) => {
+const SuggestionRoadmapCard = ({
+  suggestion,
+  isDragDisabled,
+}: ISuggestionRoadmapCardProps) => {
   const onSuggestionVote = useOnSuggestionVote()
   if (!suggestion) return null
 
@@ -31,10 +35,13 @@ const SuggestionRoadmapCard = ({ suggestion }: ISuggestionRoadmapCardProps) => {
       m='10px'
       p='20px'
       position='relative'
-      _active={{
-        cursor: 'grab',
-      }}
+      cursor='grab'
     >
+      {isDragDisabled && (
+        <Tooltip label='You can only move your own suggestions' placement='top' hasArrow>
+          <Box position='absolute' inset={0} cursor='not-allowed' />
+        </Tooltip>
+      )}
       <Box
         h='6px'
         borderRadius='5px 5px 0 0'
