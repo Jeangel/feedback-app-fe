@@ -21,7 +21,13 @@ const RoadmapLine = ({ bulletColor, concept, amount }: IRoadmapLineProps) => {
           {concept}
         </Text>
       </Flex>
-      <Text variant='body' fontWeight='bold' color='tertiary.200'>
+      <Text
+        variant='body'
+        fontWeight='bold'
+        color='tertiary.200'
+        textAlign='center'
+        minW='45px'
+      >
         {amount}
       </Text>
     </Flex>
