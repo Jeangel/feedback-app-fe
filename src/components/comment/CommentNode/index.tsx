@@ -11,6 +11,7 @@ import {
   SlideFade,
 } from '@chakra-ui/react'
 import ReplyForm from '../ReplyForm'
+import { API_URL } from '@hooks/useRandomAvatar'
 
 interface ICommentNodeProps {
   comment: IComment
@@ -25,9 +26,21 @@ interface ICommentBlockProps {
 const CommentBlock = ({ author, body, comment }: ICommentBlockProps) => {
   const [isReplyFormOpen, { toggle: toggleReplyForm, off: closeReplyForm }] =
     useBoolean(false)
+  const sanitizeAvatarUrl = (avatar: string) => {
+    if (avatar.startsWith(API_URL)) {
+      return avatar
+    }
+    const imageName = avatar.split('/').shift()
+    return `${API_URL}?seed=${imageName?.split('.').shift() || 'default'}`
+  }
   return (
     <Flex w='full' mb='20px'>
-      <Avatar bg='transparent' name={author.fullName} src={author.avatarUrl} mr='32px' />
+      <Avatar
+        bg='transparent'
+        name={author.fullName}
+        src={sanitizeAvatarUrl(author.avatarUrl)}
+        mr='32px'
+      />
       <Flex direction='column' w='full'>
         <Flex direction='column' w='full'>
           <Heading variant='h4'>{author.fullName}</Heading>

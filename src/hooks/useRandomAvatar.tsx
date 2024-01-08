@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const API_URL = 'https://api.dicebear.com/7.x/bottts/svg'
+export const API_URL = 'https://api.dicebear.com/7.x/bottts/svg'
 
 export const useRandomAvatar = () => {
   const [avatar, setAvatar] = useState<string>('')
