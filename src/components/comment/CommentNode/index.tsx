@@ -30,7 +30,7 @@ const CommentBlock = ({ author, body, comment }: ICommentBlockProps) => {
     if (avatar.startsWith(API_URL)) {
       return avatar
     }
-    const imageName = avatar.split('/').shift()
+    const imageName = avatar.split('/').pop()
     return `${API_URL}?seed=${imageName?.split('.').shift() || 'default'}`
   }
   return (
