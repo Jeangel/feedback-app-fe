@@ -18,6 +18,7 @@ import FormControlError from '@components/forms/FormControlError'
 import { ApiError } from '@utils/axios'
 import { signIn, SignInResponse } from 'next-auth/react'
 import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 interface ILoginFormValues {
   username: string
@@ -45,6 +46,13 @@ const LoginForm = () => {
   const [isLoading, { on: setIsLoading, off: setIsNotLoading }] = useBoolean(false)
   const toast = useToast()
 
+  useEffect(() => {
+    const isRecurrent = Boolean(localStorage.getItem('isRecurrent') || false)
+    if (!isRecurrent) {
+      handleOnUseDemoUser()
+    }
+  }, [])
+
   const handleOnSubmit = async (values: ILoginFormValues) => {
     setIsLoading()
     try {
@@ -59,6 +67,7 @@ const LoginForm = () => {
         toast({ status: 'error', description: signInResponse.error })
         return
       }
+      localStorage.setItem('isRecurrent', 'true')
       router.push('/suggestions')
     } catch (error) {
       const apiError = error as ApiError
