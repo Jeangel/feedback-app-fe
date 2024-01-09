@@ -49,6 +49,7 @@ const LoginForm = () => {
   useEffect(() => {
     const isRecurrent = Boolean(localStorage.getItem('isRecurrent') || false)
     if (!isRecurrent) {
+      toast({ status: 'success', description: 'Setting up a Demo User for you 😃' })
       handleOnUseDemoUser()
     }
   }, [])
