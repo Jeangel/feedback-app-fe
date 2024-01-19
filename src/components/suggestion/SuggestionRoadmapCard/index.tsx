@@ -35,6 +35,7 @@ const SuggestionRoadmapCard = ({ suggestion, isOwn }: ISuggestionRoadmapCardProp
       p='20px'
       position='relative'
       cursor='grab'
+      opacity={isOwn ? 1 : 0.5}
     >
       {!isOwn && (
         <Tooltip label='You can only move your own suggestions' placement='top' hasArrow>
@@ -57,7 +58,11 @@ const SuggestionRoadmapCard = ({ suggestion, isOwn }: ISuggestionRoadmapCardProp
             {isOwn && (
               <Link href={`/suggestions/${suggestion._id}/edit`} passHref>
                 <a aria-label='Go to Edit Suggestion'>
-                  <EditIcon fontSize='14px' color='gray.500' />
+                  <EditIcon
+                    fontSize='14px'
+                    color='gray.500'
+                    _hover={{ color: 'gray.700' }}
+                  />
                 </a>
               </Link>
             )}
