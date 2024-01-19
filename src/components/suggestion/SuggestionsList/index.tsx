@@ -6,6 +6,7 @@ import SuggestionCard from '@components/suggestion/SuggestionCard'
 import Pagination from '@components/misc/Pagination'
 import { makeLoadableList } from '@utils/list'
 import AddSuggestionButton from '../AddSuggestionButton'
+import { AnimatePresence, motion } from 'framer-motion'
 
 interface ISuggestionsListProps {
   isLoading: boolean
@@ -31,6 +32,18 @@ const SuggestionsList = ({
     if (id && onSuggestionClick) onSuggestionClick(id)
   }
   const hasSuggestions = !!suggestions.length
+
+  const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2,
+      },
+    },
+  }
   return (
     <>
       <Box
@@ -41,6 +54,10 @@ const SuggestionsList = ({
         rowGap='20px'
         mt={hasSuggestions ? '24px' : 0}
         minH={hasSuggestions ? 'auto' : '475px'}
+        as={motion.div}
+        variants={container}
+        initial='hidden'
+        animate='visible'
       >
         {!hasSuggestions && (
           <Center h='full' w='full' flexDir='column'>
@@ -53,15 +70,17 @@ const SuggestionsList = ({
             <AddSuggestionButton mt='48px' />
           </Center>
         )}
-        {suggestions.map((e, i) => (
-          <SuggestionCard
-            key={e?._id || i}
-            hasVoted={e?.myVote?.value === 1}
-            suggestion={e}
-            isLoading={isLoading}
-            onClick={() => handleOnSuggestionClick(e?._id)}
-          />
-        ))}
+        <AnimatePresence>
+          {suggestions.map((e, i) => (
+            <SuggestionCard
+              key={e?._id || i}
+              hasVoted={e?.myVote?.value === 1}
+              suggestion={e}
+              isLoading={isLoading}
+              onClick={() => handleOnSuggestionClick(e?._id)}
+            />
+          ))}
+        </AnimatePresence>
       </Box>
       {hasSuggestions && pagination && (
         <Box mt='10'>

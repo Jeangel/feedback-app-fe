@@ -11,6 +11,7 @@ import { FaChevronUp, FaComment } from 'react-icons/fa'
 import Toggle from 'components/forms/Toggle'
 import ISuggestion from '@app-types/Suggestion'
 import useOnSuggestionVote from '@hooks/actions/useOnSuggestionVote'
+import { motion } from 'framer-motion'
 
 export interface ISuggestionCardProps {
   hasVoted?: boolean
@@ -32,6 +33,13 @@ const SuggestionCard = ({
     sm: 'horizontal',
     md: 'vertical',
   })
+  const item = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+    },
+  }
 
   const handleOnToggleVote = (value: boolean) => {
     if (suggestion) {
@@ -41,6 +49,7 @@ const SuggestionCard = ({
 
   return (
     <Box
+      as={motion.div}
       bg='white'
       flexDir='row'
       display='flex'
@@ -53,6 +62,7 @@ const SuggestionCard = ({
       justifyContent='space-between'
       onClick={onClick}
       cursor={onClick ? 'pointer' : 'auto'}
+      variants={item}
     >
       <Flex
         h={isFull ? '100%' : '104px'}
