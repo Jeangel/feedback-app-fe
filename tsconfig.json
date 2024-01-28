@@ -25,9 +25,10 @@
     },
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "window.d.ts", "**/*.ts", "**/*.d.ts", "**/*.tsx"],
   "exclude": ["node_modules"],
   "types": [
-    "node_modules/@chakra-ui/styled-system/dist/declarations/src/theming.types.d.ts"
+    "node_modules/@chakra-ui/styled-system/dist/declarations/src/theming.types.d.ts",
+    "window.d.ts"
   ]
 }

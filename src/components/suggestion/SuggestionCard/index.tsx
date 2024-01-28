@@ -49,6 +49,7 @@ const SuggestionCard = ({
 
   return (
     <Box
+      data-testid='suggestion-card'
       as={motion.div}
       bg='white'
       flexDir='row'

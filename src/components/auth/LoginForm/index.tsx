@@ -26,8 +26,8 @@ interface ILoginFormValues {
 }
 
 const validationSchema = yup.object<YupSchemaKeys<ILoginFormValues>>({
-  username: yup.string().label('Username').required().min(5).max(20),
-  password: yup.string().label('Password').required().min(5),
+  username: yup.string().label('Username').required(),
+  password: yup.string().label('Password').required(),
 })
 
 const LoginForm = () => {
@@ -48,7 +48,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     const isRecurrent = Boolean(localStorage.getItem('isRecurrent') || false)
-    if (!isRecurrent) {
+    if (!isRecurrent && !window.isUnderTest) {
       toast({ status: 'success', description: 'Setting up a Demo User for you 😃' })
       handleOnUseDemoUser()
     }

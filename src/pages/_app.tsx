@@ -58,10 +58,12 @@ const Base = ({ children }: { children: React.ReactNode }) => {
     setColorMode('light')
   }, [setColorMode])
   useEffect(() => {
-    const HJID = process.env.NEXT_PUBLIC_HOTJAR_HJID
-    const HJSV = process.env.NEXT_PUBLIC_HOTJAR_HJSV
-    if (HJID && HJSV) {
-      hotjar.initialize(Number(HJID), Number(HJSV))
+    if (!window.isUnderTest) {
+      const HJID = process.env.NEXT_PUBLIC_HOTJAR_HJID
+      const HJSV = process.env.NEXT_PUBLIC_HOTJAR_HJSV
+      if (HJID && HJSV) {
+        hotjar.initialize(Number(HJID), Number(HJSV))
+      }
     }
   }, [])
   return <>{children}</>
