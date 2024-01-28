@@ -6,10 +6,6 @@ const globalStyles: Record<string, CSSObject> = {
     width: '100%',
     backgroundColor: 'gray.50',
   },
-  '#__next': {
-    display: 'flex',
-    justifyContent: 'center',
-  },
 }
 
 export default globalStyles

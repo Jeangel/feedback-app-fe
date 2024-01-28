@@ -10,6 +10,7 @@ const BaseGrid: ComponentWithAs<'div', GridProps> = ({ children, ...rest }) => {
       maxW='1440px'
       gridTemplateColumns='repeat(12, 1fr)'
       columnGap='30px'
+      margin='0 auto'
     >
       {children}
     </Grid>
